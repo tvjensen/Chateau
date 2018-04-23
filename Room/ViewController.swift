@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import SkyFloatingLabelTextField
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var usernameLogInTextField: SkyFloatingLabelTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -22,4 +25,3 @@ class ViewController: UIViewController {
 
 
 }
-
