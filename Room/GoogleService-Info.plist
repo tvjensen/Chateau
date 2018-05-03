@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>854862404854-ifjvjuas7tmgah20c2ad2kos6k63bgh1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.854862404854-ifjvjuas7tmgah20c2ad2kos6k63bgh1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDs_PKrMmq0jTc31FDRZVl5owjicpNa8G0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>854862404854</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.stanford.csmith95.Room</string>
+	<key>PROJECT_ID</key>
+	<string>room-cd30d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>room-cd30d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:854862404854:ios:d5e323835cb1a403</string>
+	<key>DATABASE_URL</key>
+	<string>https://room-cd30d.firebaseio.com</string>
+</dict>
+</plist>
