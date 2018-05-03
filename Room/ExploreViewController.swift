@@ -24,7 +24,12 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-        Firebase.startObservingRooms()
+        
+        Firebase.startObservingRooms() { room in
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: room.latitude, longitude: room.longitude)
+            self.mapView.addAnnotation(annotation)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +43,8 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
                                             longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         self.mapView.setRegion(region, animated: true)
+        print(location.coordinate.latitude)
+        print(location.coordinate.longitude)
     }
     
 
