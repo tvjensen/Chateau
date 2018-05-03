@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		4BE73191209B807E0039F8F2 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE73190209B807E0039F8F2 /* Firebase.swift */; };
 		4BE73193209B83600039F8F2 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE73192209B83600039F8F2 /* ExploreViewController.swift */; };
 		4BE73195209B86B80039F8F2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE73194209B86B80039F8F2 /* CoreLocation.framework */; };
+		4BE73197209BCE170039F8F2 /* RoomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE73196209BCE170039F8F2 /* RoomAnnotation.swift */; };
 		522A38C6209B8239004E2323 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A38C5209B8239004E2323 /* Models.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		4BE73190209B807E0039F8F2 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		4BE73192209B83600039F8F2 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		4BE73194209B86B80039F8F2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4BE73196209BCE170039F8F2 /* RoomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomAnnotation.swift; sourceTree = "<group>"; };
 		522A38C5209B8239004E2323 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		55F3B08BD91417BF3B8329C1 /* Pods-Room.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Room.release.xcconfig"; path = "Pods/Target Support Files/Pods-Room/Pods-Room.release.xcconfig"; sourceTree = "<group>"; };
 		70A531949B60EF146C76A6F1 /* Pods-Room.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Room.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Room/Pods-Room.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				4BE73190209B807E0039F8F2 /* Firebase.swift */,
 				4BE73192209B83600039F8F2 /* ExploreViewController.swift */,
 				522A38C5209B8239004E2323 /* Models.swift */,
+				4BE73196209BCE170039F8F2 /* RoomAnnotation.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -142,11 +145,12 @@
 				TargetAttributes = {
 					4BBF9F6D208E7A390012CE86 = {
 						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 4BBF9F69208E7A390012CE86 /* Build configuration list for PBXProject "Room" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -247,6 +251,7 @@
 				4BBF9F74208E7A390012CE86 /* ViewController.swift in Sources */,
 				4BBF9F7A208E7A390012CE86 /* Room.xcdatamodeld in Sources */,
 				4BE73193209B83600039F8F2 /* ExploreViewController.swift in Sources */,
+				4BE73197209BCE170039F8F2 /* RoomAnnotation.swift in Sources */,
 				4BE73191209B807E0039F8F2 /* Firebase.swift in Sources */,
 				4BBF9F72208E7A390012CE86 /* AppDelegate.swift in Sources */,
 				522A38C6209B8239004E2323 /* Models.swift in Sources */,
@@ -383,8 +388,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -397,10 +401,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UZ9Y7C37N9;
 				INFOPLIST_FILE = Room/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.csmith95.Room;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -416,10 +417,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UZ9Y7C37N9;
 				INFOPLIST_FILE = Room/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.csmith95.Room;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
