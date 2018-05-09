@@ -11,10 +11,11 @@ import SkyFloatingLabelTextField
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var usernameLogInTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var emailLogInTextField: SkyFloatingLabelTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Loaded view")
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -23,5 +24,18 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func enterEmail(_ sender: SkyFloatingLabelTextField) {
+        if let text = emailLogInTextField.text {
+            if let floatingLabelTextField = textField as? SkyFloatingLabelTextField {
+                if(text.characters.count < 3 || !text.containsString("@")) {
+                    floatingLabelTextField.errorMessage = "Invalid email"
+                }
+                else {
+                    // The error message will only disappear when we reset it to nil or empty string
+                    floatingLabelTextField.errorMessage = ""
+                }
+            }
+        }
+    }
+    
 }
