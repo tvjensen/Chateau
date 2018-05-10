@@ -257,6 +257,7 @@
 				4BBF9F72208E7A390012CE86 /* AppDelegate.swift in Sources */,
 				1FF1C03120A4CDBC006E7208 /* RoomViewController.swift in Sources */,
 				1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */,
+				522A38C6209B8239004E2323 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
