@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36D49820A3F042007E48C9 /* PopupViewController.swift */; };
 		23820710C1282E9FB5E881E7 /* Pods_Room.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7ABB32DA2472A2C715A8109 /* Pods_Room.framework */; };
 		4BBF9F72208E7A390012CE86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF9F71208E7A390012CE86 /* AppDelegate.swift */; };
 		4BBF9F74208E7A390012CE86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF9F73208E7A390012CE86 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F36D49820A3F042007E48C9 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopupViewController.swift; path = /Users/frankzheng/Documents/CS191/Room/Room/PopupViewController.swift; sourceTree = "<absolute>"; };
 		4BBF9F6E208E7A390012CE86 /* Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Room.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BBF9F71208E7A390012CE86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BBF9F73208E7A390012CE86 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,8 +84,9 @@
 			children = (
 				4BBF9F71208E7A390012CE86 /* AppDelegate.swift */,
 				4BBF9F73208E7A390012CE86 /* ViewController.swift */,
-				4BBF9F75208E7A390012CE86 /* Main.storyboard */,
 				4BBF9F7B208E7A3A0012CE86 /* Assets.xcassets */,
+				1F36D49820A3F042007E48C9 /* PopupViewController.swift */,
+				4BBF9F75208E7A390012CE86 /* Main.storyboard */,
 				4BBF9F7D208E7A3A0012CE86 /* LaunchScreen.storyboard */,
 				4BBF9F80208E7A3A0012CE86 /* Info.plist */,
 				4BBF9F78208E7A390012CE86 /* Room.xcdatamodeld */,
@@ -222,6 +225,7 @@
 				4BBF9F74208E7A390012CE86 /* ViewController.swift in Sources */,
 				4BBF9F7A208E7A390012CE86 /* Room.xcdatamodeld in Sources */,
 				4BBF9F72208E7A390012CE86 /* AppDelegate.swift in Sources */,
+				1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +373,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UZ9Y7C37N9;
 				INFOPLIST_FILE = Room/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.csmith95.Room;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -385,7 +392,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UZ9Y7C37N9;
 				INFOPLIST_FILE = Room/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.csmith95.Room;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
