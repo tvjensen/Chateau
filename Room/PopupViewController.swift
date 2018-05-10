@@ -7,11 +7,14 @@
 
 import UIKit
 
-class PopupViewController: UIViewController {
+class PopupViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        postContent.delegate = self
+        postContent.text = "Write post..."
+        postContent.textColor = UIColor.lightGray
         // Do any additional setup after loading the view.
     }
 
@@ -34,4 +37,21 @@ class PopupViewController: UIViewController {
     }
     */
 
+    @IBOutlet weak var postContent: UITextView!
+    
+    func textViewDidBeginEditing(_ postContent: UITextView) {
+        if postContent.textColor == UIColor.lightGray {
+            postContent.text = nil
+            postContent.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ postContent: UITextView) {
+        if postContent.text.isEmpty {
+            postContent.text = "Write post..."
+            postContent.textColor = UIColor.lightGray
+        }
+    }
+    
+    
 }

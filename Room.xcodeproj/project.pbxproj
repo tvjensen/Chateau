@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36D49820A3F042007E48C9 /* PopupViewController.swift */; };
+		1FF1C03120A4CDBC006E7208 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */; };
 		23820710C1282E9FB5E881E7 /* Pods_Room.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7ABB32DA2472A2C715A8109 /* Pods_Room.framework */; };
 		4BBF9F72208E7A390012CE86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF9F71208E7A390012CE86 /* AppDelegate.swift */; };
 		4BBF9F74208E7A390012CE86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF9F73208E7A390012CE86 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		1F36D49820A3F042007E48C9 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopupViewController.swift; path = /Users/frankzheng/Documents/CS191/Room/Room/PopupViewController.swift; sourceTree = "<absolute>"; };
+		1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoomViewController.swift; path = /Users/frankzheng/Documents/CS191/Room/Room/RoomViewController.swift; sourceTree = "<absolute>"; };
 		4BBF9F6E208E7A390012CE86 /* Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Room.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BBF9F71208E7A390012CE86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BBF9F73208E7A390012CE86 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				4BBF9F73208E7A390012CE86 /* ViewController.swift */,
 				4BBF9F7B208E7A3A0012CE86 /* Assets.xcassets */,
 				1F36D49820A3F042007E48C9 /* PopupViewController.swift */,
+				1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */,
 				4BBF9F75208E7A390012CE86 /* Main.storyboard */,
 				4BBF9F7D208E7A3A0012CE86 /* LaunchScreen.storyboard */,
 				4BBF9F80208E7A3A0012CE86 /* Info.plist */,
@@ -225,6 +228,7 @@
 				4BBF9F74208E7A390012CE86 /* ViewController.swift in Sources */,
 				4BBF9F7A208E7A390012CE86 /* Room.xcdatamodeld in Sources */,
 				4BBF9F72208E7A390012CE86 /* AppDelegate.swift in Sources */,
+				1FF1C03120A4CDBC006E7208 /* RoomViewController.swift in Sources */,
 				1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
