@@ -25,16 +25,27 @@ class Firebase {
         }
     }
     
-    
-    public static func createUser(_ emailLoginText: String, _ passwordLoginText: String, callback: @escaping (Bool) -> Void) {
+    // This function takes in an email and password and creates a user
+    // If the user already exists, then it sends back a false boolean value
+    // and does not add to database
+    public static func createOrLoginUser(_ emailLoginText: String, _ passwordLoginText: String,_ createUser: Bool, callback: @escaping (Bool) -> Void) {
         ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: emailLoginText)
             .observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
                 if snapshot.exists() {
-                    callback(false) //user already exists
+                    if createUser {
+                        callback(false) //we want success to be false when signing up
+                    } else {
+                        callback(true) //we want success to be true when logging in
+                    }
                 }
                 else {
-                    ref.child("users").child(emailLoginText.lowercased()).setValue(["userID":emailLoginText,"email":emailLoginText])
-                    callback(true) //returning success in creating user
+                    if createUser {
+                        ref.child("users").child(emailLoginText.lowercased()).setValue(["userID":emailLoginText,"email":emailLoginText])
+                        callback(true) //returning success in creating user
+                    } else {
+                        callback(false)
+                    }
+                    
                 }
             })
     }

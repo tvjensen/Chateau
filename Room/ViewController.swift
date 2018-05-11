@@ -41,21 +41,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var emailLogin: UITextField!
     @IBOutlet weak var passwordLogin: UITextField!
     
-    
+    @IBAction func loginUser(_ sender: Any) {
+        let emailLoginText : String = emailLogin.text!
+        let passwordLoginText : String = passwordLogin.text!
+        if emailLoginText != "" && passwordLoginText != "" {
+            Firebase.createOrLoginUser(emailLoginText, passwordLoginText, false) { success in
+                if success {
+                    print("Success in logging in user!")
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let roomViewController = storyBoard.instantiateViewController(withIdentifier: "RoomViewController") as! RoomViewController
+                    self.present(roomViewController, animated: true, completion: nil)
+                } else {
+                    print("That login and password was unsuccessful")
+                }
+            }
+        }
+
+    }
     //Take email login text and password text and create a user
     @IBAction func signUp(_ sender: Any) {
         let emailLoginText : String = emailLogin.text!
         let passwordLoginText : String = passwordLogin.text!
         if emailLoginText != "" && passwordLoginText != "" {
-            print(emailLoginText)
-            print(passwordLoginText)
-//            var ref: DatabaseReference!
-//
-//            ref = Database.database().reference()
-            
-            Firebase.createUser(emailLoginText, passwordLoginText) { success in
+            Firebase.createOrLoginUser(emailLoginText, passwordLoginText, true) { success in
                 if success {
                     print("Success in creating user!")
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let roomViewController = storyBoard.instantiateViewController(withIdentifier: "RoomViewController") as! RoomViewController
+                    self.present(roomViewController, animated: true, completion: nil)
                 } else {
                     print("That login and password was unsuccessful")
                 }
