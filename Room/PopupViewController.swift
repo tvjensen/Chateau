@@ -1,6 +1,7 @@
 //
 //  PopupViewController.swift
-//  
+//
+//  This class governs the popup for the writing of the posts.
 //
 //  Created by Frank Zheng on 5/9/18.
 //
@@ -13,6 +14,8 @@ class PopupViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         postContent.delegate = self
+        
+        //Placeholder text
         postContent.text = "Write post..."
         postContent.textColor = UIColor.lightGray
         // Do any additional setup after loading the view.
@@ -39,6 +42,7 @@ class PopupViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var postContent: UITextView!
     
+    //Change from placeholder to text that user inputs
     func textViewDidBeginEditing(_ postContent: UITextView) {
         if postContent.textColor == UIColor.lightGray {
             postContent.text = nil
@@ -46,6 +50,7 @@ class PopupViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    //Changes the text back to "Write post..." after user is finished input
     func textViewDidEndEditing(_ postContent: UITextView) {
         if postContent.text.isEmpty {
             postContent.text = "Write post..."

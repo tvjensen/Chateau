@@ -31,6 +31,7 @@ class RoomViewController: UIViewController {
     }
     */
     
+    //This function is to write posts
     @IBAction func writePost(_ sender: Any) {
         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupID") as! PopupViewController
         self.addChildViewController(popOverVC)

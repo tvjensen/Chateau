@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 //import SkyFloatingLabelTextField
 
 class ViewController: UIViewController {
@@ -37,14 +38,28 @@ class ViewController: UIViewController {
 //            }
 //        }
 //    }
+    @IBOutlet weak var emailLogin: UITextField!
+    @IBOutlet weak var passwordLogin: UITextField!
     
-    @IBAction func createRoom(_ sender: Any) {
-        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupID") as! PopupViewController
-        self.addChildViewController(popOverVC)
-
-        popOverVC.view.frame = self.view.frame
-        self.view.addSubview(popOverVC.view)
-        popOverVC.didMove(toParentViewController: self)
-
+    
+    //Take email login text and password text and create a user
+    @IBAction func signUp(_ sender: Any) {
+        let emailLoginText : String = emailLogin.text!
+        let passwordLoginText : String = passwordLogin.text!
+        if emailLoginText != "" && passwordLoginText != "" {
+            print(emailLoginText)
+            print(passwordLoginText)
+//            var ref: DatabaseReference!
+//
+//            ref = Database.database().reference()
+            
+            Firebase.createUser(emailLoginText, passwordLoginText) { success in
+                if success {
+                    print("Success in creating user!")
+                } else {
+                    print("That login and password was unsuccessful")
+                }
+            }
+        }
     }
 }

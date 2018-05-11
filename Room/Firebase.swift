@@ -25,4 +25,17 @@ class Firebase {
         }
     }
     
+    
+    public static func createUser(_ emailLoginText: String, _ passwordLoginText: String, callback: @escaping (Bool) -> Void) {
+        ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: emailLoginText)
+            .observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
+                if snapshot.exists() {
+                    callback(false) //user already exists
+                }
+                else {
+                    ref.child("users").child(emailLoginText.lowercased()).setValue(["userID":emailLoginText,"email":emailLoginText])
+                    callback(true) //returning success in creating user
+                }
+            })
+    }
 }
