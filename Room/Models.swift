@@ -13,14 +13,17 @@ class Models {
 
     /*
      Relation for User. Key is userID. Email for login and verification.
+     Rooms is contains all the roomIDs of rooms of which this user has partaken.
      */
     struct User {
         var userID: String
         var email: String
+        var rooms: [String: Bool] = [:]
 
         var firebaseDict: [String : Any] {
             let dict: [String: Any] = ["userID": self.userID,
-                                       "email":self.email
+                                       "email":self.email,
+                                       "rooms": self.rooms
                                        ]
             return dict
         }
@@ -28,6 +31,7 @@ class Models {
         init?(dict: [String: Any?]) {
             guard let userID = dict["userID"] as? String else { return nil }
             guard let email = dict["email"] as? String else { return nil }
+            self.rooms = dict["rooms"] as? [String: Bool] ?? [:]
             
             self.userID = userID
             self.email = email
