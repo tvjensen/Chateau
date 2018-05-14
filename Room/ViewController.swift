@@ -49,7 +49,7 @@ class ViewController: UIViewController {
                 if success {
                     print("Success in logging in user!")
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let roomViewController = storyBoard.instantiateViewController(withIdentifier: "RoomViewController") as! RoomViewController
+                    let roomViewController = storyBoard.instantiateViewController(withIdentifier: "MyRoomsViewController") as! MyRoomsViewController
                     self.present(roomViewController, animated: true, completion: nil)
                 } else {
                     print("That login and password was unsuccessful")
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
                 if success {
                     print("Success in creating user!")
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let roomViewController = storyBoard.instantiateViewController(withIdentifier: "RoomViewController") as! RoomViewController
+                    let roomViewController = storyBoard.instantiateViewController(withIdentifier: "MyRoomsViewController") as! MyRoomsViewController
                     self.present(roomViewController, animated: true, completion: nil)
                 } else {
                     print("That login and password was unsuccessful")
