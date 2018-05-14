@@ -16,15 +16,14 @@ class Firebase {
     private static let roomsRef = ref.child("rooms")
     
     // start observing rooms so that explore page can display
-    public static func startObservingRooms(callback: @escaping (Models.Room) -> Void) {
+    public static func startObservingRooms(callback: @escaping (RoomAnnotation) -> Void) {
         roomsRef.observe(DataEventType.childAdded) { (snapshot) in
             guard var roomDict = snapshot.value as? [String: Any?] else { return }
             roomDict["roomID"] = snapshot.key
-            guard let room = Models.Room(dict: roomDict) else { return }
+            guard let room = RoomAnnotation(dict: roomDict) else { return }
             callback(room)
         }
     }
-    
     // This function takes in an email and password and creates a user
     // If the user already exists, then it sends back a false boolean value
     // and does not add to database
@@ -48,5 +47,21 @@ class Firebase {
                     
                 }
             })
+    }
+    /*
+     Given userID, returns all rooms for which userID is a participant.
+     */
+    public static func getMyRooms(_ userID: String, callback: @escaping (DataSnapshot) -> Void) {
+        //TODO: I'm not sure what these keys/values are... right now this gets a list of roomIDs for a user
+        // we need to foreach of those roomIDs, fetch the corresponding room object from the db, and then
+        // return them as an array for the controller
+        ref.child("users").child(userID).observeSingleEvent(of: .value, with: {(snapshot) in
+            callback(snapshot);
+            //for child in snapshot.children {
+                //let snap = child as! DataSnapshot;
+                //let roomID = snap.key;
+                //ref.child("rooms").child(roomID)
+            //}
+        });
     }
 }

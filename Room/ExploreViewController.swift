@@ -24,11 +24,10 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+        mapView.delegate = self
         
-        Firebase.startObservingRooms() { room in
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: room.latitude, longitude: room.longitude)
-            self.mapView.addAnnotation(annotation)
+        Firebase.startObservingRooms() { roomAnnotation in
+            self.mapView.addAnnotation(roomAnnotation)
         }
     }
 
@@ -42,7 +41,7 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
                                             longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        self.mapView.setRegion(region, animated: true)
+        mapView.setRegion(region, animated: true)
         print(location.coordinate.latitude)
         print(location.coordinate.longitude)
     }
@@ -58,4 +57,24 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
     }
     */
 
+}
+
+extension ExploreViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? RoomAnnotation else { return nil }
+        let identifier = "marker"
+        var view: MKMarkerAnnotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            as? MKMarkerAnnotationView {
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+        } else {
+            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = true
+            view.calloutOffset = CGPoint(x: -5, y: 5)
+            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        return view
+    }
+    
 }
