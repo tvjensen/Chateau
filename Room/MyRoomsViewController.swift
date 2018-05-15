@@ -11,10 +11,9 @@ import UIKit
 
 class MyRoomsViewController: UIViewController {
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Loaded view")
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func didReceiveMemoryWarning() {
@@ -36,24 +35,18 @@ class MyRoomsViewController: UIViewController {
     }
     
     func createRoom(newRoomName: String) {
-        print("New room name: \(newRoomName)")
         let timestamp = NSDate().timeIntervalSince1970
-        let user = "testUser"
+        let user = "test"
         let latitude = 1.0
         let longitude = 1.0
-
-        Firebase.createRoom(newRoomName, user, timestamp, latitude, longitude)
-        { success in
-            if success {
-                print("success")
-            } else {
-                print("not successful")
+        
+//        guard let loc = Location.get() else { print("location error!!!"); return}
+//        print("loc: ", loc)
+        
+        Firebase.createRoom(newRoomName, user, timestamp, latitude, longitude) { success in
+            if success == false {
+                print("Didn't create room successfully.")
             }
         }
-
-        //TODO
-        //Firebase - add room to user
     }
-    
-    
 }
