@@ -48,6 +48,16 @@ class Firebase {
                 }
             })
     }
+    
+    public static func createRoom(_ roomName: String, _ createdByUser: String,_ timeCreated: Double,_ latitude: Double,_ longitude: Double, callback: @escaping (Bool) -> Void) {
+
+        let roomInfo: [String: Any] = ["name": roomName, "creatorID": createdByUser, "timeCreated": timeCreated, "latitude": latitude, "longitude": longitude]
+        let reference  = ref.child("rooms").childByAutoId()
+        reference.setValue(roomInfo)
+        let childautoID = reference.key
+        print("new ID:", childautoID)
+    }
+    
     /*
      Given userID, returns all rooms for which userID is a participant.
      */

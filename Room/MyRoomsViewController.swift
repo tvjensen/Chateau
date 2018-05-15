@@ -37,6 +37,22 @@ class MyRoomsViewController: UIViewController {
     
     func createRoom(newRoomName: String) {
         print("New room name: \(newRoomName)")
+        let timestamp = NSDate().timeIntervalSince1970
+        let user = "testUser"
+        let latitude = 1.0
+        let longitude = 1.0
+
+        Firebase.createRoom(newRoomName, user, timestamp, latitude, longitude)
+        { success in
+            if success {
+                print("success")
+            } else {
+                print("not successful")
+            }
+        }
+
+        //TODO
+        //Firebase - add room to user
     }
     
     
