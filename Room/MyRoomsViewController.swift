@@ -14,6 +14,9 @@ class MyRoomsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Firebase.getMyRooms("test") { rooms in
+            print(rooms)
+        }
     }
     
     override func didReceiveMemoryWarning() {

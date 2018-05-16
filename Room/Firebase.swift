@@ -77,26 +77,29 @@ class Firebase {
     /*
      Given userID, returns all rooms for which userID is a participant.
      */
-    public static func getMyRooms(_ userID: String, callback: @escaping ([Room]) -> [Room]) {
+    public static func getMyRooms(_ userID: String, callback: @escaping ([Models.Room]) -> Void)  {
         ref.child("users").child(userID).child("rooms").observeSingleEvent(of: .value, with: { (snapshot) in
             let enumerator = snapshot.children // to iterate through room IDS associated with this user
-            var rooms = [Room]() // array to be returned
+            var rooms: [Models.Room] = [] // array to be returned
             while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB
                 ref.child("rooms").child(r.key).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let room = snapshot.value as! Room // cast to Room
-                    rooms.append(room) // add to result
+                    var dict = snapshot.value as! [String : Any?]
+                    dict["roomID"] = r.key
+                    let room = Models.Room(dict: dict) // cast to Room
+                    rooms.append(room!) // add to result
+                    callback(rooms)
                 })
             }
-            callback(rooms)
+//            callback(rooms)
         })
     }
     
-    struct Room {
-        var roomID: String
-        var name: String
-        var creatorID: String
-        var timeCreated: Double
-        var latitude: Double
-        var longitude: Double
-    }
+//    struct Room {
+//        var roomID: String
+//        var name: String
+//        var creatorID: String
+//        var timeCreated: Double
+//        var latitude: Double
+//        var longitude: Double
+//    }
 }
