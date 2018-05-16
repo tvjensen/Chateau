@@ -9,5 +9,5 @@ target 'Room' do
     pod 'SkyFloatingLabelTextField', '~> 3.0'
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
-    
+
 end
