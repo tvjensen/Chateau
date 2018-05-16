@@ -16,6 +16,7 @@ class MyRoomsViewController: UIViewController {
         super.viewDidLoad()
         Firebase.getMyRooms("test") { rooms in
             print(rooms)
+            print(rooms[0].roomID)
         }
     }
     
