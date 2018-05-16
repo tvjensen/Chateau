@@ -32,8 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F36D49820A3F042007E48C9 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopupViewController.swift; path = /Users/frankzheng/Documents/CS191/Room/Room/PopupViewController.swift; sourceTree = "<absolute>"; };
-		1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoomViewController.swift; path = /Users/frankzheng/Documents/CS191/Room/Room/RoomViewController.swift; sourceTree = "<absolute>"; };
+		1F36D49820A3F042007E48C9 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopupViewController.swift; path = /Users/csmith/Desktop/Room/Room/PopupViewController.swift; sourceTree = "<absolute>"; };
+		1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoomViewController.swift; path = /Users/csmith/Desktop/Room/Room/RoomViewController.swift; sourceTree = "<absolute>"; };
 		2E35B5C820A21B5900F1BDE6 /* MyRoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomsViewController.swift; sourceTree = "<group>"; };
 		4BBF9F6E208E7A390012CE86 /* Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Room.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BBF9F71208E7A390012CE86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,7 +116,6 @@
 				4BBF9F71208E7A390012CE86 /* AppDelegate.swift */,
 				4BBF9F73208E7A390012CE86 /* ViewController.swift */,
 				94E747AC20AA256300766CAF /* DownArrowIMG.png */,
-				4BBF9F75208E7A390012CE86 /* Main.storyboard */,
 				94E747B620AA3C6300766CAF /* InsideOfRoomViewController.swift */,
 				94E747A820A7B36400766CAF /* Post_in_RoomTableView.swift */,
 				4BBF9F7B208E7A3A0012CE86 /* Assets.xcassets */,

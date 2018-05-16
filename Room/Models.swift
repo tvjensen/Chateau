@@ -37,6 +37,7 @@ class Models {
             self.email = email
         }
     }
+
     /*
      Relation for room object. Key is roomID. Note that this only stores metadata about the room,
      for better scaling and UI. Another query must be made to get a room's associated posts.
