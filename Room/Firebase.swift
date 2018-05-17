@@ -85,31 +85,6 @@ class Firebase {
             })
     }
     
-    public static func createRoom(_ roomName: String, _ createdByUser: String,_ timeCreated: Double,_ latitude: Double,_ longitude: Double, callback: @escaping (Bool) -> Void) {
-        
-        //create room, add to rooms table
-        let roomInfo: [String: Any] = ["name": roomName, "creatorID": createdByUser, "timeCreated": timeCreated, "latitude": latitude, "longitude": longitude]
-        let reference  = ref.child("rooms").childByAutoId()
-        reference.setValue(roomInfo)
-        let roomID = reference.key
-        callback(true)
-        
-        
-        //add roomID to user's current list of rooms in db
-        ref.child("users").child(createdByUser).child("rooms").observeSingleEvent(of: .value, with: { (snapshot) in
-            let enumerator = snapshot.children
-            var prevRooms: [String:Bool] = [:]
-            while let rest = enumerator.nextObject() as? DataSnapshot {
-                prevRooms[rest.key] = true
-            }
-            var roomsUpdate = prevRooms
-            roomsUpdate[roomID] = true
-            let userUpdate = ["users/\(createdByUser)/":["rooms":roomsUpdate]]
-            ref.updateChildValues(userUpdate)
-        })
-    }
-    
-    
     /*
      Given userID, returns all rooms for which userID is a participant.
      */
@@ -127,16 +102,7 @@ class Firebase {
                     callback(rooms)
                 })
             }
-//            callback(rooms)
         })
     }
     
-//    struct Room {
-//        var roomID: String
-//        var name: String
-//        var creatorID: String
-//        var timeCreated: Double
-//        var latitude: Double
-//        var longitude: Double
-//    }
 }

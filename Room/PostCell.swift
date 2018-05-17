@@ -1,16 +1,20 @@
 //
-//  Post_in_RoomTableView.swift
+//  PostCell.swift
 //  Room
 //
-//  Created by Batuhan BALCI on 5/12/18.
+//  Created by Conner Smith on 5/16/18.
 //  Copyright © 2018 csmith. All rights reserved.
 //
 
 import UIKit
 
-class Post_in_RoomTableView: UITableViewCell {
+class PostCell: UITableViewCell {
 
-    @IBOutlet weak var TimeLabel: UILabel!
+    @IBOutlet var numUpvotesLabel: UILabel!
+    @IBOutlet var downvoteButton: UIButton!
+    @IBOutlet var upvoteButton: UIButton!
+    @IBOutlet var body: UILabel!
+    @IBOutlet var timeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,7 +25,5 @@ class Post_in_RoomTableView: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    
 
 }

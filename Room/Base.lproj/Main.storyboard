@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Hx5-lU-tEg">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -195,7 +195,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1L7-aB-ZZx" id="9Cu-Vk-DPh" customClass="MyRoomPreviewTableViewCell" customModule="Room" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Active" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ga2-kG-sqW" userLabel="Last Active">
@@ -257,6 +257,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="10b-BD-CGO" id="uQk-sd-hw6"/>
+                        <segue destination="Ojn-w1-zm5" kind="show" identifier="insideOfRoomSegue" id="glm-M2-Sfd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tpp-4Q-Lnr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -404,25 +405,13 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post_in_RoomTableViewCell" rowHeight="90" id="O1k-HX-UJn" customClass="Post_in_RoomTableView" customModule="Room" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post_in_RoomTableViewCell" rowHeight="90" id="O1k-HX-UJn" customClass="PostCell" customModule="Room" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O1k-HX-UJn" id="W5t-yf-D2D">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="UpArrowIMG.png" translatesAutoresizingMaskIntoConstraints="NO" id="cej-QT-GNW">
-                                            <rect key="frame" x="329" y="0.0" width="30" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DownArrowIMG.png" translatesAutoresizingMaskIntoConstraints="NO" id="oyJ-Dy-p0w">
-                                            <rect key="frame" x="329" y="57" width="30" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Number5IMG.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="eyi-V7-xL4">
-                                            <rect key="frame" x="329" y="34" width="30" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDA-ws-0H0">
                                             <rect key="frame" x="16" y="40" width="42" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -437,10 +426,33 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtW-zc-rVI">
+                                            <rect key="frame" x="332" y="11" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                            <state key="normal" image="upvote"/>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUQ-Ah-sNN">
+                                            <rect key="frame" x="342" y="39" width="11" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uJJ-it-FdW">
+                                            <rect key="frame" x="332" y="59" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                            <state key="normal" image="downvote"/>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="TimeLabel" destination="d7e-Ky-xs6" id="nl0-2M-nQ5"/>
+                                    <outlet property="body" destination="QDA-ws-0H0" id="qHM-mU-nHc"/>
+                                    <outlet property="downvoteButton" destination="uJJ-it-FdW" id="tND-YZ-9sh"/>
+                                    <outlet property="numUpvotesLabel" destination="FUQ-Ah-sNN" id="xOi-QM-BqI"/>
+                                    <outlet property="timeLabel" destination="d7e-Ky-xs6" id="DLh-bQ-mXy"/>
+                                    <outlet property="upvoteButton" destination="rtW-zc-rVI" id="K4c-07-0m8"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -451,16 +463,16 @@
                     </tableView>
                     <connections>
                         <outlet property="PostField" destination="FQO-sQ-BjH" id="ajY-1x-5wY"/>
+                        <outlet property="tableView" destination="PSg-9y-LIb" id="f2V-41-hxr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6JT-ZQ-z9h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="948" y="1586"/>
+            <point key="canvasLocation" x="948" y="1585.4572713643179"/>
         </scene>
     </scenes>
     <resources>
-        <image name="DownArrowIMG.png" width="225" height="225"/>
-        <image name="Number5IMG.jpg" width="1000" height="1000"/>
-        <image name="UpArrowIMG.png" width="225" height="225"/>
+        <image name="downvote" width="100" height="100"/>
+        <image name="upvote" width="100" height="100"/>
     </resources>
 </document>
