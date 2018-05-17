@@ -84,20 +84,59 @@ class Firebase {
                 }
             })
     }
+    
+    public static func createRoom(_ roomName: String, _ createdByUser: String,_ timeCreated: Double,_ latitude: Double,_ longitude: Double, callback: @escaping (Bool) -> Void) {
+        
+        //create room, add to rooms table
+        let roomInfo: [String: Any] = ["name": roomName, "creatorID": createdByUser, "timeCreated": timeCreated, "latitude": latitude, "longitude": longitude]
+        let reference  = ref.child("rooms").childByAutoId()
+        reference.setValue(roomInfo)
+        let roomID = reference.key
+        callback(true)
+        
+        
+        //add roomID to user's current list of rooms in db
+        ref.child("users").child(createdByUser).child("rooms").observeSingleEvent(of: .value, with: { (snapshot) in
+            let enumerator = snapshot.children
+            var prevRooms: [String:Bool] = [:]
+            while let rest = enumerator.nextObject() as? DataSnapshot {
+                prevRooms[rest.key] = true
+            }
+            var roomsUpdate = prevRooms
+            roomsUpdate[roomID] = true
+            let userUpdate = ["users/\(createdByUser)/":["rooms":roomsUpdate]]
+            ref.updateChildValues(userUpdate)
+        })
+    }
+    
+    
     /*
      Given userID, returns all rooms for which userID is a participant.
      */
-    public static func getMyRooms(_ userID: String, callback: @escaping (DataSnapshot) -> Void) {
-        //TODO: I'm not sure what these keys/values are... right now this gets a list of roomIDs for a user
-        // we need to foreach of those roomIDs, fetch the corresponding room object from the db, and then
-        // return them as an array for the controller
-        ref.child("users").child(userID).observeSingleEvent(of: .value, with: {(snapshot) in
-            callback(snapshot);
-            //for child in snapshot.children {
-                //let snap = child as! DataSnapshot;
-                //let roomID = snap.key;
-                //ref.child("rooms").child(roomID)
-            //}
-        });
+    public static func getMyRooms(callback: @escaping ([Models.Room]) -> Void)  {
+        ref.child("users/\(Current.user!.email)/rooms").observeSingleEvent(of: .value, with: { (snapshot) in
+            if (!snapshot.exists()) { return }
+            let enumerator = snapshot.children // to iterate through room IDS associated with this user
+            var rooms: [Models.Room] = [] // array to be returned
+            while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB
+                ref.child("rooms").child(r.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                    var dict = snapshot.value as! [String : Any?]
+                    dict["roomID"] = r.key
+                    let room = Models.Room(dict: dict) // cast to Room
+                    rooms.append(room!) // add to result
+                    callback(rooms)
+                })
+            }
+//            callback(rooms)
+        })
     }
+    
+//    struct Room {
+//        var roomID: String
+//        var name: String
+//        var creatorID: String
+//        var timeCreated: Double
+//        var latitude: Double
+//        var longitude: Double
+//    }
 }
