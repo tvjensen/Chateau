@@ -28,6 +28,8 @@ class ViewController: UIViewController {
                 }
             }
         }
+        emailLogin.delegate = self
+        passwordLogin.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,8 +55,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordLogin: UITextField!
     
     @IBAction func loginUser(_ sender: Any) {
-        let emailLoginText : String = emailLogin.text!
-        let passwordLoginText : String = passwordLogin.text!
+        let emailLoginText: String = emailLogin.text!
+        let passwordLoginText: String = passwordLogin.text!
         if emailLoginText != "" && passwordLoginText != "" {
             Firebase.createOrLoginUser(emailLoginText, passwordLoginText, false) { success in
                 if success {
@@ -65,8 +67,8 @@ class ViewController: UIViewController {
                 }
             }
         }
-
     }
+    
     //Take email login text and password text and create a user
     @IBAction func signUp(_ sender: Any) {
         let emailLoginText : String = emailLogin.text!
@@ -81,5 +83,12 @@ class ViewController: UIViewController {
                 }
             }
         }
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }

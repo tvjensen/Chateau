@@ -19,6 +19,7 @@ class InsideOfRoomViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+        print(self.room!)
         Firebase.fetchPosts(self.room!) { posts in
             self.posts = posts
             self.tableView.reloadData()
@@ -64,6 +65,10 @@ extension InsideOfRoomViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
