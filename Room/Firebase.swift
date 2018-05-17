@@ -64,4 +64,9 @@ class Firebase {
             //}
         });
     }
+    
+    public static func createPost(_ roomID:String, _ body:String, _ posterID:String, _ timestamp:Double){
+        ref.child("Posts").childByAutoId().setValue(["roomID": roomID,
+            "body": body, "posterID": posterID, "timestamp": timestamp])
+    }
 }

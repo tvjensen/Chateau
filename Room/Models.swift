@@ -86,15 +86,15 @@ class Models {
         var postID: String
         var roomID: String
         var body: String
-        var posterEmail: String
+        var posterID: String
         var upvoters: [String: Bool] = [:]
         var timestamp: Double
         
         var firebaseDict: [String : Any] {
-            let dict: [String: Any] = ["postID": self.postID,
+            let dict: [String: Any] = [
                                        "roomID": self.roomID,
                                        "body":self.body,
-                                       "posterEmail": self.posterEmail,
+                                       "posterID": self.posterID,
                                        "upvoters": self.upvoters,
                                        "timestamp": self.timestamp
                                        ]
@@ -105,13 +105,13 @@ class Models {
             guard let postID = dict["postID"] as? String else { return nil }
             guard let roomID = dict["roomID"] as? String else { return nil }
             guard let body = dict["body"] as? String else { return nil }
-            guard let posterEmail = dict["posterEmail"] as? String else { return nil }
+            guard let posterID = dict["posterID"] as? String else { return nil }
             guard let timestamp = dict["timestamp"] as? Double else { return nil }
             
             self.postID = postID
             self.roomID = roomID
             self.body = body
-            self.posterEmail = posterEmail
+            self.posterID = posterID
             self.timestamp = timestamp
             self.upvoters = dict["upvoters"] as? [String: Bool] ?? [:]
         }

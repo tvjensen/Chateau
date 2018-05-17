@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Room/sendArrow.png">
+   </FileRef>
+   <FileRef
       location = "group:Room.xcodeproj">
    </FileRef>
    <FileRef
