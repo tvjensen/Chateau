@@ -452,6 +452,10 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                     <state key="normal" image="downvote"/>
+                                                    <state key="selected" image="downvote_selected"/>
+                                                    <connections>
+                                                        <action selector="downvotePressed:" destination="O1k-HX-UJn" eventType="touchUpInside" id="7CO-Wx-rN3"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtW-zc-rVI">
                                                     <rect key="frame" x="334" y="11" width="30" height="30"/>
@@ -461,6 +465,10 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                     <state key="normal" image="upvote"/>
+                                                    <state key="selected" image="upvote_selected"/>
+                                                    <connections>
+                                                        <action selector="upvotePressed:" destination="O1k-HX-UJn" eventType="touchUpInside" id="7EJ-6P-6oY"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -544,6 +552,8 @@
     <resources>
         <image name="back" width="96" height="96"/>
         <image name="downvote" width="100" height="100"/>
+        <image name="downvote_selected" width="100" height="100"/>
         <image name="upvote" width="100" height="100"/>
+        <image name="upvote_selected" width="100" height="100"/>
     </resources>
 </document>

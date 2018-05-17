@@ -94,6 +94,7 @@ class Models {
         var body: String
         var posterID: String
         var upvoters: [String: Bool] = [:]
+        var downvoters: [String: Bool] = [:]
         var timestamp: Double
         
         var firebaseDict: [String : Any] {
@@ -102,7 +103,8 @@ class Models {
                                        "body":self.body,
                                        "posterID": self.posterID,
                                        "upvoters": self.upvoters,
-                                       "timestamp": self.timestamp
+                                       "timestamp": self.timestamp,
+                                       "downvoters": self.downvoters,
                                        ]
             return dict
         }
@@ -120,6 +122,7 @@ class Models {
             self.posterID = posterID
             self.timestamp = timestamp
             self.upvoters = dict["upvoters"] as? [String: Bool] ?? [:]
+            self.downvoters = dict["downvoters"] as? [String: Bool] ?? [:]
         }
         
     }

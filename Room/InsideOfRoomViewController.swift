@@ -64,14 +64,7 @@ extension InsideOfRoomViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! PostCell
-        let post = self.posts[indexPath.row]
-        cell.body.text = post.body
-        cell.timeLabel.text = parseTime(post.timestamp)
-        cell.numUpvotesLabel.text = "\(post.upvoters.keys.count)"
-    }
-    
-    private func parseTime(_ time: Double) -> String {
-        return "20 minutes ago"
+        cell.setPost(self.posts[indexPath.row])
     }
     
 }

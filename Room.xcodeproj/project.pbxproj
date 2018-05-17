@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36D49820A3F042007E48C9 /* PopupViewController.swift */; };
-		1FF1C03120A4CDBC006E7208 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */; };
 		23820710C1282E9FB5E881E7 /* Pods_Room.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7ABB32DA2472A2C715A8109 /* Pods_Room.framework */; };
 		2E35B5C920A21B5900F1BDE6 /* MyRoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E35B5C820A21B5900F1BDE6 /* MyRoomsViewController.swift */; };
 		2ECF954520ACDDB30014512E /* MyRoomPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF954420ACDDB30014512E /* MyRoomPreviewTableViewCell.swift */; };
@@ -33,7 +32,6 @@
 
 /* Begin PBXFileReference section */
 		1F36D49820A3F042007E48C9 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
-		1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		2E35B5C820A21B5900F1BDE6 /* MyRoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomsViewController.swift; sourceTree = "<group>"; };
 		2ECF954420ACDDB30014512E /* MyRoomPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomPreviewTableViewCell.swift; sourceTree = "<group>"; };
 		4B782A1720AD3CB30005B2D4 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 				94E747B620AA3C6300766CAF /* InsideOfRoomViewController.swift */,
 				4BBF9F7B208E7A3A0012CE86 /* Assets.xcassets */,
 				1F36D49820A3F042007E48C9 /* PopupViewController.swift */,
-				1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */,
 				4BBF9F75208E7A390012CE86 /* Main.storyboard */,
 				4BBF9F7D208E7A3A0012CE86 /* LaunchScreen.storyboard */,
 				4BBF9F80208E7A3A0012CE86 /* Info.plist */,
@@ -284,7 +281,6 @@
 				2ECF954520ACDDB30014512E /* MyRoomPreviewTableViewCell.swift in Sources */,
 				4BE73191209B807E0039F8F2 /* Firebase.swift in Sources */,
 				4BBF9F72208E7A390012CE86 /* AppDelegate.swift in Sources */,
-				1FF1C03120A4CDBC006E7208 /* RoomViewController.swift in Sources */,
 				4BFD2DB320ACD8810003BD80 /* LocationManager.swift in Sources */,
 				1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */,
 				94E747B720AA3C6300766CAF /* InsideOfRoomViewController.swift in Sources */,

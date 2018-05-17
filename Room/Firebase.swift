@@ -43,11 +43,9 @@ class Firebase {
             let enumerator = snapshot.children // to iterate through room IDS associated with this user
             var posts: [Models.Post] = [] // array to be returned
             let dispatchGroup = DispatchGroup()
-            print("here")
             while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB
                 dispatchGroup.enter()
                 postsRef.child("\(r.key)").observeSingleEvent(of: .value, with: { (snapshot) in
-                    print(snapshot)
                     var dict = snapshot.value as! [String : Any?]
                     dict["postID"] = r.key
                     if let post = Models.Post(dict: dict) {
@@ -58,7 +56,6 @@ class Firebase {
             }
             
             dispatchGroup.notify(queue: .main) {
-                print(posts)
                 callback(posts)
             }
         })
@@ -120,6 +117,30 @@ class Firebase {
                     }
                 }
             })
+    }
+    
+    public static func upvote(_ postID: String, _ upvoters: inout [String:Bool]) {
+        let userID = Current.user!.email
+        upvoters[userID] = true
+        postsRef.child("\(postID)/upvoters").setValue(upvoters)
+    }
+    
+    public static func downvote(_ postID: String, _ downvoters: inout [String:Bool]) {
+        let userID = Current.user!.email
+        downvoters[userID] = true
+        postsRef.child("\(postID)/downvoters").setValue(downvoters)
+    }
+    
+    public static func removeUpvote(_ postID: String, _ upvoters: inout [String:Bool]) {
+        let userID = Current.user!.email
+        upvoters.removeValue(forKey: userID)
+        postsRef.child("\(postID)/upvoters").setValue(upvoters)
+    }
+    
+    public static func removeDownvote(_ postID: String, _ downvoters: inout [String:Bool]) {
+        let userID = Current.user!.email
+        downvoters.removeValue(forKey: userID)
+        postsRef.child("\(postID)/downvoters").setValue(downvoters)
     }
     
     /*
