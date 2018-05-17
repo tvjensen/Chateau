@@ -77,8 +77,9 @@ class Firebase {
     /*
      Given userID, returns all rooms for which userID is a participant.
      */
-    public static func getMyRooms(_ userID: String, callback: @escaping ([Models.Room]) -> Void)  {
-        ref.child("users").child(userID).child("rooms").observeSingleEvent(of: .value, with: { (snapshot) in
+    public static func getMyRooms(callback: @escaping ([Models.Room]) -> Void)  {
+        ref.child("users/\(Current.user!.email)/rooms").observeSingleEvent(of: .value, with: { (snapshot) in
+            if (!snapshot.exists()) { return }
             let enumerator = snapshot.children // to iterate through room IDS associated with this user
             var rooms: [Models.Room] = [] // array to be returned
             while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB

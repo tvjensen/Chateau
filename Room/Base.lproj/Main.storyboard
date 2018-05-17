@@ -254,6 +254,9 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <viewLayoutGuide key="safeArea" id="n5b-Iy-mR4"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="10b-BD-CGO" id="uQk-sd-hw6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tpp-4Q-Lnr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

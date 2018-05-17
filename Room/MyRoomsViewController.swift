@@ -9,11 +9,13 @@
 import Foundation
 import UIKit
 
-class MyRoomsViewController: UIViewController {
+class MyRoomsViewController: UIViewController, UITableViewDelegate {
     
+    @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
         Firebase.getMyRooms("test") { rooms in
             print(rooms)
             print(rooms[0].roomID)
@@ -53,4 +55,6 @@ class MyRoomsViewController: UIViewController {
             }
         }
     }
+    
+    
 }
