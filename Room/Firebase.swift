@@ -98,6 +98,7 @@ class Firebase {
                         callback(false) //we want success to be false when signing up
                     } else {
                         Current.user = Models.User(snapshot: snapshot)
+                        SessionManager.storeSession(session: emailLoginText)
                         callback(true) //we want success to be true when logging in
                     }
                 }
@@ -106,6 +107,7 @@ class Firebase {
                         let dict = ["email": emailLoginText]
                         self.usersRef.child(emailLoginText.lowercased()).setValue(dict)
                         Current.user = Models.User(dict: dict)
+                        SessionManager.storeSession(session: emailLoginText)
                         callback(true) //returning success in creating user
                     } else {
                         callback(false)
