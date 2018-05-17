@@ -13,6 +13,7 @@ class MyRoomsViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     private var rooms: [Models.Room] = []
+    private var selectedRoom: Models.Room?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,18 +45,21 @@ class MyRoomsViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "insideOfRoomSegue") {
+            let vc = segue.destination as! InsideOfRoomViewController
+            vc.room = selectedRoom!
+        }
+    }
+    
 }
 
 extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // segue to the inside rooms view
-        let selectedRoom = self.rooms[indexPath.row]
-        
-        // Create an instance of destination and pass the room var
-        let destinationVC = InsideOfRoomViewController()
-        destinationVC.room = selectedRoom
-        destinationVC.performSegue(withIdentifier: "insideOfRoomSegue", sender: self)
+        self.selectedRoom = self.rooms[indexPath.row]
+        self.performSegue(withIdentifier: "insideOfRoomSegue", sender: self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

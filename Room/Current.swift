@@ -12,5 +12,4 @@ class Current {
     
     static var user: Models.User?
     
-    
 }

@@ -24,7 +24,6 @@ class ExploreViewController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
         self.firebaseObserverHandle = Firebase.startObservingRooms() { room in
-            print("adding new: ", room)
             if let index = self.mapView.annotations.index(where: { (annotation) -> Bool in
                 guard let annotation = annotation as? RoomAnnotation else { return false }
                 return annotation.room.roomID == room.roomID

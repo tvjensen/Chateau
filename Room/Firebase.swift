@@ -15,6 +15,7 @@ class Firebase {
     private static let ref = Database.database().reference()
     private static let roomsRef = ref.child("rooms")
     private static let usersRef = ref.child("users")
+    private static let postsRef = ref.child("Posts")
     
     private static var currentTime: Double {
         return Double(NSDate().timeIntervalSince1970)
@@ -33,6 +34,35 @@ class Firebase {
     
     public static func removeRoomObserver(handle: UInt) {
         roomsRef.removeObserver(withHandle: handle)
+    }
+    
+    public static func fetchPosts(_ room: Models.Room, callback: @escaping ([Models.Post]) -> Void) {
+        roomsRef.child("\(room.roomID)/posts").observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot)
+            if (!snapshot.exists()) { return }
+            let enumerator = snapshot.children // to iterate through room IDS associated with this user
+            var posts: [Models.Post] = [] // array to be returned
+            let dispatchGroup = DispatchGroup()
+            print("here")
+            while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB
+                dispatchGroup.enter()
+                postsRef.child("\(r.key)").observeSingleEvent(of: .value, with: { (snapshot) in
+                    print(snapshot)
+                    var dict = snapshot.value as! [String : Any?]
+                    dict["postID"] = r.key
+                    if let post = Models.Post(dict: dict) {
+                        posts.append(post) // add to result
+                    }
+                    dispatchGroup.leave()
+                })
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                print(posts)
+                callback(posts)
+            }
+        })
+        
     }
     
     public static func createRoom(_ name: String) {
@@ -62,7 +92,7 @@ class Firebase {
     // If the user already exists, then it sends back a false boolean value
     // and does not add to database
     public static func createOrLoginUser(_ emailLoginText: String, _ passwordLoginText: String,_ createUser: Bool, callback: @escaping (Bool) -> Void) {
-        ref.child("users/\(emailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
+        usersRef.child("\(emailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
                 if snapshot.exists() {
                     if createUser {
                         callback(false) //we want success to be false when signing up
@@ -80,7 +110,6 @@ class Firebase {
                     } else {
                         callback(false)
                     }
-                    
                 }
             })
     }
@@ -89,18 +118,25 @@ class Firebase {
      Given userID, returns all rooms for which userID is a participant.
      */
     public static func getMyRooms(callback: @escaping ([Models.Room]) -> Void)  {
-        ref.child("users/\(Current.user!.email)/rooms").observeSingleEvent(of: .value, with: { (snapshot) in
+        usersRef.child("\(Current.user!.email)/rooms").observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot)
             if (!snapshot.exists()) { return }
             let enumerator = snapshot.children // to iterate through room IDS associated with this user
             var rooms: [Models.Room] = [] // array to be returned
+            let dispatchGroup = DispatchGroup()
             while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB
-                ref.child("rooms").child(r.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                dispatchGroup.enter()
+                roomsRef.child(r.key).observeSingleEvent(of: .value, with: { (snapshot) in
                     var dict = snapshot.value as! [String : Any?]
                     dict["roomID"] = r.key
-                    let room = Models.Room(dict: dict) // cast to Room
-                    rooms.append(room!) // add to result
-                    callback(rooms)
+                    if let room = Models.Room(dict: dict) { // cast to Room
+                        rooms.append(room) // add to result
+                    }
+                    dispatchGroup.leave()
                 })
+            }
+            dispatchGroup.notify(queue: .main) {
+                callback(rooms)
             }
         })
     }

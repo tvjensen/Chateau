@@ -19,6 +19,10 @@ class InsideOfRoomViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+        Firebase.fetchPosts(self.room!) { posts in
+            self.posts = posts
+            self.tableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +40,6 @@ class InsideOfRoomViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
 
 extension InsideOfRoomViewController: UITableViewDelegate, UITableViewDataSource {
@@ -52,7 +55,7 @@ extension InsideOfRoomViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "roomPreviewCell", for: indexPath)
+        return tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
