@@ -13,7 +13,6 @@ class MyRoomsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Loaded view")
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -29,15 +28,10 @@ class MyRoomsViewController: UIViewController {
         })
         alert.addAction(UIAlertAction(title: "Create", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             let name = (alert?.textFields![0].text)!
-            self.createRoom(newRoomName: name)
+            Firebase.createRoom(name)
         }))
        
         self.present(alert, animated: true, completion: nil)
     }
-    
-    func createRoom(newRoomName: String) {
-        print("New room name: \(newRoomName)")
-    }
-    
     
 }

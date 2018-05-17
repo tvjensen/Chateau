@@ -16,8 +16,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Loaded view")
-        print("Hello world")
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -39,6 +37,7 @@ class ViewController: UIViewController {
 //            }
 //        }
 //    }
+    
     @IBOutlet weak var emailLogin: UITextField!
     @IBOutlet weak var passwordLogin: UITextField!
     
@@ -49,9 +48,7 @@ class ViewController: UIViewController {
             Firebase.createOrLoginUser(emailLoginText, passwordLoginText, false) { success in
                 if success {
                     print("Success in logging in user!")
-                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let roomViewController = storyBoard.instantiateViewController(withIdentifier: "MyRoomsViewController") as! MyRoomsViewController
-                    self.present(roomViewController, animated: true, completion: nil)
+                    self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
                 } else {
                     print("That login and password was unsuccessful")
                 }
@@ -67,9 +64,7 @@ class ViewController: UIViewController {
             Firebase.createOrLoginUser(emailLoginText, passwordLoginText, true) { success in
                 if success {
                     print("Success in creating user!")
-                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let roomViewController = storyBoard.instantiateViewController(withIdentifier: "MyRoomsViewController") as! MyRoomsViewController
-                    self.present(roomViewController, animated: true, completion: nil)
+                    self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
                 } else {
                     print("That login and password was unsuccessful")
                 }

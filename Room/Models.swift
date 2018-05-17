@@ -16,25 +16,28 @@ class Models {
      Rooms is contains all the roomIDs of rooms of which this user has partaken.
      */
     struct User {
-        var userID: String
         var email: String
         var rooms: [String: Bool] = [:]
 
         var firebaseDict: [String : Any] {
-            let dict: [String: Any] = ["userID": self.userID,
-                                       "email":self.email,
-                                       "rooms": self.rooms
+            let dict: [String: Any] = [
+                                        "rooms": self.rooms
                                        ]
             return dict
         }
     
         init?(dict: [String: Any?]) {
-            guard let userID = dict["userID"] as? String else { return nil }
             guard let email = dict["email"] as? String else { return nil }
             self.rooms = dict["rooms"] as? [String: Bool] ?? [:]
-            
-            self.userID = userID
             self.email = email
+        }
+        
+        init?(snapshot: DataSnapshot) {
+            print(snapshot)
+            guard var dict = snapshot.value as? [String: Any?] else { return nil }
+            dict["email"] = snapshot.key
+            print(dict)
+            self.init(dict: dict)
         }
     }
 
@@ -49,6 +52,7 @@ class Models {
         var timeCreated: Double
         var latitude: Double
         var longitude: Double
+        var numMembers: Int
         
         var firebaseDict: [String : Any] {
             let dict: [String: Any] = ["roomID": self.roomID,
@@ -56,7 +60,8 @@ class Models {
                                        "timeCreated":self.timeCreated,
                                        "latitude": self.latitude,
                                        "longitude": self.longitude,
-                                       "name": self.name
+                                       "name": self.name,
+                                       "numMembers": self.numMembers
                                        ]
             return dict
         }
@@ -68,6 +73,7 @@ class Models {
             guard let latitude = dict["latitude"] as? Double else { return nil }
             guard let longitude = dict["longitude"] as? Double else { return nil }
             guard let name = dict["name"] as? String else { return nil }
+            guard let numMembers = dict["numMembers"] as? Int else { return nil }
             
             self.roomID = roomID
             self.creatorID = creatorID
@@ -75,6 +81,7 @@ class Models {
             self.latitude = latitude
             self.longitude = longitude
             self.name = name
+            self.numMembers = numMembers
         }
     }
     
