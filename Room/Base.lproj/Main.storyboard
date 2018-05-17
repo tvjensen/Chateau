@@ -410,7 +410,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ui1-E3-eZH">
-                                <rect key="frame" x="0.0" y="111" width="375" height="556"/>
+                                <rect key="frame" x="0.0" y="111" width="375" height="526"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" rowHeight="90" id="O1k-HX-UJn" customClass="PostCell" customModule="Room" customModuleProvider="target">
@@ -503,6 +503,15 @@
                                 </constraints>
                                 <state key="normal" title="MyRooms" image="back"/>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write a post..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ql7-FP-QND">
+                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="writePost:" destination="1Ks-XT-SaW" eventType="editingDidEnd" id="IEy-I1-UZE"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -510,13 +519,16 @@
                             <constraint firstItem="Xsj-8Y-Uqp" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" constant="4" id="4sn-Sp-ZYn"/>
                             <constraint firstItem="KYe-4z-1OZ" firstAttribute="centerY" secondItem="53m-0M-rv7" secondAttribute="centerY" id="7bl-kQ-lXT"/>
                             <constraint firstItem="53m-0M-rv7" firstAttribute="top" secondItem="QbE-IO-YSx" secondAttribute="top" constant="35" id="BZn-k0-NGb"/>
+                            <constraint firstItem="Ql7-FP-QND" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" id="C7d-jF-Csu"/>
+                            <constraint firstItem="Ql7-FP-QND" firstAttribute="trailing" secondItem="QbE-IO-YSx" secondAttribute="trailing" id="FUa-vj-3cZ"/>
                             <constraint firstItem="ui1-E3-eZH" firstAttribute="trailing" secondItem="QbE-IO-YSx" secondAttribute="trailing" id="GX6-SV-SgP"/>
+                            <constraint firstItem="Ql7-FP-QND" firstAttribute="top" secondItem="ui1-E3-eZH" secondAttribute="bottom" id="H4F-DI-ERd"/>
                             <constraint firstItem="Xsj-8Y-Uqp" firstAttribute="top" secondItem="QbE-IO-YSx" secondAttribute="top" constant="4" id="Hm5-4B-4BS"/>
                             <constraint firstItem="ui1-E3-eZH" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" id="NW8-e4-rkQ"/>
+                            <constraint firstItem="Ql7-FP-QND" firstAttribute="bottom" secondItem="QbE-IO-YSx" secondAttribute="bottom" id="PcB-sn-O3Y"/>
                             <constraint firstItem="QbE-IO-YSx" firstAttribute="trailing" secondItem="KYe-4z-1OZ" secondAttribute="trailing" constant="16" id="VRB-rz-zt0"/>
                             <constraint firstItem="KYe-4z-1OZ" firstAttribute="leading" secondItem="53m-0M-rv7" secondAttribute="trailing" constant="15" id="eJ2-G5-adB"/>
                             <constraint firstItem="53m-0M-rv7" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" id="fCZ-mx-tKB"/>
-                            <constraint firstAttribute="bottom" secondItem="ui1-E3-eZH" secondAttribute="bottom" id="lJZ-BP-4h8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QbE-IO-YSx"/>
                     </view>

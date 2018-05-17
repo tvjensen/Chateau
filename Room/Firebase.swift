@@ -62,7 +62,13 @@ class Firebase {
                 callback(posts)
             }
         })
-        
+    }
+    
+    public static func createPost(_ roomID:String, _ body:String){
+        postsRef.childByAutoId().setValue(["roomID": roomID,
+                                            "body": body,
+                                            "posterID": Current.user!.email,
+                                            "timestamp": currentTime])
     }
     
     public static func createRoom(_ name: String) {
