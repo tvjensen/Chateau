@@ -27,13 +27,14 @@
 		4BFD2DB320ACD8810003BD80 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD2DB220ACD8810003BD80 /* LocationManager.swift */; };
 		4BFD2DB520ACE1350003BD80 /* Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD2DB420ACE1350003BD80 /* Current.swift */; };
 		522A38C6209B8239004E2323 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A38C5209B8239004E2323 /* Models.swift */; };
+		5261937520AD448F00E6DBE5 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5261937420AD448F00E6DBE5 /* SessionManager.swift */; };
 		94E747AD20AA256300766CAF /* DownArrowIMG.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E747AC20AA256300766CAF /* DownArrowIMG.png */; };
 		94E747B720AA3C6300766CAF /* InsideOfRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E747B620AA3C6300766CAF /* InsideOfRoomViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F36D49820A3F042007E48C9 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopupViewController.swift; path = /Users/csmith/Desktop/Room/Room/PopupViewController.swift; sourceTree = "<absolute>"; };
-		1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoomViewController.swift; path = /Users/csmith/Desktop/Room/Room/RoomViewController.swift; sourceTree = "<absolute>"; };
+		1F36D49820A3F042007E48C9 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		1FF1C03020A4CDBC006E7208 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		2E35B5C820A21B5900F1BDE6 /* MyRoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomsViewController.swift; sourceTree = "<group>"; };
 		2ECF954420ACDDB30014512E /* MyRoomPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomPreviewTableViewCell.swift; sourceTree = "<group>"; };
 		4B782A1720AD3CB30005B2D4 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -53,6 +54,7 @@
 		4BFD2DB220ACD8810003BD80 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4BFD2DB420ACE1350003BD80 /* Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Current.swift; sourceTree = "<group>"; };
 		522A38C5209B8239004E2323 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		5261937420AD448F00E6DBE5 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		55F3B08BD91417BF3B8329C1 /* Pods-Room.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Room.release.xcconfig"; path = "Pods/Target Support Files/Pods-Room/Pods-Room.release.xcconfig"; sourceTree = "<group>"; };
 		70A531949B60EF146C76A6F1 /* Pods-Room.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Room.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Room/Pods-Room.debug.xcconfig"; sourceTree = "<group>"; };
 		94E747AC20AA256300766CAF /* DownArrowIMG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownArrowIMG.png; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				4BFD2DB420ACE1350003BD80 /* Current.swift */,
 				2ECF954420ACDDB30014512E /* MyRoomPreviewTableViewCell.swift */,
 				4B782A1720AD3CB30005B2D4 /* PostCell.swift */,
+				5261937420AD448F00E6DBE5 /* SessionManager.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */,
 				94E747B720AA3C6300766CAF /* InsideOfRoomViewController.swift in Sources */,
 				522A38C6209B8239004E2323 /* Models.swift in Sources */,
+				5261937520AD448F00E6DBE5 /* SessionManager.swift in Sources */,
 				4B782A1820AD3CB30005B2D4 /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

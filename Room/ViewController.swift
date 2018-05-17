@@ -17,6 +17,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //fetchSession
+        if let userEmail = SessionManager.fetchSession() {
+            Firebase.createOrLoginUser(userEmail, " ", false) {success in //sets current user
+                if success {
+                    self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
+                } else {
+                    print("Failed to use stored session to set current user.")
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
