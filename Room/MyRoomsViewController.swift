@@ -14,7 +14,7 @@ class MyRoomsViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
     private var rooms: [Models.Room] = []
-    private var filteredRooms: [Models.Room]!
+    private var filteredRooms: [Models.Room] = []
     
     private var selectedRoom: Models.Room?
     
