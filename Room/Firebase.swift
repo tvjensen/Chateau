@@ -68,10 +68,10 @@ class Firebase {
                                             "timestamp": currentTime])
     }
     
-    public static func createRoom(_ name: String) {
+    public static func createRoom(_ name: String, callback: @escaping (Models.Room) -> Void) {
         // create room in db
         guard let location = LocationManager.shared.getLocation() else { return }
-        let dict: [String:Any] = ["name": name, "creatorID": Current.user!.email,
+        var dict: [String:Any] = ["name": name, "creatorID": Current.user!.email,
                     "timeCreated": currentTime , "numMembers": 1,
                     "latitude": location.latitude, "longitude": location.longitude]
         let newRoomRef = roomsRef.childByAutoId()
@@ -80,6 +80,8 @@ class Firebase {
         // update user object in db and locally
         Current.user!.rooms[newRoomRef.key] = true
         usersRef.child("\(Current.user!.email)/rooms").setValue(Current.user!.rooms)
+        dict["roomID"] = newRoomRef.key
+        callback(Models.Room(dict:dict)!)
     }
     
     public static func joinRoom(room: Models.Room) {
@@ -156,7 +158,9 @@ class Firebase {
             while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB
                 dispatchGroup.enter()
                 roomsRef.child(r.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                    print(r.key)
                     var dict = snapshot.value as! [String : Any?]
+                    print(r.key)
                     dict["roomID"] = r.key
                     if let room = Models.Room(dict: dict) { // cast to Room
                         rooms.append(room) // add to result

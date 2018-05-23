@@ -85,7 +85,7 @@ class ExploreViewController: UIViewController {
         })
         alert.addAction(UIAlertAction(title: "Create", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             let name = (alert?.textFields![0].text)!
-            Firebase.createRoom(name)
+            Firebase.createRoom(name) {newRoom in}
         }))
         
         self.present(alert, animated: true, completion: nil)
