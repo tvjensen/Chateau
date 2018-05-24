@@ -21,6 +21,24 @@ class InsideOfRoom_v2: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.textField.delegate = self
 
         // Do any additional setup after loading the view.
+        
+        // Move the screen up when keyboard shown
+        // Listen for keyboard events
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)),
+                                               name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)),
+                                               name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)),
+                                               name: .UIKeyboardWillChangeFrame, object: nil)
+    }
+    
+    // Move the screen up when keyboard shown
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+
+        
     }
     
     @IBAction func submitPost(_ sender: UIButton) {
@@ -37,7 +55,7 @@ class InsideOfRoom_v2: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 2
+        return 20
     }
     
     @available(iOS 2.0, *)
@@ -53,6 +71,26 @@ class InsideOfRoom_v2: UIViewController, UITableViewDelegate, UITableViewDataSou
         print("Touched outside the keyboard")
         self.view.endEditing(true)
     }
+    
+    // Move the screen up when keyboard shown
+    // START
+    // https://www.youtube.com/watch?v=xVZubAMFuIU
+    @objc func keyboardWillChange(notification: Notification){
+        print("Keyboard will show: \(notification.name.rawValue)")
+        guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else{
+            return
+        }
+        if notification.name == Notification.Name.UIKeyboardWillShow ||
+            notification.name == Notification.Name.UIKeyboardWillChangeFrame{
+            view.frame.origin.y = -keyboardRect.height
+        } else{
+            view.frame.origin.y = 0
+        }
+        
+    }
+
+    
+    // END
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
