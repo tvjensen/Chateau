@@ -79,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
+            <point key="canvasLocation" x="118" y="117"/>
         </scene>
         <!--Popup View Controller-->
         <scene sceneID="RON-bA-ldg">
@@ -497,12 +497,9 @@
                                 </prototypes>
                             </tableView>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="53m-0M-rv7">
-                                <rect key="frame" x="0.0" y="55" width="322" height="56"/>
+                                <rect key="frame" x="0.0" y="55" width="359" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYe-4z-1OZ">
-                                <rect key="frame" x="337" y="72" width="22" height="22"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xsj-8Y-Uqp">
                                 <rect key="frame" x="4" y="24" width="30" height="30"/>
                                 <constraints>
@@ -525,7 +522,7 @@
                         <constraints>
                             <constraint firstItem="ui1-E3-eZH" firstAttribute="top" secondItem="53m-0M-rv7" secondAttribute="bottom" id="1pm-WQ-Qva"/>
                             <constraint firstItem="Xsj-8Y-Uqp" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" constant="4" id="4sn-Sp-ZYn"/>
-                            <constraint firstItem="KYe-4z-1OZ" firstAttribute="centerY" secondItem="53m-0M-rv7" secondAttribute="centerY" id="7bl-kQ-lXT"/>
+                            <constraint firstItem="QbE-IO-YSx" firstAttribute="trailing" secondItem="53m-0M-rv7" secondAttribute="trailing" constant="16" id="8LV-8c-ZzG"/>
                             <constraint firstItem="53m-0M-rv7" firstAttribute="top" secondItem="QbE-IO-YSx" secondAttribute="top" constant="35" id="BZn-k0-NGb"/>
                             <constraint firstItem="Ql7-FP-QND" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" id="C7d-jF-Csu"/>
                             <constraint firstItem="Ql7-FP-QND" firstAttribute="trailing" secondItem="QbE-IO-YSx" secondAttribute="trailing" id="FUa-vj-3cZ"/>
@@ -534,8 +531,6 @@
                             <constraint firstItem="Xsj-8Y-Uqp" firstAttribute="top" secondItem="QbE-IO-YSx" secondAttribute="top" constant="4" id="Hm5-4B-4BS"/>
                             <constraint firstItem="ui1-E3-eZH" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" id="NW8-e4-rkQ"/>
                             <constraint firstItem="Ql7-FP-QND" firstAttribute="bottom" secondItem="QbE-IO-YSx" secondAttribute="bottom" id="PcB-sn-O3Y"/>
-                            <constraint firstItem="QbE-IO-YSx" firstAttribute="trailing" secondItem="KYe-4z-1OZ" secondAttribute="trailing" constant="16" id="VRB-rz-zt0"/>
-                            <constraint firstItem="KYe-4z-1OZ" firstAttribute="leading" secondItem="53m-0M-rv7" secondAttribute="trailing" constant="15" id="eJ2-G5-adB"/>
                             <constraint firstItem="53m-0M-rv7" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" id="fCZ-mx-tKB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QbE-IO-YSx"/>

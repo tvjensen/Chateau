@@ -38,7 +38,6 @@ class Firebase {
     
     public static func fetchPosts(_ room: Models.Room, callback: @escaping ([Models.Post]) -> Void) {
         roomsRef.child("\(room.roomID)/posts").observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot)
             if (!snapshot.exists()) { return }
             let enumerator = snapshot.children // to iterate through room IDS associated with this user
             var posts: [Models.Post] = [] // array to be returned
@@ -148,7 +147,6 @@ class Firebase {
      */
     public static func getMyRooms(callback: @escaping ([Models.Room]) -> Void)  {
         usersRef.child("\(Current.user!.email)/rooms").observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot)
             if (!snapshot.exists()) { return }
             let enumerator = snapshot.children // to iterate through room IDS associated with this user
             var rooms: [Models.Room] = [] // array to be returned
