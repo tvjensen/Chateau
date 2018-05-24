@@ -61,10 +61,12 @@ class Firebase {
     }
     
     public static func createPost(_ roomID:String, _ body:String){
-        postsRef.childByAutoId().setValue(["roomID": roomID,
+        let ref = postsRef.childByAutoId()
+        postsRef.child(ref.key).setValue(["roomID": roomID,
                                             "body": body,
                                             "posterID": Current.user!.email,
                                             "timestamp": currentTime])
+        roomsRef.child("\(roomID)/posts/\(ref.key)").setValue(true)
     }
     
     public static func createRoom(_ name: String, callback: @escaping (Models.Room) -> Void) {

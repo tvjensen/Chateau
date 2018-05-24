@@ -19,7 +19,7 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     private override init() {}
     
     public func startTracking() {
-        self.manager.requestWhenInUseAuthorization()
+        manager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             manager.delegate = self
             manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -34,8 +34,6 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let latest = locations.last else { return }
         location = latest.coordinate
-        print(location!.latitude)
-        print(location!.longitude)
         NotificationCenter.default.post(name: LOCATION_UPDATE_NAME, object: location)
     }
     

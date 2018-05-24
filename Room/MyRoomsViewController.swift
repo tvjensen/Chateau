@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyRoomsViewController: UIViewController, UISearchBarDelegate {
+class MyRoomsViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
@@ -64,7 +64,7 @@ class MyRoomsViewController: UIViewController, UISearchBarDelegate {
     
 }
 
-extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource {
+extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // segue to the inside rooms view
@@ -108,6 +108,10 @@ extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.showsCancelButton = false
         self.searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
 }

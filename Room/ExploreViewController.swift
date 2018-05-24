@@ -12,6 +12,7 @@ import Firebase
 
 class ExploreViewController: UIViewController {
 
+    @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var roomJoinButton: UIButton!
     @IBOutlet var roomNumMembersLabel: UILabel!
     @IBOutlet var roomNameLabel: UILabel!
@@ -19,10 +20,12 @@ class ExploreViewController: UIViewController {
     @IBOutlet var mapView: MKMapView!
     private let locationManager = LocationManager.shared
     private var firebaseObserverHandle: UInt = 0
+    private var allRoomAnnotations: [RoomAnnotation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        searchBar.delegate = self
         self.firebaseObserverHandle = Firebase.startObservingRooms() { room in
             if let index = self.mapView.annotations.index(where: { (annotation) -> Bool in
                 guard let annotation = annotation as? RoomAnnotation else { return false }
@@ -32,6 +35,7 @@ class ExploreViewController: UIViewController {
             }
             let roomAnnotation = RoomAnnotation(room)
             self.mapView.addAnnotation(roomAnnotation)
+            self.allRoomAnnotations.append(roomAnnotation)
         }
     }
     
@@ -83,6 +87,7 @@ class ExploreViewController: UIViewController {
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Room name"
         })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Create", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             let name = (alert?.textFields![0].text)!
             Firebase.createRoom(name) {newRoom in}
@@ -100,6 +105,28 @@ class ExploreViewController: UIViewController {
     }
     */
 
+}
+
+extension ExploreViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // filter displayed results
+        let text = searchText.lowercased()
+        if text.count == 0 {
+            mapView.addAnnotations(allRoomAnnotations)
+            return
+        }
+        
+        let filtered = allRoomAnnotations.filter { (annotation) -> Bool in
+            return annotation.room.name.lowercased().range(of:text) == nil
+        }
+        mapView.addAnnotations(allRoomAnnotations)
+        mapView.removeAnnotations(filtered)
+        print(mapView.annotations.count)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
 }
 
 extension ExploreViewController: MKMapViewDelegate {

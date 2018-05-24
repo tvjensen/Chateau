@@ -9,6 +9,9 @@
 import UIKit
 
 class PopupViewController: UIViewController, UITextViewDelegate {
+    
+    var roomID: String!
+    var onDoneBlock: (() -> Void)!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,5 +61,25 @@ class PopupViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            submit()
+            return false
+        }
+        return true
+    }
+
+    @IBAction func submitPost(_ sender: Any) {
+        submit()
+    }
     
+    func submit() {
+        print(postContent.text)
+        if let text = postContent.text {
+            Firebase.createPost(roomID, text)
+        }
+        onDoneBlock()
+        self.view.removeFromSuperview()
+    }
 }

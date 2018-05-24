@@ -13,11 +13,15 @@ class InsideOfRoomViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var room: Models.Room?
     private var posts: [Models.Post] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        loadPosts()
+    }
+    
+    private func loadPosts() {
         Firebase.fetchPosts(self.room!) { posts in
             self.posts = posts
             self.tableView.reloadData()
@@ -26,8 +30,11 @@ class InsideOfRoomViewController: UIViewController {
     
     @IBAction func writePost(_ sender: Any) {
         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupID") as! PopupViewController
+        popOverVC.roomID = room?.roomID
+        popOverVC.onDoneBlock = {
+            self.loadPosts()
+        }
         self.addChildViewController(popOverVC)
-        
         popOverVC.view.frame = self.view.frame
         self.view.addSubview(popOverVC.view)
         popOverVC.didMove(toParentViewController: self)
