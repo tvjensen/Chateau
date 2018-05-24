@@ -123,8 +123,32 @@ class Firebase {
             })
     }
     
-    public static func registerUser(_ emailLoginText: String, _ passwordLoginText: String,_ createUser: Bool, callback: @escaping (Bool) -> Void) {
-        
+    /* Registers user by creating a user instance in both the Firebase Auth and database.
+     Returns true on success.
+    */
+    public static func registerUser(_ emailLoginText: String, _ passwordLoginText: String, callback: @escaping (Bool) -> Void) {
+        // create this user Auth object (Firebase will handle salting/hashing/store the password server side
+        Auth.auth().createUser(withEmail: emailLoginText.lowercased(), password: passwordLoginText) { (user, error) in
+            if error == nil { // successfully created user in auth
+                user?.sendEmailVerification(completion: { (error) in
+                    if let error = error { // failed to send email, return false
+                        print(error.localizedDescription)
+                        callback(false)
+                    }
+                    print("Sent email verification")
+                    // we have to create a user object for this user in the db (not in auth, which we already did with createUser()
+                    usersRef.child("\(emailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
+                        let dict = ["email": emailLoginText]
+                        self.usersRef.child(emailLoginText.lowercased()).setValue(dict) // update email for this user in the db
+                        // TODO: remove password field from Models.User.
+                        Current.user = Models.User(dict: dict)
+                        callback(true)
+                    })
+                })
+            } else {
+                callback(false)
+            }
+        }
     }
     
     public static func upvote(_ postID: String, _ upvoters: inout [String:Bool]) {
