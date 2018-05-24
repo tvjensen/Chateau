@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseAuth
 
 class Firebase {
     
@@ -120,6 +121,10 @@ class Firebase {
                     }
                 }
             })
+    }
+    
+    public static func registerUser(_ emailLoginText: String, _ passwordLoginText: String,_ createUser: Bool, callback: @escaping (Bool) -> Void) {
+        
     }
     
     public static func upvote(_ postID: String, _ upvoters: inout [String:Bool]) {

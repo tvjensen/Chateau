@@ -73,7 +73,7 @@ class ViewController: UIViewController {
     @IBAction func signUp(_ sender: Any) {
         let emailLoginText : String = emailLogin.text!
         let passwordLoginText : String = passwordLogin.text!
-        if emailLoginText != "" && passwordLoginText != "" {
+        if ViewController.isValidEmail(email: emailLoginText) && passwordLoginText != "" {
             Firebase.createOrLoginUser(emailLoginText, passwordLoginText, true) { success in
                 if success {
                     print("Success in creating user!")
@@ -82,7 +82,17 @@ class ViewController: UIViewController {
                     print("That login and password was unsuccessful")
                 }
             }
+        } else { // either invalid stanford email or blank password
+            let alertController = UIAlertController(title: "Error", message: "Please enter a valid stanford.edu email and password", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    static func isValidEmail(email: String) -> Bool {
+        let emailPattern = "[A-Z0-9a-z._%+-]+@stanford\\.edu"
+        return NSPredicate(format: "SELF MATCHES %@", emailPattern).evaluate(with:email.lowercased())
     }
 }
 
