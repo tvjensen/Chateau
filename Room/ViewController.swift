@@ -74,12 +74,17 @@ class ViewController: UIViewController {
         let emailLoginText : String = emailLogin.text!
         let passwordLoginText : String = passwordLogin.text!
         if ViewController.isValidEmail(email: emailLoginText) && passwordLoginText != "" {
-            Firebase.createOrLoginUser(emailLoginText, passwordLoginText, true) { success in
-                if success {
-                    print("Success in creating user!")
-                    self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
-                } else {
-                    print("That login and password was unsuccessful")
+            Firebase.registerUser(emailLoginText, passwordLoginText) { success in
+                if success { // successfully registered user, let them know to confirm email
+                    let alertController = UIAlertController(title: "Success", message: "You have been sent an email confirmation link. Please confirm your email to login.", preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
+                } else { // an error occurred, could not successfully register
+                    let alertController = UIAlertController(title: "Error", message: "An error occurred while registering. Please try again later.", preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
                 }
             }
         } else { // either invalid stanford email or blank password

@@ -138,11 +138,15 @@ class Firebase {
                     print("Sent email verification")
                     // we have to create a user object for this user in the db (not in auth, which we already did with createUser()
                     usersRef.child("\(emailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
-                        let dict = ["email": emailLoginText]
-                        self.usersRef.child(emailLoginText.lowercased()).setValue(dict) // update email for this user in the db
-                        // TODO: remove password field from Models.User.
-                        Current.user = Models.User(dict: dict)
-                        callback(true)
+                        if snapshot.exists() {
+                            callback(false)
+                        } else {
+                            let dict = ["email": emailLoginText]
+                            self.usersRef.child(emailLoginText.lowercased()).setValue(dict) // update email for this user in the db
+                            // TODO: remove password field from Models.User.
+                            Current.user = Models.User(dict: dict)
+                            callback(true)
+                        }
                     })
                 })
             } else {
