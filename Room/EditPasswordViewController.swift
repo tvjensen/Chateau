@@ -14,10 +14,38 @@ class EditPasswordViewController: UIViewController {
     @IBOutlet weak var newPass: UITextField!
     @IBOutlet weak var retypePass: UITextField!
     
+    //TODO: need to access old password of user and have access to set new password
     @IBAction func changePassword(_ sender: UIButton) {
+//        if (currentPass.text != oldPass) {
+//            let alert = UIAlertController(title: "Incorrect current password entered!", message: "Please make sure you have the right password.", preferredStyle: UIAlertControllerStyle.alert)
+//            self.present(alert, animated: true, completion: nil)
+//        }
+        
+        if (newPass.text == retypePass.text) {
+            //set users password to newPass
+        } else {
+            let alert = UIAlertController(title: "Passwords do not match!", message: "Please make sure that the same password is entered in both fields.", preferredStyle: UIAlertControllerStyle.alert)
+           
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
     }
     
+    //TODO: access users password and send email 
     @IBAction func forgotPassword(_ sender: UIButton) {
+        let email = Current.user!.email
+        let alert = UIAlertController(title: "Forgot Password", message: "We can send an email to " + email + " with your password.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Send email!", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+            //send email with old password
+        }))
+        alert.addAction(UIAlertAction(title: "Nevermind!", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {

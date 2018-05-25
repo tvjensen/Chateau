@@ -264,6 +264,8 @@
                     <navigationItem key="navigationItem" id="I8J-rR-kK8"/>
                     <connections>
                         <outlet property="email" destination="tQS-V3-BgP" id="Oo1-E4-WoO"/>
+                        <outlet property="profileLabel" destination="WRS-U3-blP" id="eOJ-fe-8hw"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="backToLoginSegue" id="ZPb-zW-whA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dlf-9g-JuE" userLabel="First Responder" sceneMemberID="firstResponder"/>

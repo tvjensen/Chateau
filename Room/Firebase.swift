@@ -94,6 +94,15 @@ class Firebase {
         roomsRef.child("\(room.roomID)/numMembers").setValue(room.numMembers+1)
     }
     
+    public static func leaveRoom(room: Models.Room) {
+        // update user object in db and locally
+        Current.user!.rooms.removeValue(forKey: room.roomID)
+        usersRef.child("\(Current.user!.email)/rooms").setValue(Current.user!.rooms)
+        
+        // update room object in db
+        roomsRef.child("\(room.roomID)/numMembers").setValue(room.numMembers-1)
+    }
+    
     // This function takes in an email and password and creates a user
     // If the user already exists, then it sends back a false boolean value
     // and does not add to database
@@ -120,6 +129,18 @@ class Firebase {
                     }
                 }
             })
+    }
+    
+    public static func deleteCurrentUser() {
+        let userID = Current.user!.email
+        usersRef.child(userID).removeValue { (error, refer) in
+            if error != nil {
+                print(error)
+            } else {
+                print(refer)
+                print("User Removed Correctly")
+            }
+        }
     }
     
     public static func upvote(_ postID: String, _ upvoters: inout [String:Bool]) {
