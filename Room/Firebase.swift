@@ -16,6 +16,7 @@ class Firebase {
     private static let roomsRef = ref.child("rooms")
     private static let usersRef = ref.child("users")
     private static let postsRef = ref.child("Posts")
+    private static let reportsRef = ref.child("reports")
     
     private static var currentTime: Double {
         return Double(NSDate().timeIntervalSince1970)
@@ -172,6 +173,14 @@ class Firebase {
                 callback(rooms)
             }
         })
+    }
+    
+    public static func report(reportType: String, reporterID: String, reportedPostID: String, posterID: String, report: String) {
+        let dict: [String:Any] = ["reportType": reportType, "reporterID": reporterID,
+                                  "reportedPostID": reportedPostID , "posterID": posterID,
+                                  "report": report, "timeReported": currentTime]
+        let newReportRef = reportsRef.childByAutoId()
+        newReportRef.setValue(dict)
     }
     
 }

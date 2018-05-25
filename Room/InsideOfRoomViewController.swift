@@ -16,6 +16,7 @@ class InsideOfRoomViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = room?.name
         tableView.delegate = self
         tableView.dataSource = self
         loadPosts()
