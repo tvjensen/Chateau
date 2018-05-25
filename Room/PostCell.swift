@@ -29,7 +29,7 @@ class PostCell: UITableViewCell {
         })
         alert.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             // Store report
-            Firebase.report(reportType: "post", reporterID: (Current.user?.email)!, reportedPostID: self.post.postID, posterID: self.post.posterID, report: (alert?.textFields![0].text)!)
+            Firebase.report(reportType: "post", reporterID: (Current.user?.email)!, reportedContentID: self.post.postID, posterID: self.post.posterID, report: (alert?.textFields![0].text)!)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             // do nothing

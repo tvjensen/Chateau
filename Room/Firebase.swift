@@ -175,9 +175,9 @@ class Firebase {
         })
     }
     
-    public static func report(reportType: String, reporterID: String, reportedPostID: String, posterID: String, report: String) {
+    public static func report(reportType: String, reporterID: String, reportedContentID: String, posterID: String, report: String) {
         let dict: [String:Any] = ["reportType": reportType, "reporterID": reporterID,
-                                  "reportedPostID": reportedPostID , "posterID": posterID,
+                                  "reportedContentID": reportedContentID , "posterID": posterID,
                                   "report": report, "timeReported": currentTime]
         let newReportRef = reportsRef.childByAutoId()
         newReportRef.setValue(dict)
