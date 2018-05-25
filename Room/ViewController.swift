@@ -37,19 +37,6 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-//    @IBAction func enterEmail(_ sender: SkyFloatingLabelTextField) {
-//        if let text = emailLogInTextField.text {
-//            if let floatingLabelTextField = textField as? SkyFloatingLabelTextField {
-//                if(text.characters.count < 3 || !text.containsString("@")) {
-//                    floatingLabelTextField.errorMessage = "Invalid email"
-//                }
-//                else {
-//                    // The error message will only disappear when we reset it to nil or empty string
-//                    floatingLabelTextField.errorMessage = ""
-//                }
-//            }
-//        }
-//    }
     
     @IBOutlet weak var emailLogin: UITextField!
     @IBOutlet weak var passwordLogin: UITextField!
@@ -57,15 +44,28 @@ class ViewController: UIViewController {
     @IBAction func loginUser(_ sender: Any) {
         let emailLoginText: String = emailLogin.text!
         let passwordLoginText: String = passwordLogin.text!
-        if emailLoginText != "" && passwordLoginText != "" {
+        // don't need to validate stanford.edu here, auth will just find no account with that email
+        if emailLoginText != "" && passwordLoginText != "" { // non-empty, attempt login
             Firebase.createOrLoginUser(emailLoginText, passwordLoginText, false) { success in
-                if success {
+                if success { // successful login, session stored, can segue
                     print("Success in logging in user!")
                     self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
-                } else {
-                    print("That login and password was unsuccessful")
+                } else { // failed to login because of invalid user or password
+                    let alertController = UIAlertController(title: "Error", message: "Invalid email or password. Please confirm your email if you have not confirmed already.", preferredStyle: .alert)
+                    
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    
+                    self.present(alertController, animated: true, completion: nil)
                 }
             }
+        } else { // invalid text entry. TODO: change this to floating sky text or whatever
+            let alertController = UIAlertController(title: "Error", message: "Please enter a valid email and password.", preferredStyle: .alert)
+            
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
     @IBAction func signUp(_ sender: Any) {
         let emailLoginText : String = emailLogin.text!
         let passwordLoginText : String = passwordLogin.text!
-        if ViewController.isValidEmail(email: emailLoginText) && passwordLoginText != "" {
+        if ViewController.isValidEmail(emailLoginText) && passwordLoginText != "" {
             Firebase.registerUser(emailLoginText, passwordLoginText) { success in
                 if success { // successfully registered user, let them know to confirm email
                     let alertController = UIAlertController(title: "Success", message: "You have been sent an email confirmation link. Please confirm your email to login.", preferredStyle: .alert)
@@ -87,7 +87,7 @@ class ViewController: UIViewController {
                     self.present(alertController, animated: true, completion: nil)
                 }
             }
-        } else { // either invalid stanford email or blank password
+        } else { // either invalid stanford email or blank password. TODO: change this to floating sky text or whatever
             let alertController = UIAlertController(title: "Error", message: "Please enter a valid stanford.edu email and password", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
@@ -95,7 +95,8 @@ class ViewController: UIViewController {
         }
     }
     
-    static func isValidEmail(email: String) -> Bool {
+    /* Returns true if provided email is of valid stanford.edu form*/
+    static func isValidEmail(_ email: String) -> Bool {
         let emailPattern = "[A-Z0-9a-z._%+-]+@stanford\\.edu"
         return NSPredicate(format: "SELF MATCHES %@", emailPattern).evaluate(with:email.lowercased())
     }

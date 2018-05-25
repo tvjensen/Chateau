@@ -123,6 +123,29 @@ class Firebase {
             })
     }
     
+    /* Logs in user by authenticating if they exist/have correct password. Returns true on success.
+     TODO: change this to return error
+     */
+    public static func loginUser(_ emailLoginText: String, _ passwordLoginText: String, callback: @escaping (Bool) -> Void) {
+        Auth.auth().signIn(withEmail: emailLoginText.lowercased(), password: passwordLoginText) { (user, error) in
+            if error == nil && (user?.isEmailVerified)! { // successfully logged in user AND user has already verified email
+                print("Successful login")
+                usersRef.child("\(emailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
+                    if snapshot.exists() {
+                        Current.user = Models.User(snapshot: snapshot) // get user metadata from DB
+                        SessionManager.storeSession(session: emailLoginText) // store sesh to stay logged in
+                        callback(true)
+                    } else {
+                        callback(false)
+                    }
+                })
+            } else { // user not found or password wrong
+                // TODO: sign out user if they exist but haven't verified email?
+                callback(false)
+            }
+        }
+    }
+    
     /* Registers user by creating a user instance in both the Firebase Auth and database.
      Returns true on success.
     */
