@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseAuth
 
 class Firebase {
     
@@ -131,6 +132,67 @@ class Firebase {
             })
     }
     
+
+    /* Logs in user by authenticating if they exist/have correct password. Returns true on success.
+     TODO: change this to return error
+     */
+    public static func loginUser(_ emailLoginText: String, _ passwordLoginText: String, callback: @escaping (Bool) -> Void) {
+        // Firebase does not accept certain tokens such as '.' so we must encode emails by replacing dots with commas. tvjensen@stanford.edu becomes tvjensen@stanford,edu
+        let validEmailLoginText =  emailLoginText.replacingOccurrences(of: ".", with: ",")
+        Auth.auth().signIn(withEmail: emailLoginText.lowercased(), password: passwordLoginText) { (user, error) in
+            if error == nil && (user?.isEmailVerified)! { // successfully logged in user AND user has already verified email
+                print("Successful login")
+                usersRef.child("\(validEmailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
+                    if snapshot.exists() {
+                        Current.user = Models.User(snapshot: snapshot) // get user metadata from DB
+                        SessionManager.storeSession(session: validEmailLoginText) // store sesh to stay logged in
+                        callback(true)
+                    } else {
+                        callback(false)
+                    }
+                })
+            } else { // user not found or password wrong
+                // TODO: sign out user if they exist but haven't verified email?
+                callback(false)
+            }
+        }
+    }
+    
+    /* Registers user by creating a user instance in both the Firebase Auth and database.
+     Returns true on success.
+    */
+    public static func registerUser(_ emailLoginText: String, _ passwordLoginText: String, callback: @escaping (Bool) -> Void) {
+        // create this user Auth object (Firebase will handle salting/hashing/store the password server side
+        Auth.auth().createUser(withEmail: emailLoginText.lowercased(), password: passwordLoginText) { (user, error) in
+            if error == nil { // successfully created user in auth
+                user?.sendEmailVerification(completion: { (error) in
+                    if let error = error { // failed to send email, return false
+                        print(error.localizedDescription)
+                        callback(false)
+                    }
+                    print("Sent email verification")
+                    // Firebase does not accept certain tokens such as '.' so we must encode emails by replacing dots with commas. tvjensen@stanford.edu becomes tvjensen@stanford,edu
+                    let validEmailLoginText =  emailLoginText.replacingOccurrences(of: ".", with: ",")
+                    // we have to create a user object for this user in the db (not in auth, which we already did with createUser( )
+                    
+                    usersRef.child("\(validEmailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
+                        if snapshot.exists() {
+                            callback(false)
+                        } else {
+                            let dict = ["email": validEmailLoginText]
+                            self.usersRef.child(validEmailLoginText.lowercased()).setValue(dict) // update email for this user in the db
+                            // TODO: remove password field from Models.User.
+//                            Current.user = Models.User(dict: dict)
+                            callback(true)
+                        }
+                    })
+                })
+            } else {
+                callback(false)
+            }
+        }
+    }
+
     public static func deleteCurrentUser() {
         let userID = Current.user!.email
         usersRef.child(userID).removeValue { (error, refer) in
@@ -139,6 +201,7 @@ class Firebase {
             } else {
                 print(refer)
                 print("User Removed Correctly")
+
             }
         }
     }
