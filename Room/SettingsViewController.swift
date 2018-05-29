@@ -28,7 +28,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        email.text = Current.user!.email
+        email.text = Current.user!.email.replacingOccurrences(of: ",", with: ".")
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,19 +52,31 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func deleteAccount(_ sender: Any) {
-        let alert = UIAlertController(title: "Delete Account", message: "Are you sure that you want to delete your account? You will be removed from all your current Rooms.", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+        let alert = UIAlertController(title: "Delete Account", message: "Please enter your password to delete your account.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "password"
+        })
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             Firebase.getMyRooms() {rooms in
                 for room in rooms {
                     Firebase.leaveRoom(room: room)
                 }
             }
-            Firebase.deleteCurrentUser()
-            SessionManager.refreshState()
-            self.performSegue(withIdentifier: "backToLoginSegue", sender: nil)
-            self.email.text = nil
-            Current.user = nil
+            Firebase.deleteCurrentUser(password: (alert?.textFields![0].text)!) { success in
+                if success {
+                    SessionManager.refreshState()
+                    self.performSegue(withIdentifier: "backToLoginSegue", sender: nil)
+                    self.email.text = nil
+                    Current.user = nil
+                } else {
+                    let alertError = UIAlertController(title: "Error Deleting Account", message: "Please try again. Confirm you entered a correct password. ", preferredStyle: UIAlertControllerStyle.alert)
+                    alertError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+                        //do nothing
+                    }))
+                    self.present(alertError, animated: true, completion: nil)
+                }
+            }
+            
         }))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             //do nothing

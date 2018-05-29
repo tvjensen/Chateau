@@ -193,15 +193,31 @@ class Firebase {
         }
     }
 
-    public static func deleteCurrentUser() {
+    public static func deleteCurrentUser(password: String, callback: @escaping (Bool) -> Void) {
         let userID = Current.user!.email
         usersRef.child(userID).removeValue { (error, refer) in
             if error != nil {
-                print(error)
+                print(error as Any)
             } else {
                 print(refer)
                 print("User Removed Correctly")
 
+            }
+        }
+        let email = (Current.user?.email)!.replacingOccurrences(of: ",", with: ".")
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if error == nil { // correct old password, can update
+                user?.delete { error in
+                    if error != nil {
+                        print("Failed to delete account")
+                        callback(false)
+                    } else {
+                        print("Successfully deleted account")
+                        callback(true)
+                    }
+                }
+            } else {
+                callback(false)
             }
         }
     }
@@ -256,6 +272,25 @@ class Firebase {
                 callback(rooms)
             }
         })
+    }
+    
+    public static func updatePassword(oldPassword: String, newPassword: String, callback: @escaping (Bool) -> Void) {
+        let email = (Current.user?.email)!.replacingOccurrences(of: ",", with: ".")
+        Auth.auth().signIn(withEmail: email, password: oldPassword) { (user, error) in
+            if error == nil { // correct old password, can update
+                user?.updatePassword(to: newPassword) { (error) in
+                    if error == nil {
+                        print("Successfully update password")
+                        callback(true)
+                    } else {
+                        print("Failed to update password")
+                        callback(false)
+                    }
+                }
+            } else { // password incorrect, return false
+                callback(false)
+            }
+        }
     }
     
 }

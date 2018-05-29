@@ -33,6 +33,7 @@ class ViewController: UIViewController {
 //        }
         emailLogin.delegate = self
         passwordLogin.delegate = self
+        passwordLogin.isSecureTextEntry = true
     }
 
     override func didReceiveMemoryWarning() {
