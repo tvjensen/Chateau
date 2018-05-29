@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36D49820A3F042007E48C9 /* PopupViewController.swift */; };
+		1F89ABB020BDFEE600758A9D /* InsideOfPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89ABAF20BDFEE600758A9D /* InsideOfPostViewController.swift */; };
+		1F89ABB220BE042100758A9D /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89ABB120BE042100758A9D /* CommentCell.swift */; };
 		2E35B5C920A21B5900F1BDE6 /* MyRoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E35B5C820A21B5900F1BDE6 /* MyRoomsViewController.swift */; };
 		2ECF954520ACDDB30014512E /* MyRoomPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF954420ACDDB30014512E /* MyRoomPreviewTableViewCell.swift */; };
 		3EC2D28A895088B8740AE58E /* Pods_Room.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51EA329FB92475760F7B3462 /* Pods_Room.framework */; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		1F36D49820A3F042007E48C9 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		1F89ABAF20BDFEE600758A9D /* InsideOfPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsideOfPostViewController.swift; sourceTree = "<group>"; };
+		1F89ABB120BE042100758A9D /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		2E35B5C820A21B5900F1BDE6 /* MyRoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomsViewController.swift; sourceTree = "<group>"; };
 		2ECF954420ACDDB30014512E /* MyRoomPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomPreviewTableViewCell.swift; sourceTree = "<group>"; };
 		4B782A1720AD3CB30005B2D4 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 				4BBF9F71208E7A390012CE86 /* AppDelegate.swift */,
 				4BBF9F73208E7A390012CE86 /* ViewController.swift */,
 				94E747B620AA3C6300766CAF /* InsideOfRoomViewController.swift */,
+				1F89ABAF20BDFEE600758A9D /* InsideOfPostViewController.swift */,
 				4BBF9F7B208E7A3A0012CE86 /* Assets.xcassets */,
 				1F36D49820A3F042007E48C9 /* PopupViewController.swift */,
 				4BBF9F75208E7A390012CE86 /* Main.storyboard */,
@@ -123,6 +128,7 @@
 				4BE73190209B807E0039F8F2 /* Firebase.swift */,
 				4BE73192209B83600039F8F2 /* ExploreViewController.swift */,
 				522A38C5209B8239004E2323 /* Models.swift */,
+				1F89ABB120BE042100758A9D /* CommentCell.swift */,
 				4BE73196209BCE170039F8F2 /* RoomAnnotation.swift */,
 				2E35B5C820A21B5900F1BDE6 /* MyRoomsViewController.swift */,
 				4BFD2DB220ACD8810003BD80 /* LocationManager.swift */,
@@ -169,7 +175,7 @@
 				TargetAttributes = {
 					4BBF9F6D208E7A390012CE86 = {
 						CreatedOnToolsVersion = 9.3;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -274,12 +280,14 @@
 			files = (
 				4BBF9F74208E7A390012CE86 /* ViewController.swift in Sources */,
 				4BBF9F7A208E7A390012CE86 /* Room.xcdatamodeld in Sources */,
+				1F89ABB020BDFEE600758A9D /* InsideOfPostViewController.swift in Sources */,
 				4BE73193209B83600039F8F2 /* ExploreViewController.swift in Sources */,
 				2E35B5C920A21B5900F1BDE6 /* MyRoomsViewController.swift in Sources */,
 				4BE73197209BCE170039F8F2 /* RoomAnnotation.swift in Sources */,
 				4BFD2DB520ACE1350003BD80 /* Current.swift in Sources */,
 				2ECF954520ACDDB30014512E /* MyRoomPreviewTableViewCell.swift in Sources */,
 				4BE73191209B807E0039F8F2 /* Firebase.swift in Sources */,
+				1F89ABB220BE042100758A9D /* CommentCell.swift in Sources */,
 				4BBF9F72208E7A390012CE86 /* AppDelegate.swift in Sources */,
 				4BFD2DB320ACD8810003BD80 /* LocationManager.swift in Sources */,
 				1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */,
@@ -430,12 +438,14 @@
 			baseConfigurationReference = DC109A1296EC6ABAC8E0EC79 /* Pods-Room.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UZ9Y7C37N9;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Room/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.csmith95.Room;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -446,12 +456,14 @@
 			baseConfigurationReference = D043A0BF58CBF05F67AC7F66 /* Pods-Room.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UZ9Y7C37N9;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Room/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.csmith95.Room;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

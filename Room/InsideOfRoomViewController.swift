@@ -13,6 +13,7 @@ class InsideOfRoomViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var room: Models.Room?
     private var posts: [Models.Post] = []
+    private var selectedPost: Models.Post?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class InsideOfRoomViewController: UIViewController {
     @IBAction func writePost(_ sender: Any) {
         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupID") as! PopupViewController
         popOverVC.roomID = room?.roomID
+        popOverVC.isComment = false
         popOverVC.onDoneBlock = {
             self.loadPosts()
         }
@@ -38,6 +40,13 @@ class InsideOfRoomViewController: UIViewController {
         popOverVC.view.frame = self.view.frame
         self.view.addSubview(popOverVC.view)
         popOverVC.didMove(toParentViewController: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "insideOfPostSegue") {
+            let vc = segue.destination as! InsideOfPostViewController
+            vc.post = selectedPost!
+        }
     }
 }
 
@@ -51,6 +60,8 @@ extension InsideOfRoomViewController: UITableViewDelegate, UITableViewDataSource
 //        let destinationVC = InsideOfRoomViewController()
 //        destinationVC.room = selectedRoom
 //        destinationVC.performSegue(withIdentifier: "insideOfPostSegue", sender: self)
+        self.selectedPost = self.posts[indexPath.row]
+        self.performSegue(withIdentifier: "insideOfPostSegue", sender: self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
