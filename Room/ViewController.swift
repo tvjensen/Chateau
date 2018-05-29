@@ -19,15 +19,15 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         //fetchSession
-        if let userEmail = SessionManager.fetchSession() {
-            Firebase.createOrLoginUser(userEmail, " ", false) {success in //sets current user
-                if success {
-                    self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
-                } else {
-                    print("Failed to use stored session to set current user.")
-                }
-            }
-        }
+//        if let userEmail = SessionManager.fetchSession() {
+//            Firebase.createOrLoginUser(userEmail, " ", false) {success in //sets current user
+//                if success {
+//                    self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
+//                } else {
+//                    print("Failed to use stored session to set current user.")
+//                }
+//            }
+//        }
         emailLogin.delegate = self
         passwordLogin.delegate = self
     }
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         let passwordLoginText: String = passwordLogin.text!
         // don't need to validate stanford.edu here, auth will just find no account with that email
         if emailLoginText != "" && passwordLoginText != "" { // non-empty, attempt login
-            Firebase.loginUser(<#T##emailLoginText: String##String#>, <#T##passwordLoginText: String##String#>) { success in
+            Firebase.loginUser(emailLoginText.lowercased(), passwordLoginText) { success in
                 if success { // successful login, session stored, can segue
                     print("Success in logging in user!")
                     self.performSegue(withIdentifier: "loggedInSegue", sender: nil)

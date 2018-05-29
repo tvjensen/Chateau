@@ -127,13 +127,15 @@ class Firebase {
      TODO: change this to return error
      */
     public static func loginUser(_ emailLoginText: String, _ passwordLoginText: String, callback: @escaping (Bool) -> Void) {
+        // Firebase does not accept certain tokens such as '.' so we must encode emails by replacing dots with commas. tvjensen@stanford.edu becomes tvjensen@stanford,edu
+        let validEmailLoginText =  emailLoginText.replacingOccurrences(of: ".", with: ",")
         Auth.auth().signIn(withEmail: emailLoginText.lowercased(), password: passwordLoginText) { (user, error) in
             if error == nil && (user?.isEmailVerified)! { // successfully logged in user AND user has already verified email
                 print("Successful login")
-                usersRef.child("\(emailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
+                usersRef.child("\(validEmailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
                     if snapshot.exists() {
                         Current.user = Models.User(snapshot: snapshot) // get user metadata from DB
-                        SessionManager.storeSession(session: emailLoginText) // store sesh to stay logged in
+                        SessionManager.storeSession(session: validEmailLoginText) // store sesh to stay logged in
                         callback(true)
                     } else {
                         callback(false)
@@ -159,15 +161,18 @@ class Firebase {
                         callback(false)
                     }
                     print("Sent email verification")
-                    // we have to create a user object for this user in the db (not in auth, which we already did with createUser()
-                    usersRef.child("\(emailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
+                    // Firebase does not accept certain tokens such as '.' so we must encode emails by replacing dots with commas. tvjensen@stanford.edu becomes tvjensen@stanford,edu
+                    let validEmailLoginText =  emailLoginText.replacingOccurrences(of: ".", with: ",")
+                    // we have to create a user object for this user in the db (not in auth, which we already did with createUser( )
+                    
+                    usersRef.child("\(validEmailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
                         if snapshot.exists() {
                             callback(false)
                         } else {
-                            let dict = ["email": emailLoginText]
-                            self.usersRef.child(emailLoginText.lowercased()).setValue(dict) // update email for this user in the db
+                            let dict = ["email": validEmailLoginText]
+                            self.usersRef.child(validEmailLoginText.lowercased()).setValue(dict) // update email for this user in the db
                             // TODO: remove password field from Models.User.
-                            Current.user = Models.User(dict: dict)
+//                            Current.user = Models.User(dict: dict)
                             callback(true)
                         }
                     })
