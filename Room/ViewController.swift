@@ -19,6 +19,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         //fetchSession
+        if let userEmail = SessionManager.fetchSession() {
+            self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
+        }
 //        if let userEmail = SessionManager.fetchSession() {
 //            Firebase.createOrLoginUser(userEmail, " ", false) {success in //sets current user
 //                if success {
