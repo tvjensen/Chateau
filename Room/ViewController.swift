@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         let passwordLoginText: String = passwordLogin.text!
         // don't need to validate stanford.edu here, auth will just find no account with that email
         if emailLoginText != "" && passwordLoginText != "" { // non-empty, attempt login
-            Firebase.createOrLoginUser(emailLoginText, passwordLoginText, false) { success in
+            Firebase.loginUser(<#T##emailLoginText: String##String#>, <#T##passwordLoginText: String##String#>) { success in
                 if success { // successful login, session stored, can segue
                     print("Success in logging in user!")
                     self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
