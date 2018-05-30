@@ -33,6 +33,14 @@ class MyRoomsViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        Firebase.getMyRooms() { rooms in
+            self.rooms = rooms
+            self.filteredRooms = rooms
+            self.tableView.reloadData()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

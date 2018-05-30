@@ -22,6 +22,10 @@ class InsideOfRoomViewController: UIViewController {
         loadPosts()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadPosts()
+    }
+    
     private func loadPosts() {
         Firebase.fetchPosts(self.room!) { posts in
             self.posts = posts

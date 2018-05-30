@@ -22,6 +22,10 @@ class InsideOfPostViewController: UIViewController {
         loadComments()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadComments()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
