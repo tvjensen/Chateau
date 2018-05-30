@@ -13,6 +13,7 @@ class InsideOfRoomViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var room: Models.Room?
     private var posts: [Models.Post] = []
+    private var selectedPost: Models.Post?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +23,13 @@ class InsideOfRoomViewController: UIViewController {
         loadPosts()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadPosts()
+    }
+    
     private func loadPosts() {
         Firebase.fetchPosts(self.room!) { posts in
-            self.posts = posts
+            self.posts = posts.sorted(by: Models.Post.postSorter)
             self.tableView.reloadData()
         }
     }
@@ -32,6 +37,7 @@ class InsideOfRoomViewController: UIViewController {
     @IBAction func writePost(_ sender: Any) {
         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupID") as! PopupViewController
         popOverVC.roomID = room?.roomID
+        popOverVC.isComment = false
         popOverVC.onDoneBlock = {
             self.loadPosts()
         }
@@ -68,7 +74,16 @@ class InsideOfRoomViewController: UIViewController {
         
         self.present(alertOptions, animated: true, completion: nil)
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "insideOfPostSegue") {
+            let vc = segue.destination as! InsideOfPostViewController
+            vc.post = selectedPost!
+        }
+    }
 }
+
+
 
 extension InsideOfRoomViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -80,6 +95,8 @@ extension InsideOfRoomViewController: UITableViewDelegate, UITableViewDataSource
 //        let destinationVC = InsideOfRoomViewController()
 //        destinationVC.room = selectedRoom
 //        destinationVC.performSegue(withIdentifier: "insideOfPostSegue", sender: self)
+        self.selectedPost = self.posts[indexPath.row]
+        self.performSegue(withIdentifier: "insideOfPostSegue", sender: self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

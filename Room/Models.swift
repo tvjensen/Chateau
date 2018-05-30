@@ -95,6 +95,7 @@ class Models {
         var posterID: String
         var upvoters: [String: Bool] = [:]
         var downvoters: [String: Bool] = [:]
+        var netVotes: Int
         var timestamp: Double
         
         var firebaseDict: [String : Any] {
@@ -105,6 +106,7 @@ class Models {
                                        "upvoters": self.upvoters,
                                        "timestamp": self.timestamp,
                                        "downvoters": self.downvoters,
+                                       "netVotes": self.netVotes
                                        ]
             return dict
         }
@@ -115,6 +117,7 @@ class Models {
             guard let body = dict["body"] as? String else { return nil }
             guard let posterID = dict["posterID"] as? String else { return nil }
             guard let timestamp = dict["timestamp"] as? Double else { return nil }
+            guard let netVotes = dict["netVotes"] as? Int else { return nil }
             
             self.postID = postID
             self.roomID = roomID
@@ -123,9 +126,12 @@ class Models {
             self.timestamp = timestamp
             self.upvoters = dict["upvoters"] as? [String: Bool] ?? [:]
             self.downvoters = dict["downvoters"] as? [String: Bool] ?? [:]
+            self.netVotes = netVotes
         }
         
     }
+    
+
     
     /* Relation for comment object. Key is commentID. Note that upvoters is a nested dict entity.
      This is justified because the number of unique upvoters is data that needs to be
@@ -135,17 +141,19 @@ class Models {
         var commentID: String
         var postID: String
         var body: String
-        var posterEmail: String
+        var posterID: String
         var upvoters: [String: Bool] = [:]
+        var downvoters: [String: Bool] = [:]
         var timestamp: Double
         
         var firebaseDict: [String : Any] {
             let dict: [String: Any] = ["commentID": self.postID,
                                        "postID": self.postID,
                                        "body":self.body,
-                                       "posterEmail": self.posterEmail,
+                                       "posterID": self.posterID,
                                        "upvoters": self.upvoters,
                                        "timestamp": self.timestamp,
+                                       "downvoters": self.downvoters,
             ]
             return dict
         }
@@ -154,18 +162,23 @@ class Models {
             guard let commentID = dict["commentID"] as? String else { return nil }
             guard let postID = dict["postID"] as? String else { return nil }
             guard let body = dict["body"] as? String else { return nil }
-            guard let posterEmail = dict["posterEmail"] as? String else { return nil }
+            guard let posterID = dict["posterID"] as? String else { return nil }
             guard let timestamp = dict["timestamp"] as? Double else { return nil }
             
             self.commentID = commentID
             self.postID = postID
             self.body = body
-            self.posterEmail = posterEmail
+            self.posterID = posterID
             self.timestamp = timestamp
             self.upvoters = dict["upvoters"] as? [String: Bool] ?? [:]
+            self.downvoters = dict["downvoters"] as? [String: Bool] ?? [:]
         }
         
     }
+}
+
+extension Models.Post {
+    static let postSorter: (Models.Post, Models.Post) -> Bool = { $0.netVotes > $1.netVotes }
 }
 
 

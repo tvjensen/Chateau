@@ -54,11 +54,12 @@ class PostCell: UITableViewCell {
     
     @IBAction func upvotePressed(_ sender: Any) {
         if post.upvoters.keys.contains(Current.user!.email) { return }
+        let newNetVotes = post.netVotes + 1
         if post.downvoters.keys.contains(Current.user!.email) {
-            Firebase.removeDownvote(post.postID, &post.downvoters)
+            Firebase.removeDownvote(post.postID, &post.downvoters, newNetVotes)
             downvoteButton.isSelected = false
         } else {
-            Firebase.upvote(post.postID, &post.upvoters)
+            Firebase.upvote(post.postID, &post.upvoters, netVotes: newNetVotes)
             upvoteButton.isSelected = true
         }
         
@@ -67,11 +68,12 @@ class PostCell: UITableViewCell {
     
     @IBAction func downvotePressed(_ sender: Any) {
         if post.downvoters.keys.contains(Current.user!.email) { return }
+        let newNetVotes = post.netVotes - 1
         if post.upvoters.keys.contains(Current.user!.email) {
-            Firebase.removeUpvote(post.postID, &post.upvoters)
+            Firebase.removeUpvote(post.postID, &post.upvoters, newNetVotes)
             upvoteButton.isSelected = false
         } else {
-            Firebase.downvote(post.postID, &post.downvoters)
+            Firebase.downvote(post.postID, &post.downvoters, newNetVotes)
             downvoteButton.isSelected = true
         }
         
