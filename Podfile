@@ -4,10 +4,10 @@
 target 'Room' do
     # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
     use_frameworks!
-    
+
     # Pods for Room
     pod 'SkyFloatingLabelTextField', '~> 3.0'
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
-    
+
 end
