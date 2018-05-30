@@ -89,9 +89,10 @@ class Firebase {
     public static func createPost(_ roomID:String, _ body:String){
         let ref = postsRef.childByAutoId()
         postsRef.child(ref.key).setValue(["roomID": roomID,
-                                          "body": body,
-                                          "posterID": Current.user!.email,
-                                          "timestamp": currentTime])
+                                            "body": body,
+                                            "posterID": Current.user!.email,
+                                            "timestamp": currentTime,
+                                            "netVotes": 0])
         roomsRef.child("\(roomID)/posts/\(ref.key)").setValue(true)
     }
     
@@ -166,7 +167,6 @@ class Firebase {
             })
     }
     
-
     /* Logs in user by authenticating if they exist/have correct password. Returns true on success.
      TODO: change this to return error
      */
@@ -256,28 +256,34 @@ class Firebase {
         }
     }
     
-    public static func upvote(_ postID: String, _ upvoters: inout [String:Bool]) {
+    public static func upvote(_ postID: String, _ upvoters: inout [String:Bool], _ netVotes: Int) {
         let userID = Current.user!.email
         upvoters[userID] = true
         postsRef.child("\(postID)/upvoters").setValue(upvoters)
+        postsRef.child("\(postID)/netVotes").setValue(netVotes)
     }
     
-    public static func downvote(_ postID: String, _ downvoters: inout [String:Bool]) {
+    public static func downvote(_ postID: String, _ downvoters: inout [String:Bool], _ netVotes: Int) {
         let userID = Current.user!.email
         downvoters[userID] = true
         postsRef.child("\(postID)/downvoters").setValue(downvoters)
+        postsRef.child("\(postID)/netVotes").setValue(netVotes)
+        
     }
     
-    public static func removeUpvote(_ postID: String, _ upvoters: inout [String:Bool]) {
+    public static func removeUpvote(_ postID: String, _ upvoters: inout [String:Bool], _ netVotes: Int) {
         let userID = Current.user!.email
         upvoters.removeValue(forKey: userID)
         postsRef.child("\(postID)/upvoters").setValue(upvoters)
+        postsRef.child("\(postID)/netVotes").setValue(netVotes)
+
     }
     
-    public static func removeDownvote(_ postID: String, _ downvoters: inout [String:Bool]) {
+    public static func removeDownvote(_ postID: String, _ downvoters: inout [String:Bool], _ netVotes: Int) {
         let userID = Current.user!.email
         downvoters.removeValue(forKey: userID)
         postsRef.child("\(postID)/downvoters").setValue(downvoters)
+        postsRef.child("\(postID)/netVotes").setValue(netVotes)
     }
     
     public static func commentUpvote(_ commentID: String, _ upvoters: inout [String:Bool]) {
