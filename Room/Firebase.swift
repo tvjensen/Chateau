@@ -65,7 +65,8 @@ class Firebase {
         postsRef.child(ref.key).setValue(["roomID": roomID,
                                             "body": body,
                                             "posterID": Current.user!.email,
-                                            "timestamp": currentTime])
+                                            "timestamp": currentTime,
+                                            "netVotes": 0])
         roomsRef.child("\(roomID)/posts/\(ref.key)").setValue(true)
     }
     
@@ -122,28 +123,38 @@ class Firebase {
             })
     }
     
-    public static func upvote(_ postID: String, _ upvoters: inout [String:Bool]) {
+    public static func logoutUser(){
+        Current.user = nil
+    }
+    
+    public static func upvote(_ postID: String, _ upvoters: inout [String:Bool], _ netVotes: Int) {
         let userID = Current.user!.email
         upvoters[userID] = true
         postsRef.child("\(postID)/upvoters").setValue(upvoters)
+        postsRef.child("\(postID)/netVotes").setValue(netVotes)
     }
     
-    public static func downvote(_ postID: String, _ downvoters: inout [String:Bool]) {
+    public static func downvote(_ postID: String, _ downvoters: inout [String:Bool], _ netVotes: Int) {
         let userID = Current.user!.email
         downvoters[userID] = true
         postsRef.child("\(postID)/downvoters").setValue(downvoters)
+        postsRef.child("\(postID)/netVotes").setValue(netVotes)
+        
     }
     
-    public static func removeUpvote(_ postID: String, _ upvoters: inout [String:Bool]) {
+    public static func removeUpvote(_ postID: String, _ upvoters: inout [String:Bool], _ netVotes: Int) {
         let userID = Current.user!.email
         upvoters.removeValue(forKey: userID)
         postsRef.child("\(postID)/upvoters").setValue(upvoters)
+        postsRef.child("\(postID)/netVotes").setValue(netVotes)
+
     }
     
-    public static func removeDownvote(_ postID: String, _ downvoters: inout [String:Bool]) {
+    public static func removeDownvote(_ postID: String, _ downvoters: inout [String:Bool], _ netVotes: Int) {
         let userID = Current.user!.email
         downvoters.removeValue(forKey: userID)
         postsRef.child("\(postID)/downvoters").setValue(downvoters)
+        postsRef.child("\(postID)/netVotes").setValue(netVotes)
     }
     
     /*

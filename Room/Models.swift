@@ -95,6 +95,7 @@ class Models {
         var posterID: String
         var upvoters: [String: Bool] = [:]
         var downvoters: [String: Bool] = [:]
+        var netVotes: Int
         var timestamp: Double
         
         var firebaseDict: [String : Any] {
@@ -105,6 +106,7 @@ class Models {
                                        "upvoters": self.upvoters,
                                        "timestamp": self.timestamp,
                                        "downvoters": self.downvoters,
+                                       "netVotes": self.netVotes
                                        ]
             return dict
         }
@@ -115,6 +117,7 @@ class Models {
             guard let body = dict["body"] as? String else { return nil }
             guard let posterID = dict["posterID"] as? String else { return nil }
             guard let timestamp = dict["timestamp"] as? Double else { return nil }
+            guard let netVotes = dict["netVotes"] as? Int else { return nil }
             
             self.postID = postID
             self.roomID = roomID
@@ -123,9 +126,12 @@ class Models {
             self.timestamp = timestamp
             self.upvoters = dict["upvoters"] as? [String: Bool] ?? [:]
             self.downvoters = dict["downvoters"] as? [String: Bool] ?? [:]
+            self.netVotes = netVotes
         }
         
     }
+    
+
     
     /* Relation for comment object. Key is commentID. Note that upvoters is a nested dict entity.
      This is justified because the number of unique upvoters is data that needs to be
@@ -166,6 +172,10 @@ class Models {
         }
         
     }
+}
+
+extension Models.Post {
+    static let postSorter: (Models.Post, Models.Post) -> Bool = { $0.netVotes > $1.netVotes }
 }
 
 

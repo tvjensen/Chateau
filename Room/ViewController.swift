@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        print("Just loaded the login page")
         
         //fetchSession
         if let userEmail = SessionManager.fetchSession() {
