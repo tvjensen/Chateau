@@ -833,6 +833,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BNL-RJ-g97" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="120.8" y="1523.3883058470765"/>
+        </scene>
         <!--Inside Of Room View Controller-->
         <scene sceneID="x70-L1-pfB">
             <objects>
