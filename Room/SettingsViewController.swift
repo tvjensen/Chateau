@@ -18,12 +18,6 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         email.text = Current.user!.email
-        let screenSize: CGRect = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-        var lineView = UIView(frame: CGRect(x: 16, y: self.profileLabel.frame.maxY+15, width: screenWidth-32, height: 1.0))
-        lineView.layer.borderWidth = 1.0
-        lineView.layer.borderColor = UIColor.black.cgColor
-        self.view.addSubview(lineView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
