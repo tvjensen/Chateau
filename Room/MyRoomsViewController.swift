@@ -51,6 +51,7 @@ class MyRoomsViewController: UIViewController {
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Room name"
         })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Create", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             let name = (alert?.textFields![0].text)!
             Firebase.createRoom(name) { newRoom in

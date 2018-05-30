@@ -215,9 +215,11 @@ class Firebase {
             let dispatchGroup = DispatchGroup()
             while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB
                 dispatchGroup.enter()
-                roomsRef.child(r.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                roomsRef.child(r.key).observeSingleEvent(of: .value, with: { (room_snapshot) in
                     print(r.key)
-                    var dict = snapshot.value as! [String : Any?]
+                    print(room_snapshot)
+                    print(room_snapshot.value)
+                    var dict = room_snapshot.value as! [String : Any?]
                     print(r.key)
                     dict["roomID"] = r.key
                     if let room = Models.Room(dict: dict) { // cast to Room
