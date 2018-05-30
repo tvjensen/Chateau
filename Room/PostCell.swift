@@ -43,7 +43,7 @@ class PostCell: UITableViewCell {
             Firebase.removeDownvote(post.postID, &post.downvoters, newNetVotes)
             downvoteButton.isSelected = false
         } else {
-            Firebase.upvote(post.postID, &post.upvoters, newNetVotes)
+            Firebase.upvote(post.postID, &post.upvoters, netVotes: newNetVotes)
             upvoteButton.isSelected = true
         }
         

@@ -257,7 +257,7 @@ class Firebase {
         }
     }
     
-    public static func upvote(_ postID: String, _ upvoters: inout [String:Bool]) {
+    public static func upvote(_ postID: String, _ upvoters: inout [String:Bool], netVotes: Int) {
         let userID = Current.user!.email
         upvoters[userID] = true
         postsRef.child("\(postID)/upvoters").setValue(upvoters)
