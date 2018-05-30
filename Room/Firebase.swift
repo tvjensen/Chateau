@@ -17,6 +17,7 @@ class Firebase {
     private static let roomsRef = ref.child("rooms")
     private static let usersRef = ref.child("users")
     private static let postsRef = ref.child("Posts")
+    private static let commentsRef = ref.child("comments")
     
     private static var currentTime: Double {
         return Double(NSDate().timeIntervalSince1970)
@@ -61,13 +62,46 @@ class Firebase {
         })
     }
     
+    public static func fetchComments(_ post: Models.Post, callback: @escaping ([Models.Comment]) -> Void) {
+        postsRef.child("\(post.postID)/comments").observeSingleEvent(of: .value, with: { (snapshot) in
+            if (!snapshot.exists()) { return }
+            let enumerator = snapshot.children // to iterate through room IDS associated with this user
+            var comments: [Models.Comment] = [] // array to be returned
+            let dispatchGroup = DispatchGroup()
+            while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB
+                dispatchGroup.enter()
+                commentsRef.child("\(r.key)").observeSingleEvent(of: .value, with: { (snapshot) in
+                    var dict = snapshot.value as! [String : Any?]
+                    dict["commentID"] = r.key
+                    if let comment = Models.Comment(dict: dict) {
+                        comments.append(comment) // add to result
+                    }
+                    dispatchGroup.leave()
+                })
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                callback(comments)
+            }
+        })
+    }
+    
     public static func createPost(_ roomID:String, _ body:String){
         let ref = postsRef.childByAutoId()
         postsRef.child(ref.key).setValue(["roomID": roomID,
-                                            "body": body,
-                                            "posterID": Current.user!.email,
-                                            "timestamp": currentTime])
+                                          "body": body,
+                                          "posterID": Current.user!.email,
+                                          "timestamp": currentTime])
         roomsRef.child("\(roomID)/posts/\(ref.key)").setValue(true)
+    }
+    
+    public static func createComment(_ postID:String, _ body:String){
+        let ref = commentsRef.childByAutoId()
+        commentsRef.child(ref.key).setValue(["postID": postID,
+                                          "body": body,
+                                          "posterID": Current.user!.email,
+                                          "timestamp": currentTime])
+        postsRef.child("\(postID)/comments/\(ref.key)").setValue(true)
     }
     
     public static func createRoom(_ name: String, callback: @escaping (Models.Room) -> Void) {
@@ -246,6 +280,30 @@ class Firebase {
         postsRef.child("\(postID)/downvoters").setValue(downvoters)
     }
     
+    public static func commentUpvote(_ commentID: String, _ upvoters: inout [String:Bool]) {
+        let userID = Current.user!.email
+        upvoters[userID] = true
+        commentsRef.child("\(commentID)/upvoters").setValue(upvoters)
+    }
+    
+    public static func commentDownvote(_ commentID: String, _ downvoters: inout [String:Bool]) {
+        let userID = Current.user!.email
+        downvoters[userID] = true
+        commentsRef.child("\(commentID)/downvoters").setValue(downvoters)
+    }
+    
+    public static func commentRemoveUpvote(_ commentID: String, _ upvoters: inout [String:Bool]) {
+        let userID = Current.user!.email
+        upvoters.removeValue(forKey: userID)
+        commentsRef.child("\(commentID)/upvoters").setValue(upvoters)
+    }
+    
+    public static func commentRemoveDownvote(_ commentID: String, _ downvoters: inout [String:Bool]) {
+        let userID = Current.user!.email
+        downvoters.removeValue(forKey: userID)
+        commentsRef.child("\(commentID)/downvoters").setValue(downvoters)
+    }
+    
     /*
      Given userID, returns all rooms for which userID is a participant.
      */
@@ -257,9 +315,11 @@ class Firebase {
             let dispatchGroup = DispatchGroup()
             while let r = enumerator.nextObject() as? DataSnapshot { // for each roomID, fetch room object from DB
                 dispatchGroup.enter()
-                roomsRef.child(r.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                roomsRef.child(r.key).observeSingleEvent(of: .value, with: { (room_snapshot) in
                     print(r.key)
-                    var dict = snapshot.value as! [String : Any?]
+                    print(room_snapshot)
+                    print(room_snapshot.value)
+                    var dict = room_snapshot.value as! [String : Any?]
                     print(r.key)
                     dict["roomID"] = r.key
                     if let room = Models.Room(dict: dict) { // cast to Room
