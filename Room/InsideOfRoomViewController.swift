@@ -28,7 +28,7 @@ class InsideOfRoomViewController: UIViewController {
     
     private func loadPosts() {
         Firebase.fetchPosts(self.room!) { posts in
-            self.posts = posts
+            self.posts = posts.sorted(by: Models.Post.postSorter)
             self.tableView.reloadData()
         }
     }
@@ -53,6 +53,8 @@ class InsideOfRoomViewController: UIViewController {
         }
     }
 }
+
+
 
 extension InsideOfRoomViewController: UITableViewDelegate, UITableViewDataSource {
     
