@@ -11,6 +11,8 @@ import UIKit
 class PopupViewController: UIViewController, UITextViewDelegate {
     
     var roomID: String!
+    var postID: String!
+    var isComment: Bool!
     var onDoneBlock: (() -> Void)!
 
     override func viewDidLoad() {
@@ -77,7 +79,11 @@ class PopupViewController: UIViewController, UITextViewDelegate {
     func submit() {
         print(postContent.text)
         if let text = postContent.text {
-            Firebase.createPost(roomID, text)
+            if isComment {
+                Firebase.createComment(postID, text)
+            } else {
+                Firebase.createPost(roomID, text)
+            }
         }
         onDoneBlock()
         self.view.removeFromSuperview()
