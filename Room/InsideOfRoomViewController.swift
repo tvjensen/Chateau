@@ -17,6 +17,7 @@ class InsideOfRoomViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = room?.name
         tableView.delegate = self
         tableView.dataSource = self
         loadPosts()
@@ -51,6 +52,34 @@ class InsideOfRoomViewController: UIViewController {
             let vc = segue.destination as! InsideOfPostViewController
             vc.post = selectedPost!
         }
+    }
+    
+    @IBAction func roomOptions(_ sender: UIButton) {
+        let alertReport = UIAlertController(title: "Report Room", message: "Please tell us why you are reporting this room.", preferredStyle: UIAlertControllerStyle.alert)
+        alertReport.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Description of problem"
+        })
+        alertReport.addAction(UIAlertAction(title: "Report room", style: UIAlertActionStyle.default, handler: { [weak alertReport] (_) in
+            // Store report
+            Firebase.report(reportType: "room", reporterID: (Current.user?.email)!, reportedContentID: (self.room?.roomID)!, posterID: "", report: (alertReport?.textFields![0].text)!)
+        }))
+        alertReport.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alertReport] (_) in
+            // do nothing
+        }))
+        
+        
+        let alertOptions = UIAlertController(title: "Room Options", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alertOptions.addAction(UIAlertAction(title: "Report room", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            self.present(alertReport, animated: true, completion: nil)
+        }))
+        alertOptions.addAction(UIAlertAction(title: "Other things", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            //do other things
+        }))
+        alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            //do nothing
+        }))
+        
+        self.present(alertOptions, animated: true, completion: nil)
     }
 }
 

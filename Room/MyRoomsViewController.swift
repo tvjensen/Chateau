@@ -20,6 +20,7 @@ class MyRoomsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "My Rooms"
 
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self

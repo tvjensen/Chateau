@@ -18,6 +18,7 @@ class Firebase {
     private static let usersRef = ref.child("users")
     private static let postsRef = ref.child("Posts")
     private static let commentsRef = ref.child("comments")
+    private static let reportsRef = ref.child("reports")
     
     private static var currentTime: Double {
         return Double(NSDate().timeIntervalSince1970)
@@ -339,7 +340,7 @@ class Firebase {
             }
         })
     }
-    
+
     public static func updatePassword(oldPassword: String, newPassword: String, callback: @escaping (Bool) -> Void) {
         let email = (Current.user?.email)!.replacingOccurrences(of: ",", with: ".")
         Auth.auth().signIn(withEmail: email, password: oldPassword) { (user, error) in
@@ -358,5 +359,15 @@ class Firebase {
             }
         }
     }
+
+    public static func report(reportType: String, reporterID: String, reportedContentID: String, posterID: String, report: String) {
+        let dict: [String:Any] = ["reportType": reportType, "reporterID": reporterID,
+                                  "reportedContentID": reportedContentID , "posterID": posterID,
+                                  "report": report, "timeReported": currentTime]
+        let newReportRef = reportsRef.childByAutoId()
+        newReportRef.setValue(dict)
+    
+    }
     
 }
+

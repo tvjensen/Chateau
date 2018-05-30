@@ -21,7 +21,23 @@ class PostCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    @IBAction func reportPost(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Report Post", message: "Please tell us why you are reporting this post.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Description of problem"
+        })
+        alert.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+            // Store report
+            Firebase.report(reportType: "post", reporterID: (Current.user?.email)!, reportedContentID: self.post.postID, posterID: self.post.posterID, report: (alert?.textFields![0].text)!)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+            // do nothing
+        }))
+        
+        parentViewController?.present(alert, animated: true, completion: nil)
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
@@ -69,4 +85,17 @@ class PostCell: UITableViewCell {
         return "20 minutes ago"
     }
 
+}
+
+extension UIView {
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder!.next
+            if parentResponder is UIViewController {
+                return parentResponder as! UIViewController!
+            }
+        }
+        return nil
+    }
 }

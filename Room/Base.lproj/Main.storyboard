@@ -731,6 +731,17 @@
                                                         <action selector="upvotePressed:" destination="O1k-HX-UJn" eventType="touchUpInside" id="7EJ-6P-6oY"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfp-z7-7Ga">
+                                                    <rect key="frame" x="135" y="61" width="10" height="10"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="10" id="EGR-Ch-G97"/>
+                                                        <constraint firstAttribute="width" constant="10" id="T8V-ZW-Yac"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button" image="flag"/>
+                                                    <connections>
+                                                        <action selector="reportPost:" destination="O1k-HX-UJn" eventType="touchUpInside" id="Wg6-BF-id2"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="rtW-zc-rVI" firstAttribute="centerX" secondItem="uJJ-it-FdW" secondAttribute="centerX" id="Hbj-WI-bJX"/>
@@ -741,10 +752,12 @@
                                                 <constraint firstItem="QDA-ws-0H0" firstAttribute="top" secondItem="W5t-yf-D2D" secondAttribute="topMargin" id="Zuc-sB-vZs"/>
                                                 <constraint firstItem="d7e-Ky-xs6" firstAttribute="top" secondItem="QDA-ws-0H0" secondAttribute="bottom" constant="-1" id="coZ-Sy-YQW"/>
                                                 <constraint firstItem="uJJ-it-FdW" firstAttribute="top" secondItem="d7e-Ky-xs6" secondAttribute="top" id="dpi-eU-z0U"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Gfp-z7-7Ga" secondAttribute="bottom" constant="8" id="iKi-8E-yyg"/>
                                                 <constraint firstAttribute="trailing" secondItem="uJJ-it-FdW" secondAttribute="trailing" constant="11" id="joB-L4-WhJ"/>
                                                 <constraint firstItem="rtW-zc-rVI" firstAttribute="centerX" secondItem="FUQ-Ah-sNN" secondAttribute="centerX" id="nBj-J2-8er"/>
                                                 <constraint firstItem="QDA-ws-0H0" firstAttribute="leading" secondItem="W5t-yf-D2D" secondAttribute="leadingMargin" constant="2" id="o3A-z6-mdz"/>
                                                 <constraint firstItem="rtW-zc-rVI" firstAttribute="leading" secondItem="QDA-ws-0H0" secondAttribute="trailing" constant="8" symbolic="YES" id="oSC-M6-ZT5"/>
+                                                <constraint firstItem="Gfp-z7-7Ga" firstAttribute="leading" secondItem="W5t-yf-D2D" secondAttribute="leadingMargin" constant="120" id="wFD-jQ-IL1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -772,6 +785,17 @@
                                     <action selector="writePost:" destination="1Ks-XT-SaW" eventType="touchUpInside" id="TXn-6l-PZp"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4RO-OF-BFl">
+                                <rect key="frame" x="339" y="588" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="4xJ-Zo-iQa"/>
+                                    <constraint firstAttribute="height" constant="20" id="5sd-mY-mMB"/>
+                                </constraints>
+                                <state key="normal" image="dots"/>
+                                <connections>
+                                    <action selector="roomOptions:" destination="1Ks-XT-SaW" eventType="touchUpInside" id="603-1d-jgx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -780,8 +804,11 @@
                             <constraint firstItem="53m-0M-rv7" firstAttribute="top" secondItem="QbE-IO-YSx" secondAttribute="top" constant="16" id="BZn-k0-NGb"/>
                             <constraint firstItem="ui1-E3-eZH" firstAttribute="trailing" secondItem="QbE-IO-YSx" secondAttribute="trailing" id="GX6-SV-SgP"/>
                             <constraint firstItem="ui1-E3-eZH" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" id="NW8-e4-rkQ"/>
+                            <constraint firstItem="QbE-IO-YSx" firstAttribute="trailing" secondItem="4RO-OF-BFl" secondAttribute="trailing" constant="16" id="Pjl-Jx-cYf"/>
+                            <constraint firstItem="QbE-IO-YSx" firstAttribute="bottom" secondItem="4RO-OF-BFl" secondAttribute="bottom" constant="10" id="bXc-vg-aHD"/>
                             <constraint firstItem="53m-0M-rv7" firstAttribute="leading" secondItem="QbE-IO-YSx" secondAttribute="leading" id="fCZ-mx-tKB"/>
                             <constraint firstItem="QbE-IO-YSx" firstAttribute="bottom" secondItem="LzF-YG-ZYb" secondAttribute="bottom" constant="5" id="ikM-n8-Bnz"/>
+                            <constraint firstItem="4RO-OF-BFl" firstAttribute="top" secondItem="ui1-E3-eZH" secondAttribute="bottom" constant="9" id="ouc-dG-CxZ"/>
                             <constraint firstItem="LzF-YG-ZYb" firstAttribute="centerX" secondItem="QbE-IO-YSx" secondAttribute="centerX" id="px1-kq-IwX"/>
                             <constraint firstItem="LzF-YG-ZYb" firstAttribute="top" secondItem="ui1-E3-eZH" secondAttribute="bottom" constant="4" id="zFj-XP-cl8"/>
                         </constraints>
@@ -794,7 +821,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IiK-iy-pUC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1840.8" y="-26.53673163418291"/>
+            <point key="canvasLocation" x="1949.5" y="-27.5"/>
         </scene>
         <!--My rooms-->
         <scene sceneID="zVx-de-UrY">
@@ -1102,8 +1129,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="dots" width="96" height="96"/>
         <image name="downvote" width="100" height="100"/>
         <image name="downvote_selected" width="100" height="100"/>
+        <image name="flag" width="100" height="100"/>
         <image name="upvote" width="100" height="100"/>
         <image name="upvote_selected" width="100" height="100"/>
     </resources>
