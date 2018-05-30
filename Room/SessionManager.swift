@@ -34,4 +34,8 @@ final class SessionManager {
         }
         return nil
     }
+    
+    public static func refreshState() {
+        self.session = nil
+    }
 }
