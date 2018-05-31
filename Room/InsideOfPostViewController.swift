@@ -20,6 +20,7 @@ class InsideOfPostViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        self.title = post?.body
         loadComments()
         // Do any additional setup after loading the view.
     }
