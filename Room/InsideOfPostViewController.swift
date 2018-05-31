@@ -34,7 +34,7 @@ class InsideOfPostViewController: UIViewController {
     
     private func loadComments() {
         Firebase.fetchComments(self.post!) { comments in
-            self.comments = comments
+            self.comments = comments.sorted(by: commentSort)
             self.tableView.reloadData()
         }
     }

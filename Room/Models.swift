@@ -177,9 +177,42 @@ class Models {
     }
 }
 
-extension Models.Post {
-    static let postSorter: (Models.Post, Models.Post) -> Bool = { $0.netVotes > $1.netVotes }
+let MAX_DAYS = 3
+
+func postSort (lhs: Models.Post, rhs: Models.Post) -> Bool {
+    // TODO: I HAVENT REALLY TESTED THE 3 DAY THING BUT IT SHOULD WORK
+    // See how many days old each post is
+    // Get the current time in Date()
+    let curTime = Date()
+    // Get the time of the posts in terms of Date(), i.e. convert from seconds to Date()
+    let postedTime0 = Date(timeIntervalSince1970: lhs.timestamp)
+    let postedTime1 = Date(timeIntervalSince1970: rhs.timestamp)
+    // Find the difference between the two dates
+    let components0 = Calendar.current.dateComponents([.day], from: postedTime0, to: curTime)
+    let components1 = Calendar.current.dateComponents([.day], from: postedTime1, to: curTime)
+    // if both posts are more than 3 days old or if both of them are less than 3 days old
+    if(components0.day! <= MAX_DAYS && components1.day! <= MAX_DAYS) || (components1.day! > MAX_DAYS && components1.day! > MAX_DAYS){
+        // compare votes
+        if lhs.netVotes == rhs.netVotes{
+            return lhs.timestamp > rhs.timestamp
+        } else{
+            return lhs.netVotes > rhs.netVotes
+        }
+    } else{
+        // This means one of the posts is older and the other is not
+        // The older one gets to go later
+        if(components0.day! > MAX_DAYS){
+            return false
+        } else{
+            return true
+        }
+    }
 }
+
+func commentSort(lhs: Models.Comment, rhs: Models.Comment) -> Bool {
+    return lhs.timestamp > rhs.timestamp
+}
+
 
 
 
