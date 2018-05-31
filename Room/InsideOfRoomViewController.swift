@@ -50,6 +50,7 @@ class InsideOfRoomViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "insideOfPostSegue") {
             let vc = segue.destination as! InsideOfPostViewController
+            vc.room = room
             vc.post = selectedPost!
         }
     }

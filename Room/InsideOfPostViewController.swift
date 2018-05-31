@@ -12,6 +12,7 @@ class InsideOfPostViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     var post: Models.Post?
+    var room: Models.Room?
     
     private var comments: [Models.Comment] = []
     
@@ -51,6 +52,8 @@ class InsideOfPostViewController: UIViewController {
 
     @IBAction func writeComment(_ sender: Any) {
         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupID") as! PopupViewController
+        
+        popOverVC.roomID = room?.roomID
         popOverVC.postID = post?.postID
         popOverVC.isComment = true
         popOverVC.onDoneBlock = {

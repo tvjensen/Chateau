@@ -80,7 +80,7 @@ class PopupViewController: UIViewController, UITextViewDelegate {
         print(postContent.text)
         if let text = postContent.text {
             if isComment {
-                Firebase.createComment(postID, text)
+                Firebase.createComment(roomID, postID, text)
             } else {
                 Firebase.createPost(roomID, text)
             }

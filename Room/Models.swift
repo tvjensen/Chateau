@@ -51,6 +51,7 @@ class Models {
         var latitude: Double
         var longitude: Double
         var numMembers: Int
+        var lastActivity: Double
         
         var firebaseDict: [String : Any] {
             let dict: [String: Any] = ["roomID": self.roomID,
@@ -59,7 +60,8 @@ class Models {
                                        "latitude": self.latitude,
                                        "longitude": self.longitude,
                                        "name": self.name,
-                                       "numMembers": self.numMembers
+                                       "numMembers": self.numMembers,
+                                       "lastActivity": self.lastActivity
                                        ]
             return dict
         }
@@ -72,6 +74,8 @@ class Models {
             guard let longitude = dict["longitude"] as? Double else { return nil }
             guard let name = dict["name"] as? String else { return nil }
             guard let numMembers = dict["numMembers"] as? Int else { return nil }
+            guard let lastActivity = dict["lastActivity"] as? Double else { return nil }
+
             
             self.roomID = roomID
             self.creatorID = creatorID
@@ -80,6 +84,7 @@ class Models {
             self.longitude = longitude
             self.name = name
             self.numMembers = numMembers
+            self.lastActivity = lastActivity
         }
     }
     

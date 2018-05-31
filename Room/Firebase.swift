@@ -95,15 +95,19 @@ class Firebase {
                                             "timestamp": currentTime,
                                             "netVotes": 0])
         roomsRef.child("\(roomID)/posts/\(ref.key)").setValue(true)
+        roomsRef.child("\(roomID)/lastActivity").setValue(currentTime)
     }
     
-    public static func createComment(_ postID:String, _ body:String){
+    public static func createComment(_ roomID:String, _ postID:String, _ body:String){
+        
         let ref = commentsRef.childByAutoId()
         commentsRef.child(ref.key).setValue(["postID": postID,
                                           "body": body,
                                           "posterID": Current.user!.email,
                                           "timestamp": currentTime])
         postsRef.child("\(postID)/comments/\(ref.key)").setValue(true)
+        roomsRef.child("\(roomID)/lastActivity").setValue(currentTime)
+
     }
     
     public static func createRoom(_ name: String, callback: @escaping (Models.Room) -> Void) {
@@ -111,7 +115,7 @@ class Firebase {
         guard let location = LocationManager.shared.getLocation() else { return }
         var dict: [String:Any] = ["name": name, "creatorID": Current.user!.email,
                     "timeCreated": currentTime , "numMembers": 1,
-                    "latitude": location.latitude, "longitude": location.longitude]
+                    "latitude": location.latitude, "longitude": location.longitude, "lastActivity": currentTime]
         let newRoomRef = roomsRef.childByAutoId()
         newRoomRef.setValue(dict)
         
