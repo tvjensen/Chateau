@@ -21,7 +21,7 @@ class PopupViewController: UIViewController, UITextViewDelegate {
         postContent.delegate = self
         
         //Placeholder text
-        postContent.text = "Write post..."
+        postContent.text = "Write here..."
         postContent.textColor = UIColor.lightGray
         // Do any additional setup after loading the view.
     }
