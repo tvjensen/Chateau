@@ -11,13 +11,15 @@ import UIKit
 
 class MyRoomsViewController: UIViewController {
     
-    @IBOutlet var unreadIndicator: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
     private var rooms: [Models.Room] = []
     private var filteredRooms: [Models.Room] = []
-    
     private var selectedRoom: Models.Room?
+    
+    private var currentTime: Double {
+        return Double(NSDate().timeIntervalSince1970)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,13 +103,50 @@ extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource, UIS
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+    
+    private func parseTime(_ time: Double) -> String {
+        // Get the current time in Date()
+        let curTime = Date()
+        // Get the time of the post in terms of Date(), i.e. convert from seconds to Date()
+        let postedTime = Date(timeIntervalSince1970: time)
+        // Find the difference between the two dates
+        let components = Calendar.current.dateComponents([.minute, .hour, .day, .weekOfYear, .year], from: postedTime, to: curTime)
+        // if number of years is 0:
+        if components.year == 0{
+            if components.weekOfYear == 0{
+                if components.day == 0{
+                    if components.hour == 0{
+                        if components.minute == 0{
+                            return "just now"
+                        } else{
+                            return "\(components.minute!)m ago"
+                        }
+                    } else{
+                        return "\(components.hour!)h ago"
+                    }
+                } else{
+                    return "\(components.day!)d ago"
+                }
+            } else{
+                return "\(components.weekOfYear!)w ago"
+            }
+        } else{
+            return "\(components.year!)y ago"
+        }
+    }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! MyRoomPreviewTableViewCell
         let room = self.filteredRooms[indexPath.row]
         cell.nameLabel.text = room.name
         cell.nMemLabel.text = "\(room.numMembers) member" + (room.numMembers > 1 ? "s" : "")
-        cell.lastActivityLabel.text = "Last active 20 minutes ago"
+        if let lastVisit = Current.user?.rooms[room.roomID] {
+            cell.unreadIndicator.isHidden = !(room.lastActivity - lastVisit > 5)
+        } else {
+            cell.unreadIndicator.isHidden = true
+        }
+        
+        cell.lastActivityLabel.text = "Last active " + parseTime(room.lastActivity)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

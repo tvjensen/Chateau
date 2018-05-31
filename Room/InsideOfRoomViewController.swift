@@ -15,21 +15,31 @@ class InsideOfRoomViewController: UIViewController {
     private var posts: [Models.Post] = []
     private var selectedPost: Models.Post?
     
+    private var currentTime: Double {
+        return Double(NSDate().timeIntervalSince1970)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = room?.name
         tableView.delegate = self
         tableView.dataSource = self
-        loadPosts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadPosts()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Current.user!.rooms[room!.roomID] = currentTime
+        Firebase.updateLastRoomVisit(room!.roomID)
     }
     
     private func loadPosts() {
         Firebase.fetchPosts(self.room!) { posts in
-            self.posts = posts.sorted(by: Models.Post.postSorter)
+            self.posts = posts.sorted(by: postSort)
             self.tableView.reloadData()
         }
     }
@@ -50,6 +60,7 @@ class InsideOfRoomViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "insideOfPostSegue") {
             let vc = segue.destination as! InsideOfPostViewController
+            vc.room = room
             vc.post = selectedPost!
         }
     }
