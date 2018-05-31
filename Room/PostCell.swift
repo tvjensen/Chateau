@@ -54,37 +54,62 @@ class PostCell: UITableViewCell {
     
     @IBAction func upvotePressed(_ sender: Any) {
         if post.upvoters.keys.contains(Current.user!.email) { return }
-        let newNetVotes = post.netVotes + 1
+        post.netVotes += 1
         if post.downvoters.keys.contains(Current.user!.email) {
-            Firebase.removeDownvote(post.postID, &post.downvoters, newNetVotes)
+            Firebase.removeDownvote(post.postID, &post.downvoters, post.netVotes)
             downvoteButton.isSelected = false
         } else {
-            Firebase.upvote(post.postID, &post.upvoters, newNetVotes)
+            Firebase.upvote(post.postID, &post.upvoters, post.netVotes)
             upvoteButton.isSelected = true
         }
         
-        self.numUpvotesLabel.text = "\(post.upvoters.keys.count - post.downvoters.keys.count)"
+        self.numUpvotesLabel.text = "\(post.netVotes)"
     }
     
     @IBAction func downvotePressed(_ sender: Any) {
         if post.downvoters.keys.contains(Current.user!.email) { return }
-        let newNetVotes = post.netVotes - 1
+        post.netVotes -= 1
         if post.upvoters.keys.contains(Current.user!.email) {
-            Firebase.removeUpvote(post.postID, &post.upvoters, newNetVotes)
+            Firebase.removeUpvote(post.postID, &post.upvoters, post.netVotes)
             upvoteButton.isSelected = false
         } else {
-            Firebase.downvote(post.postID, &post.downvoters, newNetVotes)
+            Firebase.downvote(post.postID, &post.downvoters, post.netVotes)
             downvoteButton.isSelected = true
         }
         
-        self.numUpvotesLabel.text = "\(post.upvoters.keys.count - post.downvoters.keys.count)"
+        self.numUpvotesLabel.text = "\(post.netVotes)"
     }
     
-    // TODO
     private func parseTime(_ time: Double) -> String {
-        return "20 minutes ago"
+        // Get the current time in Date()
+        let curTime = Date()
+        // Get the time of the post in terms of Date(), i.e. convert from seconds to Date()
+        let postedTime = Date(timeIntervalSince1970: time)
+        // Find the difference between the two dates
+        let components = Calendar.current.dateComponents([.minute, .hour, .day, .weekOfYear, .year], from: postedTime, to: curTime)
+        // if number of years is 0:
+        if components.year == 0{
+            if components.weekOfYear == 0{
+                if components.day == 0{
+                    if components.hour == 0{
+                        if components.minute == 0{
+                            return "Just now"
+                        } else{
+                            return "\(components.minute!)m ago"
+                        }
+                    } else{
+                        return "\(components.hour!)h ago"
+                    }
+                } else{
+                    return "\(components.day!)d ago"
+                }
+            } else{
+                return "\(components.weekOfYear!)w ago"
+            }
+        } else{
+            return "\(components.year!)y ago"
+        }
     }
-
 }
 
 extension UIView {

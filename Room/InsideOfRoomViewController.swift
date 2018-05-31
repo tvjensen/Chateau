@@ -29,7 +29,7 @@ class InsideOfRoomViewController: UIViewController {
     
     private func loadPosts() {
         Firebase.fetchPosts(self.room!) { posts in
-            self.posts = posts.sorted(by: Models.Post.postSorter)
+            self.posts = posts.sorted(by: postSort)
             self.tableView.reloadData()
         }
     }
@@ -50,6 +50,7 @@ class InsideOfRoomViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "insideOfPostSegue") {
             let vc = segue.destination as! InsideOfPostViewController
+            vc.room = room
             vc.post = selectedPost!
         }
     }

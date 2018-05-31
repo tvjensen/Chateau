@@ -62,9 +62,35 @@ class CommentCell: UITableViewCell {
         self.numUpvotesLabel.text = "\(comment.upvoters.keys.count - comment.downvoters.keys.count)"
     }
     
-    // TODO
     private func parseTime(_ time: Double) -> String {
-        return "20 minutes ago"
+        // Get the current time in Date()
+        let curTime = Date()
+        // Get the time of the post in terms of Date(), i.e. convert from seconds to Date()
+        let postedTime = Date(timeIntervalSince1970: time)
+        // Find the difference between the two dates
+        let components = Calendar.current.dateComponents([.minute, .hour, .day, .weekOfYear, .year], from: postedTime, to: curTime)
+        // if number of years is 0:
+        if components.year == 0{
+            if components.weekOfYear == 0{
+                if components.day == 0{
+                    if components.hour == 0{
+                        if components.minute == 0{
+                            return "Just now"
+                        } else{
+                            return "\(components.minute!)m ago"
+                        }
+                    } else{
+                        return "\(components.hour!)h ago"
+                    }
+                } else{
+                    return "\(components.day!)d ago"
+                }
+            } else{
+                return "\(components.weekOfYear!)w ago"
+            }
+        } else{
+            return "\(components.year!)y ago"
+        }
     }
 
 }

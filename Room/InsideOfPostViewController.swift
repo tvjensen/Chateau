@@ -12,6 +12,7 @@ class InsideOfPostViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     var post: Models.Post?
+    var room: Models.Room?
     
     private var comments: [Models.Comment] = []
     
@@ -19,6 +20,7 @@ class InsideOfPostViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        self.title = post?.body
         loadComments()
         // Do any additional setup after loading the view.
     }
@@ -34,7 +36,7 @@ class InsideOfPostViewController: UIViewController {
     
     private func loadComments() {
         Firebase.fetchComments(self.post!) { comments in
-            self.comments = comments
+            self.comments = comments.sorted(by: commentSort)
             self.tableView.reloadData()
         }
     }
@@ -51,6 +53,8 @@ class InsideOfPostViewController: UIViewController {
 
     @IBAction func writeComment(_ sender: Any) {
         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupID") as! PopupViewController
+        
+        popOverVC.roomID = room?.roomID
         popOverVC.postID = post?.postID
         popOverVC.isComment = true
         popOverVC.onDoneBlock = {
