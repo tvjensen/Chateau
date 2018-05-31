@@ -54,30 +54,30 @@ class PostCell: UITableViewCell {
     
     @IBAction func upvotePressed(_ sender: Any) {
         if post.upvoters.keys.contains(Current.user!.email) { return }
-        let newNetVotes = post.netVotes + 1
+        post.netVotes += 1
         if post.downvoters.keys.contains(Current.user!.email) {
-            Firebase.removeDownvote(post.postID, &post.downvoters, newNetVotes)
+            Firebase.removeDownvote(post.postID, &post.downvoters, post.netVotes)
             downvoteButton.isSelected = false
         } else {
-            Firebase.upvote(post.postID, &post.upvoters, newNetVotes)
+            Firebase.upvote(post.postID, &post.upvoters, post.netVotes)
             upvoteButton.isSelected = true
         }
         
-        self.numUpvotesLabel.text = "\(post.upvoters.keys.count - post.downvoters.keys.count)"
+        self.numUpvotesLabel.text = "\(post.netVotes)"
     }
     
     @IBAction func downvotePressed(_ sender: Any) {
         if post.downvoters.keys.contains(Current.user!.email) { return }
-        let newNetVotes = post.netVotes - 1
+        post.netVotes -= 1
         if post.upvoters.keys.contains(Current.user!.email) {
-            Firebase.removeUpvote(post.postID, &post.upvoters, newNetVotes)
+            Firebase.removeUpvote(post.postID, &post.upvoters, post.netVotes)
             upvoteButton.isSelected = false
         } else {
-            Firebase.downvote(post.postID, &post.downvoters, newNetVotes)
+            Firebase.downvote(post.postID, &post.downvoters, post.netVotes)
             downvoteButton.isSelected = true
         }
         
-        self.numUpvotesLabel.text = "\(post.upvoters.keys.count - post.downvoters.keys.count)"
+        self.numUpvotesLabel.text = "\(post.netVotes)"
     }
     
     private func parseTime(_ time: Double) -> String {
