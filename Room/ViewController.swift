@@ -19,19 +19,13 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         print("Just loaded the login page")
         
-        //fetchSession
-        if let userEmail = SessionManager.fetchSession() {
-            self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
+        // fetchSession
+        SessionManager.tryFetchingStoredUser() { foundUser in
+            if foundUser {
+                self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
+            }
         }
-//        if let userEmail = SessionManager.fetchSession() {
-//            Firebase.createOrLoginUser(userEmail, " ", false) {success in //sets current user
-//                if success {
-//                    self.performSegue(withIdentifier: "loggedInSegue", sender: nil)
-//                } else {
-//                    print("Failed to use stored session to set current user.")
-//                }
-//            }
-//        }
+        
         emailLogin.delegate = self
         passwordLogin.delegate = self
         passwordLogin.isSecureTextEntry = true
@@ -42,7 +36,6 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
     @IBOutlet weak var emailLogin: UITextField!
     @IBOutlet weak var passwordLogin: UITextField!
     
@@ -85,6 +78,7 @@ class ViewController: UIViewController {
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
                     self.present(alertController, animated: true, completion: nil)
+                    SessionManager.storeSession(session: emailLoginText)
                 } else { // an error occurred, could not successfully register
                     let alertController = UIAlertController(title: "Error", message: "An error occurred while registering. Please try again later.", preferredStyle: .alert)
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)

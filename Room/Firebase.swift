@@ -95,6 +95,7 @@ class Firebase {
                                             "timestamp": currentTime,
                                             "netVotes": 0])
         roomsRef.child("\(roomID)/posts/\(ref.key)").setValue(true)
+        roomsRef.child("\(roomID)/lastPost").setValue(currentTime)
     }
     
     public static func createComment(_ postID:String, _ body:String){
@@ -116,7 +117,7 @@ class Firebase {
         newRoomRef.setValue(dict)
         
         // update user object in db and locally
-        Current.user!.rooms[newRoomRef.key] = true
+        Current.user!.rooms[newRoomRef.key] = currentTime
         usersRef.child("\(Current.user!.email)/rooms").setValue(Current.user!.rooms)
         dict["roomID"] = newRoomRef.key
         callback(Models.Room(dict:dict)!)
@@ -124,7 +125,7 @@ class Firebase {
     
     public static func joinRoom(room: Models.Room) {
         // update user object in db and locally
-        Current.user!.rooms[room.roomID] = true
+        Current.user!.rooms[room.roomID] = currentTime
         usersRef.child("\(Current.user!.email)/rooms").setValue(Current.user!.rooms)
         
         // update room object in db
@@ -143,27 +144,13 @@ class Firebase {
     // This function takes in an email and password and creates a user
     // If the user already exists, then it sends back a false boolean value
     // and does not add to database
-    public static func createOrLoginUser(_ emailLoginText: String, _ passwordLoginText: String,_ createUser: Bool, callback: @escaping (Bool) -> Void) {
+    public static func fetchUser(_ emailLoginText: String, callback: @escaping (Bool) -> Void) {
         usersRef.child("\(emailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
                 if snapshot.exists() {
-                    if createUser {
-                        callback(false) //we want success to be false when signing up
-                    } else {
-                        Current.user = Models.User(snapshot: snapshot)
-                        SessionManager.storeSession(session: emailLoginText)
-                        callback(true) //we want success to be true when logging in
-                    }
-                }
-                else {
-                    if createUser {
-                        let dict = ["email": emailLoginText]
-                        self.usersRef.child(emailLoginText.lowercased()).setValue(dict)
-                        Current.user = Models.User(dict: dict)
-                        SessionManager.storeSession(session: emailLoginText)
-                        callback(true) //returning success in creating user
-                    } else {
-                        callback(false)
-                    }
+                    Current.user = Models.User(snapshot: snapshot)
+                    callback(true)
+                } else {
+                    callback(false)
                 }
             })
     }
@@ -324,8 +311,6 @@ class Firebase {
                 dispatchGroup.enter()
                 roomsRef.child(r.key).observeSingleEvent(of: .value, with: { (room_snapshot) in
                     print(r.key)
-                    print(room_snapshot)
-                    print(room_snapshot.value)
                     var dict = room_snapshot.value as! [String : Any?]
                     print(r.key)
                     dict["roomID"] = r.key

@@ -27,7 +27,15 @@ final class SessionManager {
         NotificationCenter.default.post(name: Notification.Name("loginSuccessful"), object: nil)
     }
     
-    public static func fetchSession() -> String? {
+    public static func tryFetchingStoredUser(callback: @escaping (Bool) -> Void) {
+        if let email = fetchSession() {
+            Firebase.fetchUser(email, callback: callback)
+        } else {
+            callback(false)
+        }
+    }
+    
+    private static func fetchSession() -> String? {
         if let sessionData = userDefaults.object(forKey: "userEmail") as? Data {
             self.session = NSKeyedUnarchiver.unarchiveObject(with: sessionData) as? String
             return session

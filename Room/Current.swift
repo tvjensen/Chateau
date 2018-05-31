@@ -12,4 +12,10 @@ class Current {
     
     static var user: Models.User?
     
+    // atrocious style but this is used inside
+    // the MyRoomsViewController because if user
+    // presses "Go to room" from map view, this global is how we can
+    // communicate which room to enter to the controller
+    static var roomToEnter: Models.Room?
+    
 }

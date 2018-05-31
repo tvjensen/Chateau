@@ -11,6 +11,7 @@ import UIKit
 
 class MyRoomsViewController: UIViewController {
     
+    @IBOutlet var unreadIndicator: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
     private var rooms: [Models.Room] = []
@@ -39,6 +40,13 @@ class MyRoomsViewController: UIViewController {
             self.rooms = rooms
             self.filteredRooms = rooms
             self.tableView.reloadData()
+            if Current.roomToEnter != nil {
+                // programmatically select room to segue into
+                self.selectedRoom = Current.roomToEnter
+                // set to nil so we don't transition every time
+                Current.roomToEnter = nil
+                self.performSegue(withIdentifier: "insideOfRoomSegue", sender: nil)
+            }
         }
     }
     
@@ -106,7 +114,6 @@ extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource, UIS
         self.filteredRooms = searchText.isEmpty ? self.rooms : self.rooms.filter { (item : Models.Room) -> Bool in
             // include in filteredRooms array items from rooms array whose name matches searchText
             return item.name.range(of: searchText, options: .caseInsensitive, range: nil, locale : nil) != nil
-            
         }
         self.tableView.reloadData()
     }

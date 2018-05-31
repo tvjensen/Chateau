@@ -17,7 +17,7 @@ class Models {
      */
     struct User {
         var email: String
-        var rooms: [String: Bool] = [:]
+        var rooms: [String: Double] = [:]   // RoomID -> Last visit timestamp
 
         var firebaseDict: [String : Any] {
             let dict: [String: Any] = [
@@ -28,7 +28,7 @@ class Models {
     
         init?(dict: [String: Any?]) {
             guard let email = dict["email"] as? String else { return nil }
-            self.rooms = dict["rooms"] as? [String: Bool] ?? [:]
+            self.rooms = dict["rooms"] as? [String: Double] ?? [:]
             self.email = email
         }
         
@@ -51,16 +51,20 @@ class Models {
         var latitude: Double
         var longitude: Double
         var numMembers: Int
+        var lastPost: Double?
         
         var firebaseDict: [String : Any] {
-            let dict: [String: Any] = ["roomID": self.roomID,
+            var dict: [String: Any] = ["roomID": self.roomID,
                                        "creatorID": self.creatorID,
                                        "timeCreated":self.timeCreated,
                                        "latitude": self.latitude,
                                        "longitude": self.longitude,
                                        "name": self.name,
-                                       "numMembers": self.numMembers
+                                       "numMembers": self.numMembers,
                                        ]
+            if let lastPost = self.lastPost {
+                dict["lastPost"] = lastPost
+            }
             return dict
         }
         
@@ -80,6 +84,9 @@ class Models {
             self.longitude = longitude
             self.name = name
             self.numMembers = numMembers
+            if let lastPost = dict["lastPost"] as? Double {
+                self.lastPost = lastPost
+            }
         }
     }
     
