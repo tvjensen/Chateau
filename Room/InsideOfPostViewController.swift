@@ -65,6 +65,34 @@ class InsideOfPostViewController: UIViewController {
         self.view.addSubview(popOverVC.view)
         popOverVC.didMove(toParentViewController: self)
     }
+    
+    @IBAction func reportPost(_ sender: Any) {
+        let alert = UIAlertController(title: "Report Post", message: "Please tell us why you are reporting this post.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Description of problem"
+        })
+        alert.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+            // Store report
+            Firebase.report(reportType: "post", reporterID: (Current.user?.email)!, reportedContentID: (self.post?.postID)!, posterID: (self.post?.posterID)!, report: (alert?.textFields![0].text)!)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+            // do nothing
+        }))
+        
+        let alertOptions = UIAlertController(title: self.post?.body, message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alertOptions.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            self.present(alert, animated: true, completion: nil)
+        }))
+        alertOptions.addAction(UIAlertAction(title: "Placeholder", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            //do nothing
+        }))
+        alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            //do nothing
+        }))
+        
+        self.present(alertOptions, animated: true, completion: nil)
+    }
+    
 }
 
 extension InsideOfPostViewController: UITableViewDelegate, UITableViewDataSource {
