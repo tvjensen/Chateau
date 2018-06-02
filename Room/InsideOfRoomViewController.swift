@@ -33,8 +33,10 @@ class InsideOfRoomViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Current.user!.rooms[room!.roomID] = currentTime
-        Firebase.updateLastRoomVisit(room!.roomID)
+        if room != nil { //if statement covers case where user just chose to leave the room
+            Current.user!.rooms[room!.roomID] = currentTime
+            Firebase.updateLastRoomVisit(room!.roomID)
+        }
     }
     
     private func loadPosts() {
@@ -83,8 +85,10 @@ class InsideOfRoomViewController: UIViewController {
         alertOptions.addAction(UIAlertAction(title: "Report room", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
             self.present(alertReport, animated: true, completion: nil)
         }))
-        alertOptions.addAction(UIAlertAction(title: "Other things", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
-            //do other things
+        alertOptions.addAction(UIAlertAction(title: "Leave room", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            Firebase.leaveRoom(room: self.room!)
+            self.room = nil
+            self.navigationController?.popToRootViewController(animated: true)
         }))
         alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
             //do nothing
