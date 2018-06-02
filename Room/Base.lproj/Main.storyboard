@@ -769,17 +769,6 @@
                                                         <action selector="upvotePressed:" destination="O1k-HX-UJn" eventType="touchUpInside" id="7EJ-6P-6oY"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfp-z7-7Ga">
-                                                    <rect key="frame" x="135" y="61" width="10" height="10"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="10" id="EGR-Ch-G97"/>
-                                                        <constraint firstAttribute="width" constant="10" id="T8V-ZW-Yac"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Button" image="flag"/>
-                                                    <connections>
-                                                        <action selector="reportPost:" destination="O1k-HX-UJn" eventType="touchUpInside" id="Wg6-BF-id2"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="rtW-zc-rVI" firstAttribute="centerX" secondItem="uJJ-it-FdW" secondAttribute="centerX" id="Hbj-WI-bJX"/>
@@ -790,12 +779,10 @@
                                                 <constraint firstItem="QDA-ws-0H0" firstAttribute="top" secondItem="W5t-yf-D2D" secondAttribute="topMargin" id="Zuc-sB-vZs"/>
                                                 <constraint firstItem="d7e-Ky-xs6" firstAttribute="top" secondItem="QDA-ws-0H0" secondAttribute="bottom" constant="-1" id="coZ-Sy-YQW"/>
                                                 <constraint firstItem="uJJ-it-FdW" firstAttribute="top" secondItem="d7e-Ky-xs6" secondAttribute="top" id="dpi-eU-z0U"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Gfp-z7-7Ga" secondAttribute="bottom" constant="8" id="iKi-8E-yyg"/>
                                                 <constraint firstAttribute="trailing" secondItem="uJJ-it-FdW" secondAttribute="trailing" constant="11" id="joB-L4-WhJ"/>
                                                 <constraint firstItem="rtW-zc-rVI" firstAttribute="centerX" secondItem="FUQ-Ah-sNN" secondAttribute="centerX" id="nBj-J2-8er"/>
                                                 <constraint firstItem="QDA-ws-0H0" firstAttribute="leading" secondItem="W5t-yf-D2D" secondAttribute="leadingMargin" constant="2" id="o3A-z6-mdz"/>
                                                 <constraint firstItem="rtW-zc-rVI" firstAttribute="leading" secondItem="QDA-ws-0H0" secondAttribute="trailing" constant="8" symbolic="YES" id="oSC-M6-ZT5"/>
-                                                <constraint firstItem="Gfp-z7-7Ga" firstAttribute="leading" secondItem="W5t-yf-D2D" secondAttribute="leadingMargin" constant="120" id="wFD-jQ-IL1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1142,17 +1129,30 @@
                                     <action selector="writeComment:" destination="PEt-5g-ZPH" eventType="touchUpInside" id="lIY-o8-dTa"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9t-90-mgk">
+                                <rect key="frame" x="339" y="588" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="CDW-Ie-4lY"/>
+                                    <constraint firstAttribute="width" constant="20" id="nBm-0F-olx"/>
+                                </constraints>
+                                <state key="normal" image="dots"/>
+                                <connections>
+                                    <action selector="reportPost:" destination="PEt-5g-ZPH" eventType="touchUpInside" id="L54-gO-vhh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="m4r-D7-j1k" firstAttribute="trailing" secondItem="Uik-Qq-gSO" secondAttribute="trailing" constant="16" id="NKK-Vk-DWR"/>
                             <constraint firstItem="udh-Qz-Z6v" firstAttribute="top" secondItem="Uik-Qq-gSO" secondAttribute="bottom" id="PC4-Ht-YWd"/>
                             <constraint firstItem="m4r-D7-j1k" firstAttribute="bottom" secondItem="eWe-UE-VP5" secondAttribute="bottom" constant="5" id="PNh-kS-YKK"/>
+                            <constraint firstItem="m4r-D7-j1k" firstAttribute="trailing" secondItem="J9t-90-mgk" secondAttribute="trailing" constant="16" id="XoM-iX-rfe"/>
                             <constraint firstItem="udh-Qz-Z6v" firstAttribute="trailing" secondItem="m4r-D7-j1k" secondAttribute="trailing" id="boe-19-Js0"/>
                             <constraint firstItem="eWe-UE-VP5" firstAttribute="top" secondItem="udh-Qz-Z6v" secondAttribute="bottom" constant="4" id="cEj-SA-F0s"/>
                             <constraint firstItem="eWe-UE-VP5" firstAttribute="centerX" secondItem="m4r-D7-j1k" secondAttribute="centerX" id="fUo-Yp-ZxP"/>
                             <constraint firstItem="udh-Qz-Z6v" firstAttribute="leading" secondItem="m4r-D7-j1k" secondAttribute="leading" id="hbP-qV-KQi"/>
                             <constraint firstItem="Uik-Qq-gSO" firstAttribute="top" secondItem="m4r-D7-j1k" secondAttribute="top" constant="16" id="rGA-bt-9rU"/>
+                            <constraint firstItem="m4r-D7-j1k" firstAttribute="bottom" secondItem="J9t-90-mgk" secondAttribute="bottom" constant="10" id="sXc-aU-82h"/>
                             <constraint firstItem="Uik-Qq-gSO" firstAttribute="leading" secondItem="m4r-D7-j1k" secondAttribute="leading" id="sex-ah-Mxg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="m4r-D7-j1k"/>
@@ -1163,14 +1163,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIt-rw-oQl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1841" y="740"/>
+            <point key="canvasLocation" x="1840.8" y="739.88005997001505"/>
         </scene>
     </scenes>
     <resources>
         <image name="dots" width="96" height="96"/>
         <image name="downvote" width="100" height="100"/>
         <image name="downvote_selected" width="100" height="100"/>
-        <image name="flag" width="100" height="100"/>
         <image name="upvote" width="100" height="100"/>
         <image name="upvote_selected" width="100" height="100"/>
     </resources>
