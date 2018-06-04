@@ -29,6 +29,7 @@ class CommentCell: UITableViewCell {
     
     func setComment(_ comment: Models.Comment) {
         self.comment = comment
+        self.body.numberOfLines = 0
         self.body.text = comment.body
         self.timeLabel.text = parseTime(comment.timestamp)
         self.numUpvotesLabel.text = "\(comment.upvoters.keys.count - comment.downvoters.keys.count)"
