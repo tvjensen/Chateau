@@ -145,7 +145,6 @@ extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource, UIS
         } else {
             cell.unreadIndicator.isHidden = true
         }
-        
         cell.lastActivityLabel.text = "Last active " + parseTime(room.lastActivity)
     }
     

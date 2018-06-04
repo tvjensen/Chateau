@@ -25,14 +25,13 @@ class Firebase {
     }
     
     // start observing rooms so that explore page can display
-    public static func startObservingRooms(callback: @escaping (Models.Room) -> Void) -> UInt {
-        let handle = roomsRef.observe(DataEventType.childAdded) { (snapshot) in
+    public static func observeRooms(callback: @escaping (Models.Room) -> Void) {
+        roomsRef.observe(DataEventType.childAdded) { (snapshot) in
             guard var roomDict = snapshot.value as? [String: Any?] else { return }
             roomDict["roomID"] = snapshot.key
             guard let room = Models.Room(dict: roomDict) else { return }
             callback(room)
         }
-        return handle
     }
     
     public static func removeRoomObserver(handle: UInt) {
@@ -128,11 +127,8 @@ class Firebase {
     }
     
     public static func joinRoom(room: Models.Room) {
-        // update user object in db and locally
         Current.user!.rooms[room.roomID] = currentTime
         usersRef.child("\(Current.user!.email)/rooms").setValue(Current.user!.rooms)
-        
-        // update room object in db
         roomsRef.child("\(room.roomID)/numMembers").setValue(room.numMembers+1)
     }
     
