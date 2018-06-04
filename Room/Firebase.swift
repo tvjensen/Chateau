@@ -25,14 +25,13 @@ class Firebase {
     }
     
     // start observing rooms so that explore page can display
-    public static func startObservingRooms(callback: @escaping (Models.Room) -> Void) -> UInt {
-        let handle = roomsRef.observe(DataEventType.childAdded) { (snapshot) in
+    public static func observeRooms(callback: @escaping (Models.Room) -> Void) {
+        roomsRef.observe(DataEventType.childAdded) { (snapshot) in
             guard var roomDict = snapshot.value as? [String: Any?] else { return }
             roomDict["roomID"] = snapshot.key
             guard let room = Models.Room(dict: roomDict) else { return }
             callback(room)
         }
-        return handle
     }
     
     public static func removeRoomObserver(handle: UInt) {
@@ -93,7 +92,8 @@ class Firebase {
                                             "body": body,
                                             "posterID": Current.user!.email,
                                             "timestamp": currentTime,
-                                            "netVotes": 0])
+                                            "netVotes": 0,
+                                            "lastActivity": currentTime])
         roomsRef.child("\(roomID)/posts/\(ref.key)").setValue(true)
         roomsRef.child("\(roomID)/lastActivity").setValue(currentTime)
     }
@@ -107,7 +107,7 @@ class Firebase {
                                           "timestamp": currentTime])
         postsRef.child("\(postID)/comments/\(ref.key)").setValue(true)
         roomsRef.child("\(roomID)/lastActivity").setValue(currentTime)
-
+        postsRef.child("\(roomID)/lastActivity").setValue(currentTime)
     }
     
     public static func createRoom(_ name: String, callback: @escaping (Models.Room) -> Void) {
@@ -120,18 +120,15 @@ class Firebase {
         newRoomRef.setValue(dict)
         
         // update user object in db and locally
-        Current.user!.rooms[newRoomRef.key] = true
+        Current.user!.rooms[newRoomRef.key] = currentTime
         usersRef.child("\(Current.user!.email)/rooms").setValue(Current.user!.rooms)
         dict["roomID"] = newRoomRef.key
         callback(Models.Room(dict:dict)!)
     }
     
     public static func joinRoom(room: Models.Room) {
-        // update user object in db and locally
-        Current.user!.rooms[room.roomID] = true
+        Current.user!.rooms[room.roomID] = currentTime
         usersRef.child("\(Current.user!.email)/rooms").setValue(Current.user!.rooms)
-        
-        // update room object in db
         roomsRef.child("\(room.roomID)/numMembers").setValue(room.numMembers+1)
     }
     
@@ -147,27 +144,13 @@ class Firebase {
     // This function takes in an email and password and creates a user
     // If the user already exists, then it sends back a false boolean value
     // and does not add to database
-    public static func createOrLoginUser(_ emailLoginText: String, _ passwordLoginText: String,_ createUser: Bool, callback: @escaping (Bool) -> Void) {
+    public static func fetchUser(_ emailLoginText: String, callback: @escaping (Bool) -> Void) {
         usersRef.child("\(emailLoginText)").observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
                 if snapshot.exists() {
-                    if createUser {
-                        callback(false) //we want success to be false when signing up
-                    } else {
-                        Current.user = Models.User(snapshot: snapshot)
-                        SessionManager.storeSession(session: emailLoginText)
-                        callback(true) //we want success to be true when logging in
-                    }
-                }
-                else {
-                    if createUser {
-                        let dict = ["email": emailLoginText]
-                        self.usersRef.child(emailLoginText.lowercased()).setValue(dict)
-                        Current.user = Models.User(dict: dict)
-                        SessionManager.storeSession(session: emailLoginText)
-                        callback(true) //returning success in creating user
-                    } else {
-                        callback(false)
-                    }
+                    Current.user = Models.User(snapshot: snapshot)
+                    callback(true)
+                } else {
+                    callback(false)
                 }
             })
     }
@@ -261,6 +244,10 @@ class Firebase {
         }
     }
     
+    public static func updateLastRoomVisit(_ roomID: String) {
+        usersRef.child("\(Current.user!.email)/rooms/\(roomID)").setValue(currentTime)
+    }
+    
     public static func upvote(_ postID: String, _ upvoters: inout [String:Bool], _ netVotes: Int) {
         let userID = Current.user!.email
         upvoters[userID] = true
@@ -328,8 +315,6 @@ class Firebase {
                 dispatchGroup.enter()
                 roomsRef.child(r.key).observeSingleEvent(of: .value, with: { (room_snapshot) in
                     print(r.key)
-                    print(room_snapshot)
-                    print(room_snapshot.value)
                     var dict = room_snapshot.value as! [String : Any?]
                     print(r.key)
                     dict["roomID"] = r.key

@@ -9,6 +9,8 @@
 import UIKit
 
 class MyRoomPreviewTableViewCell: UITableViewCell {
+    
+    @IBOutlet var unreadIndicator: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nMemLabel: UILabel!
     @IBOutlet weak var lastActivityLabel: UILabel!

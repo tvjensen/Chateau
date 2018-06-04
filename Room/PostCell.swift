@@ -17,25 +17,13 @@ class PostCell: UITableViewCell {
     @IBOutlet var timeLabel: UILabel!
     private var post: Models.Post!
     
+    private var currentTime: Double {
+        return Double(NSDate().timeIntervalSince1970)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
-    
-    @IBAction func reportPost(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Report Post", message: "Please tell us why you are reporting this post.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "Description of problem"
-        })
-        alert.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
-            // Store report
-            Firebase.report(reportType: "post", reporterID: (Current.user?.email)!, reportedContentID: self.post.postID, posterID: self.post.posterID, report: (alert?.textFields![0].text)!)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
-            // do nothing
-        }))
-        
-        parentViewController?.present(alert, animated: true, completion: nil)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

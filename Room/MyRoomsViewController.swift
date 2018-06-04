@@ -15,8 +15,11 @@ class MyRoomsViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     private var rooms: [Models.Room] = []
     private var filteredRooms: [Models.Room] = []
-    
     private var selectedRoom: Models.Room?
+    
+    private var currentTime: Double {
+        return Double(NSDate().timeIntervalSince1970)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +42,13 @@ class MyRoomsViewController: UIViewController {
             self.rooms = rooms
             self.filteredRooms = rooms
             self.tableView.reloadData()
+            if Current.roomToEnter != nil {
+                // programmatically select room to segue into
+                self.selectedRoom = Current.roomToEnter
+                // set to nil so we don't transition every time
+                Current.roomToEnter = nil
+                self.performSegue(withIdentifier: "insideOfRoomSegue", sender: nil)
+            }
         }
     }
     
@@ -107,7 +117,7 @@ extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource, UIS
                 if components.day == 0{
                     if components.hour == 0{
                         if components.minute == 0{
-                            return "Just now"
+                            return "just now"
                         } else{
                             return "\(components.minute!)m ago"
                         }
@@ -130,6 +140,11 @@ extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource, UIS
         let room = self.filteredRooms[indexPath.row]
         cell.nameLabel.text = room.name
         cell.nMemLabel.text = "\(room.numMembers) member" + (room.numMembers > 1 ? "s" : "")
+        if let lastVisit = Current.user?.rooms[room.roomID] {
+            cell.unreadIndicator.isHidden = !(room.lastActivity - lastVisit > 5)
+        } else {
+            cell.unreadIndicator.isHidden = true
+        }
         cell.lastActivityLabel.text = "Last active " + parseTime(room.lastActivity)
     }
     
@@ -137,7 +152,6 @@ extension MyRoomsViewController: UITableViewDelegate, UITableViewDataSource, UIS
         self.filteredRooms = searchText.isEmpty ? self.rooms : self.rooms.filter { (item : Models.Room) -> Bool in
             // include in filteredRooms array items from rooms array whose name matches searchText
             return item.name.range(of: searchText, options: .caseInsensitive, range: nil, locale : nil) != nil
-            
         }
         self.tableView.reloadData()
     }

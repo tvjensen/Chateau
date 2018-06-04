@@ -17,7 +17,7 @@ class Models {
      */
     struct User {
         var email: String
-        var rooms: [String: Bool] = [:]
+        var rooms: [String: Double] = [:]   // RoomID -> Last visit timestamp
 
         var firebaseDict: [String : Any] {
             let dict: [String: Any] = [
@@ -28,7 +28,7 @@ class Models {
     
         init?(dict: [String: Any?]) {
             guard let email = dict["email"] as? String else { return nil }
-            self.rooms = dict["rooms"] as? [String: Bool] ?? [:]
+            self.rooms = dict["rooms"] as? [String: Double] ?? [:]
             self.email = email
         }
         
@@ -61,8 +61,7 @@ class Models {
                                        "longitude": self.longitude,
                                        "name": self.name,
                                        "numMembers": self.numMembers,
-                                       "lastActivity": self.lastActivity
-                                       ]
+                                       "lastActivity": self.lastActivity]
             return dict
         }
         
@@ -102,6 +101,7 @@ class Models {
         var downvoters: [String: Bool] = [:]
         var netVotes: Int
         var timestamp: Double
+        var lastActivity: Double
         
         var firebaseDict: [String : Any] {
             let dict: [String: Any] = ["postID": self.postID,
@@ -111,7 +111,8 @@ class Models {
                                        "upvoters": self.upvoters,
                                        "timestamp": self.timestamp,
                                        "downvoters": self.downvoters,
-                                       "netVotes": self.netVotes
+                                       "netVotes": self.netVotes,
+                                       "lastActivity": self.lastActivity
                                        ]
             return dict
         }
@@ -123,6 +124,7 @@ class Models {
             guard let posterID = dict["posterID"] as? String else { return nil }
             guard let timestamp = dict["timestamp"] as? Double else { return nil }
             guard let netVotes = dict["netVotes"] as? Int else { return nil }
+            guard let lastActivity = dict["lastActivity"] as? Double else { return nil }
             
             self.postID = postID
             self.roomID = roomID
@@ -132,6 +134,7 @@ class Models {
             self.upvoters = dict["upvoters"] as? [String: Bool] ?? [:]
             self.downvoters = dict["downvoters"] as? [String: Bool] ?? [:]
             self.netVotes = netVotes
+            self.lastActivity = lastActivity
         }
         
     }

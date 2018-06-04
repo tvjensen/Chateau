@@ -19,14 +19,19 @@ class ExploreViewController: UIViewController {
     @IBOutlet var roomDetailView: UIView!
     @IBOutlet var mapView: MKMapView!
     private let locationManager = LocationManager.shared
-    private var firebaseObserverHandle: UInt = 0
     private var allRoomAnnotations: [RoomAnnotation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         searchBar.delegate = self
-        self.firebaseObserverHandle = Firebase.startObservingRooms() { room in
+        roomJoinButton.layer.cornerRadius = 10
+        roomJoinButton.clipsToBounds = true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Firebase.observeRooms() { room in
             if let index = self.mapView.annotations.index(where: { (annotation) -> Bool in
                 guard let annotation = annotation as? RoomAnnotation else { return false }
                 return annotation.room.roomID == room.roomID
@@ -37,10 +42,6 @@ class ExploreViewController: UIViewController {
             self.mapView.addAnnotation(roomAnnotation)
             self.allRoomAnnotations.append(roomAnnotation)
         }
-    }
-    
-    deinit {
-        Firebase.removeRoomObserver(handle: self.firebaseObserverHandle)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,11 +76,20 @@ class ExploreViewController: UIViewController {
     
     @IBAction func joinRoomPressed(_ sender: Any) {
         let annotation = mapView.selectedAnnotations[0] as! RoomAnnotation
-        Firebase.joinRoom(room: annotation.room)
-        self.roomJoinButton.isHidden = true
-        annotation.room.numMembers += 1
-        let room = annotation.room
-        roomNumMembersLabel.text = "\(room.numMembers) member" + ((room.numMembers > 1) ? "s" : "")
+        if self.roomJoinButton.titleLabel?.text == "Join" {
+            Firebase.joinRoom(room: annotation.room)
+            self.roomJoinButton.titleLabel?.text = "Go to room"
+            // to update the num members sub-label thing
+            self.mapView.removeAnnotation(annotation)
+            annotation.room.numMembers += 1
+            let newAnnotation = RoomAnnotation(annotation.room)
+            self.mapView.addAnnotation(newAnnotation)
+            self.mapView.selectAnnotation(newAnnotation, animated: false)
+        } else {
+            // take user to room
+            Current.roomToEnter = annotation.room
+            tabBarController?.selectedIndex = 0 // switch tabs
+        }
     }
     
     @IBAction func createRoomPressed(_ sender: Any) {
@@ -104,7 +114,6 @@ class ExploreViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
 
 extension ExploreViewController: UISearchBarDelegate {
@@ -119,9 +128,12 @@ extension ExploreViewController: UISearchBarDelegate {
         let filtered = allRoomAnnotations.filter { (annotation) -> Bool in
             return annotation.room.name.lowercased().range(of:text) == nil
         }
+        
         mapView.addAnnotations(allRoomAnnotations)
         mapView.removeAnnotations(filtered)
-        print(mapView.annotations.count)
+        
+        // refocus map
+        mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -147,12 +159,16 @@ extension ExploreViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let roomAnnotation = view.annotation as? RoomAnnotation else { return }
         let selectedRoom = roomAnnotation.room
-        self.roomDetailView.isHidden = false
         self.roomNameLabel.text = selectedRoom.name
         self.roomNumMembersLabel.text = "\(selectedRoom.numMembers) member" + ((selectedRoom.numMembers > 1) ? "s" : "")
-        self.roomJoinButton.isHidden = Current.user!.rooms.keys.contains(where: { (key) -> Bool in
+        if Current.user!.rooms.keys.contains(where: { (key) -> Bool in
             return key == selectedRoom.roomID
-        })
+        }) {
+            self.roomJoinButton.titleLabel?.text = "Go to room"
+        } else {
+            self.roomJoinButton.titleLabel?.text = "Join"
+        }
+        self.roomDetailView.isHidden = false
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

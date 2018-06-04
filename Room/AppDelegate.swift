@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
+import ChameleonFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         LocationManager.shared.startTracking() // start location updates at launch
+//        Chameleon.setGlobalThemeUsingPrimaryColor(FlatWatermelon(), with: .light)
         return true
     }
 
