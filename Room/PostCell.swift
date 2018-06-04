@@ -45,6 +45,7 @@ class PostCell: UITableViewCell {
     
     func setPost(_ post: Models.Post) {
         self.post = post
+        self.body.numberOfLines = 0
         self.body.text = post.body
         self.timeLabel.text = parseTime(post.timestamp)
         self.numUpvotesLabel.text = "\(post.upvoters.keys.count - post.downvoters.keys.count)"

@@ -21,6 +21,8 @@ class InsideOfPostViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.title = post?.body
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 90
         loadComments()
         // Do any additional setup after loading the view.
     }
@@ -80,7 +82,10 @@ extension InsideOfPostViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! CommentCell
+        cell.setComment(self.comments[indexPath.row])
+        
+        return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -89,15 +94,6 @@ extension InsideOfPostViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.comments.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! CommentCell
-        cell.setComment(self.comments[indexPath.row])
     }
     
 }
