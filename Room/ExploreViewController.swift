@@ -19,14 +19,19 @@ class ExploreViewController: UIViewController {
     @IBOutlet var roomDetailView: UIView!
     @IBOutlet var mapView: MKMapView!
     private let locationManager = LocationManager.shared
-    private var firebaseObserverHandle: UInt = 0
     private var allRoomAnnotations: [RoomAnnotation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         searchBar.delegate = self
-        self.firebaseObserverHandle = Firebase.startObservingRooms() { room in
+        roomJoinButton.layer.cornerRadius = 10
+        roomJoinButton.clipsToBounds = true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Firebase.observeRooms() { room in
             if let index = self.mapView.annotations.index(where: { (annotation) -> Bool in
                 guard let annotation = annotation as? RoomAnnotation else { return false }
                 return annotation.room.roomID == room.roomID
@@ -37,12 +42,6 @@ class ExploreViewController: UIViewController {
             self.mapView.addAnnotation(roomAnnotation)
             self.allRoomAnnotations.append(roomAnnotation)
         }
-        roomJoinButton.layer.cornerRadius = 10
-        roomJoinButton.clipsToBounds = true
-    }
-    
-    deinit {
-        Firebase.removeRoomObserver(handle: self.firebaseObserverHandle)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,10 +78,13 @@ class ExploreViewController: UIViewController {
         let annotation = mapView.selectedAnnotations[0] as! RoomAnnotation
         if self.roomJoinButton.titleLabel?.text == "Join" {
             Firebase.joinRoom(room: annotation.room)
-            annotation.room.numMembers += 1
-            let room = annotation.room
-            roomNumMembersLabel.text = "\(room.numMembers) member" + ((room.numMembers > 1) ? "s" : "")
             self.roomJoinButton.titleLabel?.text = "Go to room"
+            // to update the num members sub-label thing
+            self.mapView.removeAnnotation(annotation)
+            annotation.room.numMembers += 1
+            let newAnnotation = RoomAnnotation(annotation.room)
+            self.mapView.addAnnotation(newAnnotation)
+            self.mapView.selectAnnotation(newAnnotation, animated: false)
         } else {
             // take user to room
             Current.roomToEnter = annotation.room
