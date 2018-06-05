@@ -25,6 +25,7 @@ class ViewController: UIViewController {
                 self.passwordLogin.isHidden = false
                 self.loginButton.isHidden = false
                 self.signUpButton.isHidden = false
+                self.forgotPasswordButton.isHidden = false
             }
         }
         
@@ -42,6 +43,33 @@ class ViewController: UIViewController {
     @IBOutlet weak var emailLogin: UITextField!
     @IBOutlet weak var passwordLogin: UITextField!
     @IBOutlet var signUpButton: UIButton!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
+    
+    
+    
+    @IBAction func forgotPassword(_ sender: Any) {
+        let alertError = UIAlertController(title: "Something went wrong", message: "We were unable to send your reset email. Please make sure your email is associated with an exisiting account and that you entered your email correctly.", preferredStyle: UIAlertControllerStyle.alert)
+        alertError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { [weak alertError] (_) in
+        }))
+        
+        let alert = UIAlertController(title: "Forgot Password", message: "We can reset your password and send an email to you with further instructions.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Your email"
+        })
+        alert.addAction(UIAlertAction(title: "Send email", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+            Firebase.resetPassword(email: (alert?.textFields![0].text)!) { (success) in
+                if (!success) {
+                    print("Error reseting password", success)
+                    self.present(alertError, animated: true, completion: nil)
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Nevermind", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     @IBAction func loginUser(_ sender: Any) {
         let emailLoginText: String = emailLogin.text!

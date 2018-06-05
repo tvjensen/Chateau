@@ -92,12 +92,35 @@
                                     <constraint firstAttribute="width" constant="85" id="O3v-Fu-NVn"/>
                                 </constraints>
                             </imageView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7MF-kq-Rrf">
+                                <rect key="frame" x="72" y="557" width="231" height="36"/>
+                                <color key="backgroundColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="kkk-YW-aY9"/>
+                                    <constraint firstAttribute="width" constant="231" id="qX6-72-SzR"/>
+                                </constraints>
+                                <state key="normal" title="Forgot Password">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="forgotPassword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Sfy-bl-0E8"/>
+                                    <action selector="signUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="34U-mS-vCZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="2uS-Qi-A6N" firstAttribute="top" secondItem="sdt-kS-KQ4" secondAttribute="bottom" constant="27" id="20g-we-CLS"/>
                             <constraint firstItem="ftG-Jm-p53" firstAttribute="top" secondItem="Z52-Xh-Agc" secondAttribute="bottom" constant="8" id="3TR-I4-PGM"/>
+                            <constraint firstItem="7MF-kq-Rrf" firstAttribute="top" secondItem="ZEG-wd-wO3" secondAttribute="bottom" constant="21" id="7Cj-1W-dSO"/>
                             <constraint firstItem="2uS-Qi-A6N" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7F7-e7-dfg"/>
+                            <constraint firstItem="7MF-kq-Rrf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="A0T-MK-Bun"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="io3-M9-mx8" secondAttribute="bottom" constant="131" id="B7A-r8-90G"/>
                             <constraint firstItem="Z52-Xh-Agc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="C63-2c-ZzS"/>
                             <constraint firstItem="sdt-kS-KQ4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FzG-ez-tf6"/>
@@ -113,6 +136,7 @@
                     </view>
                     <connections>
                         <outlet property="emailLogin" destination="sdt-kS-KQ4" id="SbU-wr-OaI"/>
+                        <outlet property="forgotPasswordButton" destination="7MF-kq-Rrf" id="qC3-Oi-WKB"/>
                         <outlet property="loginButton" destination="io3-M9-mx8" id="OG1-dy-gq2"/>
                         <outlet property="passwordLogin" destination="2uS-Qi-A6N" id="7HF-Ks-MKs"/>
                         <outlet property="signUpButton" destination="ZEG-wd-wO3" id="mBM-E0-Z1y"/>
@@ -670,7 +694,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDA-ws-0H0">
-                                                    <rect key="frame" x="17.5" y="20" width="309" height="50"/>
+                                                    <rect key="frame" x="17.5" y="19.5" width="309" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="309" id="9Zi-1W-tOG"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Sld-fB-ztd"/>
@@ -680,7 +704,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7e-Ky-xs6">
-                                                    <rect key="frame" x="17.5" y="101.5" width="205" height="15"/>
+                                                    <rect key="frame" x="17.5" y="100.5" width="205" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="205" id="Ttn-p1-ZTN"/>
                                                     </constraints>
@@ -689,13 +713,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUQ-Ah-sNN">
-                                                    <rect key="frame" x="344.5" y="49" width="11" height="21"/>
+                                                    <rect key="frame" x="344.5" y="48.5" width="11" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtW-zc-rVI">
-                                                    <rect key="frame" x="334.5" y="15" width="30" height="30"/>
+                                                    <rect key="frame" x="334.5" y="14.5" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="46u-yA-DKN"/>
                                                         <constraint firstAttribute="width" constant="30" id="gUd-v9-Bnk"/>
@@ -708,7 +732,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uJJ-it-FdW">
-                                                    <rect key="frame" x="335" y="74" width="30" height="30"/>
+                                                    <rect key="frame" x="335" y="73.5" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="4ee-Dv-vAZ"/>
                                                         <constraint firstAttribute="height" constant="30" id="paV-Ze-Xpk"/>
