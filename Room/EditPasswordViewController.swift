@@ -51,12 +51,21 @@ class EditPasswordViewController: UIViewController {
     
 //    //TODO: access users password and send email
     @IBAction func forgotPassword(_ sender: UIButton) {
+        let alertError = UIAlertController(title: "Something went wrong", message: "We were unable to send your reset email.", preferredStyle: UIAlertControllerStyle.alert)
+        alertError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { [weak alertError] (_) in
+        }))
+        
         let email = Current.user!.email.replacingOccurrences(of: ",", with: ".")
         
-        let alert = UIAlertController(title: "Forgot Password", message: "We can reset your password and send an email to " + email + " with further instructions. [Not implemented yet]", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Forgot Password", message: "We can reset your password and send an email to " + email + " with further instructions.", preferredStyle: UIAlertControllerStyle.alert)
 
         alert.addAction(UIAlertAction(title: "Send email!", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
-            //send email with old password
+            Firebase.resetPassword(email: email) { (success) in
+                if (!success) {
+                    print("Error reseting password", success)
+                    self.present(alertError, animated: true, completion: nil)
+                }
+            }
         }))
         alert.addAction(UIAlertAction(title: "Nevermind!", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
         }))
