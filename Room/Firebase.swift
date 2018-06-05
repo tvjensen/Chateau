@@ -40,7 +40,7 @@ class Firebase {
     
     public static func fetchPosts(_ room: Models.Room, callback: @escaping ([Models.Post]) -> Void) {
         roomsRef.child("\(room.roomID)/posts").observeSingleEvent(of: .value, with: { (snapshot) in
-            if (!snapshot.exists()) { return }
+            if (!snapshot.exists()) { callback([]); return }
             let enumerator = snapshot.children // to iterate through room IDS associated with this user
             var posts: [Models.Post] = [] // array to be returned
             let dispatchGroup = DispatchGroup()
@@ -64,7 +64,7 @@ class Firebase {
     
     public static func fetchComments(_ post: Models.Post, callback: @escaping ([Models.Comment]) -> Void) {
         postsRef.child("\(post.postID)/comments").observeSingleEvent(of: .value, with: { (snapshot) in
-            if (!snapshot.exists()) { return }
+            if (!snapshot.exists()) { callback([]); return }
             let enumerator = snapshot.children // to iterate through room IDS associated with this user
             var comments: [Models.Comment] = [] // array to be returned
             let dispatchGroup = DispatchGroup()
@@ -107,7 +107,6 @@ class Firebase {
                                           "timestamp": currentTime])
         postsRef.child("\(postID)/comments/\(ref.key)").setValue(true)
         roomsRef.child("\(roomID)/lastActivity").setValue(currentTime)
-        postsRef.child("\(roomID)/lastActivity").setValue(currentTime)
     }
     
     public static func createRoom(_ name: String, callback: @escaping (Models.Room) -> Void) {
@@ -138,7 +137,84 @@ class Firebase {
         usersRef.child("\(Current.user!.email)/rooms").setValue(Current.user!.rooms)
         
         // update room object in db
-        roomsRef.child("\(room.roomID)/numMembers").setValue(room.numMembers-1)
+        if (room.numMembers-1 > 0) {
+            roomsRef.child("\(room.roomID)/numMembers").setValue(room.numMembers-1)
+        } else {
+            deleteRoom(room: room)
+        }
+    }
+    
+    public static func deleteComments(post: Models.Post, callback: @escaping (Bool) -> Void) {
+        fetchComments(post) { (comments) in
+            for comment in comments {
+                commentsRef.child(comment.commentID).removeValue() { (error, refer) in
+                    if error != nil {
+                        print(error as Any)
+                    }
+                }
+            }
+            callback(true)
+        }
+    }
+    
+    public static func deletePosts(room: Models.Room, callback: @escaping (Bool) -> Void) {
+        fetchPosts(room) { (posts) in
+            for post in posts {
+                deleteComments(post: post) { (success) in
+                    postsRef.child(post.postID).removeValue() { (error, refer) in
+                        if error != nil {
+                            print(error as Any)
+                        }
+                    }
+                }
+            }
+            callback(true)
+        }
+        
+    }
+    
+    public static func deleteRoom(room: Models.Room) {
+        deletePosts(room: room) { (success) in
+            roomsRef.child(room.roomID).removeValue { (error, refer) in
+                if error != nil {
+                    print(error as Any)
+                } else {
+                    print(refer)
+                    print("Room Deleted Correctly")
+                }
+            }
+        }
+        
+        
+        
+//        fetchPosts(room) { (posts) in
+//            postsArray = posts
+//            for post in posts {
+//                fetchComments(post) { (comments) in
+//                    commentArray = comments
+//                    for comment in comments {
+//                        commentsRef.child(comment.commentID).removeValue() { (error, refer) in
+//                            if error != nil {
+//                                print(error as Any)
+//                            }
+//                        }
+//                    }
+//                    postsRef.child(post.postID).removeValue() { (error, refer) in
+//                        if error != nil {
+//                            print(error as Any)
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        roomsRef.child(room.roomID).removeValue { (error, refer) in
+//            if error != nil {
+//                print(error as Any)
+//            } else {
+//                print(refer)
+//                print("Room Deleted Correctly")
+//            }
+//        }
     }
     
     // This function takes in an email and password and creates a user
