@@ -31,6 +31,7 @@
 		5212076220B73FFC000F2EB1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5212076120B73FFC000F2EB1 /* SettingsViewController.swift */; };
 		522A38C6209B8239004E2323 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A38C5209B8239004E2323 /* Models.swift */; };
 		5261937520AD448F00E6DBE5 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5261937420AD448F00E6DBE5 /* SessionManager.swift */; };
+		52DD39AA20C710A9008336A9 /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DD39A920C710A9008336A9 /* UILabelPadding.swift */; };
 		94E747B720AA3C6300766CAF /* InsideOfRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E747B620AA3C6300766CAF /* InsideOfRoomViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		5212076120B73FFC000F2EB1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		522A38C5209B8239004E2323 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		5261937420AD448F00E6DBE5 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		52DD39A920C710A9008336A9 /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
 		94E747B620AA3C6300766CAF /* InsideOfRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsideOfRoomViewController.swift; sourceTree = "<group>"; };
 		D043A0BF58CBF05F67AC7F66 /* Pods-Room.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Room.release.xcconfig"; path = "Pods/Target Support Files/Pods-Room/Pods-Room.release.xcconfig"; sourceTree = "<group>"; };
 		DC109A1296EC6ABAC8E0EC79 /* Pods-Room.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Room.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Room/Pods-Room.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				5261937420AD448F00E6DBE5 /* SessionManager.swift */,
 				5212075F20B73A84000F2EB1 /* EditPasswordViewController.swift */,
 				5212076120B73FFC000F2EB1 /* SettingsViewController.swift */,
+				52DD39A920C710A9008336A9 /* UILabelPadding.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */,
 				5212076220B73FFC000F2EB1 /* SettingsViewController.swift in Sources */,
 				94E747B720AA3C6300766CAF /* InsideOfRoomViewController.swift in Sources */,
+				52DD39AA20C710A9008336A9 /* UILabelPadding.swift in Sources */,
 				522A38C6209B8239004E2323 /* Models.swift in Sources */,
 				5261937520AD448F00E6DBE5 /* SessionManager.swift in Sources */,
 				4B782A1820AD3CB30005B2D4 /* PostCell.swift in Sources */,
@@ -450,10 +454,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YUBCV69DYM;
+				DEVELOPMENT_TEAM = 9RTJ28U92J;
 				INFOPLIST_FILE = Room/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.fzheng.Room;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.tvjensen.Room;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -468,10 +472,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YUBCV69DYM;
+				DEVELOPMENT_TEAM = 9RTJ28U92J;
 				INFOPLIST_FILE = Room/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.fzheng.Room;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.tvjensen.Room;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;

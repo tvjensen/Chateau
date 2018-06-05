@@ -13,14 +13,19 @@ class InsideOfPostViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var post: Models.Post?
     var room: Models.Room?
+    @IBOutlet weak var titleView: UILabelPadding!
+    
+
     
     private var comments: [Models.Comment] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+ 
+        titleView.text = post?.body
+        
         tableView.delegate = self
         tableView.dataSource = self
-        self.title = post?.body
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 90
         loadComments()
