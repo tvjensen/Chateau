@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -673,7 +673,7 @@
                                                     <rect key="frame" x="17" y="11" width="309" height="49"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="309" id="9Zi-1W-tOG"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="Sld-fB-ztd"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Sld-fB-ztd"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
@@ -727,9 +727,9 @@
                                                 <constraint firstItem="QDA-ws-0H0" firstAttribute="baseline" secondItem="FUQ-Ah-sNN" secondAttribute="baseline" id="Ssr-o0-QG3"/>
                                                 <constraint firstItem="rtW-zc-rVI" firstAttribute="top" secondItem="W5t-yf-D2D" secondAttribute="top" constant="11" id="WTd-yt-ljv"/>
                                                 <constraint firstItem="d7e-Ky-xs6" firstAttribute="leading" secondItem="QDA-ws-0H0" secondAttribute="leading" id="Zoo-5H-ys5"/>
-                                                <constraint firstItem="QDA-ws-0H0" firstAttribute="top" secondItem="W5t-yf-D2D" secondAttribute="topMargin" id="Zuc-sB-vZs"/>
-                                                <constraint firstItem="d7e-Ky-xs6" firstAttribute="top" secondItem="QDA-ws-0H0" secondAttribute="bottom" constant="-1" id="coZ-Sy-YQW"/>
-                                                <constraint firstItem="uJJ-it-FdW" firstAttribute="top" secondItem="d7e-Ky-xs6" secondAttribute="top" id="dpi-eU-z0U"/>
+                                                <constraint firstItem="QDA-ws-0H0" firstAttribute="top" secondItem="W5t-yf-D2D" secondAttribute="topMargin" constant="8" id="Zuc-sB-vZs"/>
+                                                <constraint firstItem="d7e-Ky-xs6" firstAttribute="top" secondItem="QDA-ws-0H0" secondAttribute="bottom" constant="8" id="coZ-Sy-YQW"/>
+                                                <constraint firstItem="uJJ-it-FdW" firstAttribute="top" secondItem="d7e-Ky-xs6" secondAttribute="top" constant="-3" id="dpi-eU-z0U"/>
                                                 <constraint firstAttribute="trailing" secondItem="uJJ-it-FdW" secondAttribute="trailing" constant="11" id="joB-L4-WhJ"/>
                                                 <constraint firstItem="rtW-zc-rVI" firstAttribute="centerX" secondItem="FUQ-Ah-sNN" secondAttribute="centerX" id="nBj-J2-8er"/>
                                                 <constraint firstItem="QDA-ws-0H0" firstAttribute="leading" secondItem="W5t-yf-D2D" secondAttribute="leadingMargin" constant="2" id="o3A-z6-mdz"/>
@@ -853,7 +853,7 @@
                                                     <rect key="frame" x="17" y="11" width="309" height="49"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="309" id="DNL-hK-IOp"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="Xid-VO-s7M"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Xid-VO-s7M"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
@@ -907,7 +907,7 @@
                                                 <constraint firstItem="2I0-hx-Db5" firstAttribute="top" secondItem="zpv-Y1-63m" secondAttribute="bottom" constant="8" id="7D5-Zn-gya"/>
                                                 <constraint firstItem="3Fv-4q-IvE" firstAttribute="leading" secondItem="zpv-Y1-63m" secondAttribute="trailing" constant="8" symbolic="YES" id="P9z-09-dgz"/>
                                                 <constraint firstItem="3Fv-4q-IvE" firstAttribute="top" secondItem="4Jd-75-Hz2" secondAttribute="top" constant="11" id="QGn-3X-e3u"/>
-                                                <constraint firstItem="zpv-Y1-63m" firstAttribute="top" secondItem="4Jd-75-Hz2" secondAttribute="topMargin" id="XU1-KQ-jWq"/>
+                                                <constraint firstItem="zpv-Y1-63m" firstAttribute="top" secondItem="4Jd-75-Hz2" secondAttribute="topMargin" constant="8" id="XU1-KQ-jWq"/>
                                                 <constraint firstItem="zpv-Y1-63m" firstAttribute="leading" secondItem="4Jd-75-Hz2" secondAttribute="leadingMargin" constant="2" id="YQu-gH-PQR"/>
                                                 <constraint firstItem="JQF-Vy-HSF" firstAttribute="top" secondItem="2I0-hx-Db5" secondAttribute="top" constant="-3" id="ceE-ZQ-fn0"/>
                                                 <constraint firstItem="3Fv-4q-IvE" firstAttribute="centerX" secondItem="VBI-No-TnN" secondAttribute="centerX" id="pXM-u0-bZZ"/>
