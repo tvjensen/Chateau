@@ -88,7 +88,6 @@ class InsideOfPostViewController: UIViewController {
         alertOptions.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
             self.present(alert, animated: true, completion: nil)
         }))
-        alertOptions.addAction(UIAlertAction(title: "Placeholder", style: UIAlertActionStyle.default))
         alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
         
         self.present(alertOptions, animated: true, completion: nil)
