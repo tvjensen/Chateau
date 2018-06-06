@@ -45,6 +45,22 @@ class SettingsViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    @IBAction func reportProblem(_ sender: Any) {
+        let alertReport = UIAlertController(title: "Report Problem", message: "Please let us know what issues you might have encountered with the Room app", preferredStyle: UIAlertControllerStyle.alert)
+        alertReport.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Description of problem"
+        })
+        alertReport.addAction(UIAlertAction(title: "Report problem", style: UIAlertActionStyle.default, handler: { [weak alertReport] (_) in
+            // Store report
+            Firebase.report(reportType: "general", reporterID: (Current.user?.email)!, reportedContentID: "", posterID: "", report: (alertReport?.textFields![0].text)!)
+        }))
+        alertReport.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alertReport] (_) in
+            // do nothing
+        }))
+        alertReport.view.tintColor = UIColor.flatMint
+        self.present(alertReport, animated: true, completion: nil)
+    }
+    
     @IBAction func deleteAccount(_ sender: Any) {
         let alert = UIAlertController(title: "Delete Account", message: "Please enter your password to delete your account.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
