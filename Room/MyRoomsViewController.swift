@@ -24,7 +24,8 @@ class MyRoomsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "My Rooms"
-        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        // When uncommented, hides line between nav bar and view
+//        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
 
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
