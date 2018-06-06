@@ -140,6 +140,7 @@ class Firebase {
         if (room.numMembers-1 > 0) {
             roomsRef.child("\(room.roomID)/numMembers").setValue(room.numMembers-1)
         } else {
+            roomsRef.child("\(room.roomID)/numMembers").setValue(room.numMembers-1)
             deleteRoom(room: room)
         }
     }
