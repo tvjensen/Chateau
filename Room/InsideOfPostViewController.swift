@@ -78,17 +78,21 @@ class InsideOfPostViewController: UIViewController {
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Description of problem"
         })
+        alert.view.tintColor = UIColor.flatMint
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
         alert.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             // Store report
             Firebase.report(reportType: "post", reporterID: (Current.user?.email)!, reportedContentID: (self.post?.postID)!, posterID: (self.post?.posterID)!, report: (alert?.textFields![0].text)!)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
+        
         
         let alertOptions = UIAlertController(title: self.post?.body, message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alertOptions.view.tintColor = UIColor.flatMint
+        alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
         alertOptions.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
             self.present(alert, animated: true, completion: nil)
         }))
-        alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
+        
         
         self.present(alertOptions, animated: true, completion: nil)
     }

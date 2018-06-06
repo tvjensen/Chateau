@@ -41,7 +41,7 @@ class SettingsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Nevermind!", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             //do nothing
         }))
-        
+        alert.view.tintColor = UIColor.flatMint
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -75,7 +75,7 @@ class SettingsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             //do nothing
         }))
-        
+        alert.view.tintColor = UIColor.flatMint
         self.present(alert, animated: true, completion: nil)
     }
     

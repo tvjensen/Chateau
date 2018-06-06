@@ -102,6 +102,7 @@ class ExploreViewController: UIViewController {
             let name = (alert?.textFields![0].text)!
             Firebase.createRoom(name) {newRoom in}
         }))
+        alert.view.tintColor = UIColor.flatMint
         
         self.present(alert, animated: true, completion: nil)
     }

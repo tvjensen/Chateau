@@ -25,14 +25,14 @@ class EditPasswordViewController: UIViewController {
                     
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alert.addAction(defaultAction)
-                    
+                    alert.view.tintColor = UIColor.flatMint
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     let alert = UIAlertController(title: "Error", message: "Please confirm that you have entered a correct current password. Please ensure that the new password is 6 characters or longer.", preferredStyle: .alert)
                     
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alert.addAction(defaultAction)
-                    
+                    alert.view.tintColor = UIColor.flatMint
                     self.present(alert, animated: true, completion: nil)
                 }
             }
@@ -44,7 +44,7 @@ class EditPasswordViewController: UIViewController {
             
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alert.addAction(defaultAction)
-            
+            alert.view.tintColor = UIColor.flatMint
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -54,7 +54,7 @@ class EditPasswordViewController: UIViewController {
         let alertError = UIAlertController(title: "Something went wrong", message: "We were unable to send your reset email.", preferredStyle: UIAlertControllerStyle.alert)
         alertError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { [weak alertError] (_) in
         }))
-        
+        alertError.view.tintColor = UIColor.flatMint
         let email = Current.user!.email.replacingOccurrences(of: ",", with: ".")
         
         let alert = UIAlertController(title: "Forgot Password", message: "We can reset your password and send an email to " + email + " with further instructions.", preferredStyle: UIAlertControllerStyle.alert)
@@ -69,7 +69,7 @@ class EditPasswordViewController: UIViewController {
         }))
         alert.addAction(UIAlertAction(title: "Nevermind!", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
         }))
-
+        alert.view.tintColor = UIColor.flatMint
         self.present(alert, animated: true, completion: nil)
     }
 

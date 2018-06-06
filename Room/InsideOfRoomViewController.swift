@@ -82,6 +82,7 @@ class InsideOfRoomViewController: UIViewController {
         alertReport.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alertReport] (_) in
             // do nothing
         }))
+        alertReport.view.tintColor = UIColor.flatMint
         
         
         let alertOptions = UIAlertController(title: "Room Options", message: "", preferredStyle: UIAlertControllerStyle.alert)
@@ -96,6 +97,7 @@ class InsideOfRoomViewController: UIViewController {
         alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
             //do nothing
         }))
+        alertOptions.view.tintColor = UIColor.flatMint
         
         self.present(alertOptions, animated: true, completion: nil)
     }

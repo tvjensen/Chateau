@@ -51,6 +51,7 @@ class ViewController: UIViewController {
         let alertError = UIAlertController(title: "Something went wrong", message: "We were unable to send your reset email. Please make sure your email is associated with an exisiting account and that you entered your email correctly.", preferredStyle: UIAlertControllerStyle.alert)
         alertError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { [weak alertError] (_) in
         }))
+        alertError.view.tintColor = UIColor.flatMint
         
         let alert = UIAlertController(title: "Forgot Password", message: "We can reset your password and send an email to you with further instructions.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
@@ -66,6 +67,7 @@ class ViewController: UIViewController {
         }))
         alert.addAction(UIAlertAction(title: "Nevermind", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
         }))
+        alert.view.tintColor = UIColor.flatMint
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -85,7 +87,7 @@ class ViewController: UIViewController {
                     
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
-                    
+                    alertController.view.tintColor = UIColor.flatMint
                     self.present(alertController, animated: true, completion: nil)
                 }
             }
@@ -94,6 +96,7 @@ class ViewController: UIViewController {
             
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
+            alertController.view.tintColor = UIColor.flatMint
             
             self.present(alertController, animated: true, completion: nil)
         }
@@ -109,12 +112,14 @@ class ViewController: UIViewController {
                     let alertController = UIAlertController(title: "Success", message: "You have been sent an email confirmation link. Please confirm your email to login.", preferredStyle: .alert)
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
+                    alertController.view.tintColor = UIColor.flatMint
                     self.present(alertController, animated: true, completion: nil)
                     SessionManager.storeSession(session: emailLoginText)
                 } else { // an error occurred, could not successfully register
                     let alertController = UIAlertController(title: "Error", message: "An error occurred while registering. Please try again later.", preferredStyle: .alert)
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
+                    alertController.view.tintColor = UIColor.flatMint
                     self.present(alertController, animated: true, completion: nil)
                 }
             }
@@ -122,6 +127,7 @@ class ViewController: UIViewController {
             let alertController = UIAlertController(title: "Error", message: "Please enter a valid stanford.edu email and password", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
+            alertController.view.tintColor = UIColor.flatMint
             present(alertController, animated: true, completion: nil)
         }
     }
