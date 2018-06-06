@@ -31,6 +31,7 @@ class ExploreViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        allRoomAnnotations = []
         Firebase.observeRooms() { room in
             if let index = self.mapView.annotations.index(where: { (annotation) -> Bool in
                 guard let annotation = annotation as? RoomAnnotation else { return false }
