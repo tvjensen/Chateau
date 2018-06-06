@@ -156,7 +156,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9YZ-Ex-FRw">
-                                <rect key="frame" x="40" y="90" width="295" height="271"/>
+                                <rect key="frame" x="40" y="78" width="295" height="271"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rFH-20-Otz">
                                         <rect key="frame" x="27" y="62" width="240" height="109"/>
@@ -224,7 +224,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="9YZ-Ex-FRw" firstAttribute="top" secondItem="3A3-aQ-haY" secondAttribute="top" constant="90" id="HAv-Xs-edw"/>
+                            <constraint firstItem="9YZ-Ex-FRw" firstAttribute="top" secondItem="3A3-aQ-haY" secondAttribute="top" constant="78" id="HAv-Xs-edw"/>
                             <constraint firstItem="9YZ-Ex-FRw" firstAttribute="centerX" secondItem="jXA-9e-l4q" secondAttribute="centerX" id="bzE-E9-f4J"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jXA-9e-l4q"/>
