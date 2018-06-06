@@ -185,37 +185,6 @@ class Firebase {
                 }
             }
         }
-        
-        
-        
-//        fetchPosts(room) { (posts) in
-//            postsArray = posts
-//            for post in posts {
-//                fetchComments(post) { (comments) in
-//                    commentArray = comments
-//                    for comment in comments {
-//                        commentsRef.child(comment.commentID).removeValue() { (error, refer) in
-//                            if error != nil {
-//                                print(error as Any)
-//                            }
-//                        }
-//                    }
-//                    postsRef.child(post.postID).removeValue() { (error, refer) in
-//                        if error != nil {
-//                            print(error as Any)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        roomsRef.child(room.roomID).removeValue { (error, refer) in
-//            if error != nil {
-//                print(error as Any)
-//            } else {
-//                print(refer)
-//                print("Room Deleted Correctly")
-//            }
-//        }
     }
     
     // This function takes in an email and password and creates a user
@@ -384,7 +353,7 @@ class Firebase {
      */
     public static func getMyRooms(callback: @escaping ([Models.Room]) -> Void)  {
         usersRef.child("\(Current.user!.email)/rooms").observeSingleEvent(of: .value, with: { (snapshot) in
-            if (!snapshot.exists()) { return }
+            if (!snapshot.exists()) { callback([]);return }
             let enumerator = snapshot.children // to iterate through room IDS associated with this user
             var rooms: [Models.Room] = [] // array to be returned
             let dispatchGroup = DispatchGroup()
