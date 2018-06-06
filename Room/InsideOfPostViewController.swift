@@ -68,7 +68,7 @@ class InsideOfPostViewController: UIViewController {
             self.loadComments()
         }
         self.addChildViewController(popOverVC)
-        popOverVC.view.frame = self.view.frame
+        popOverVC.view.frame = self.view.bounds
         self.view.addSubview(popOverVC.view)
         popOverVC.didMove(toParentViewController: self)
     }

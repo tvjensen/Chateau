@@ -56,8 +56,8 @@ class InsideOfRoomViewController: UIViewController {
         popOverVC.onDoneBlock = {
             self.loadPosts()
         }
+        popOverVC.view.frame = self.view.bounds
         self.addChildViewController(popOverVC)
-        popOverVC.view.frame = self.view.frame
         self.view.addSubview(popOverVC.view)
         popOverVC.didMove(toParentViewController: self)
     }
