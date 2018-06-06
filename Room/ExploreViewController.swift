@@ -29,6 +29,7 @@ class ExploreViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        mapView.removeAnnotations(allRoomAnnotations)
         allRoomAnnotations = []
         Firebase.observeRooms() { room in
             if let index = self.mapView.annotations.index(where: { (annotation) -> Bool in
@@ -170,7 +171,6 @@ extension ExploreViewController: MKMapViewDelegate {
             self.roomJoinButton.isSelected = false
         } else {
             self.roomJoinButton.isSelected = true
-            print("Setting button label: Join")
         }
         self.roomDetailView.isHidden = false
     }

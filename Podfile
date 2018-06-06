@@ -6,7 +6,6 @@ target 'Room' do
     use_frameworks!
 
     # Pods for Room
-    pod 'SkyFloatingLabelTextField', '~> 3.0'
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
     pod 'Firebase/Database'

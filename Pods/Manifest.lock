@@ -45,14 +45,12 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - SkyFloatingLabelTextField (3.4.0)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
-  - SkyFloatingLabelTextField (~> 3.0)
 
 EXTERNAL SOURCES:
   ChameleonFramework:
@@ -75,8 +73,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  SkyFloatingLabelTextField: 703aa1420b697392b1e7dba25571180dde018477
 
-PODFILE CHECKSUM: 186003c3aa9b25787a43358107fbf40329b031ab
+PODFILE CHECKSUM: 09f72dbc209805b43af6f2b8f02e42a097b1f0d7
 
 COCOAPODS: 1.4.0
