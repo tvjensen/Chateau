@@ -31,6 +31,8 @@ class MyRoomsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
+        tableView.addSubview(self.refreshControl)
+
         
         Firebase.getMyRooms() { rooms in
             self.rooms = rooms
@@ -54,10 +56,28 @@ class MyRoomsViewController: UIViewController {
         }
     }
     
+    // Pull to refresh
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(InsideOfRoomViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.flatMint
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewDidLoad()
+        refreshControl.endRefreshing()
+    }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
     @IBAction func CreateRoomButton(_ sender: UIButton) {
         let alert = UIAlertController(title: "Create New Room", message: "Name your new room whatever you would like!", preferredStyle: UIAlertControllerStyle.alert)
@@ -67,6 +87,10 @@ class MyRoomsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Create", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             let name = (alert?.textFields![0].text)!
+            let trimmedName = name.trimmingCharacters(in: .whitespaces)
+            if trimmedName == ""{
+                return
+            }
             Firebase.createRoom(name) { newRoom in
                 self.rooms.insert(newRoom, at:0)
                 self.filteredRooms.insert(newRoom, at:0)

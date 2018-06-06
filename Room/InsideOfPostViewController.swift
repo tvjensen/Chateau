@@ -28,6 +28,7 @@ class InsideOfPostViewController: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 90
+        tableView.addSubview(self.refreshControl)
         loadComments()
         // Do any additional setup after loading the view.
     }
@@ -57,6 +58,21 @@ class InsideOfPostViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // Pull to refresh
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(InsideOfRoomViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.flatSkyBlue
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewDidLoad()
+        refreshControl.endRefreshing()
+    }
 
     @IBAction func writeComment(_ sender: Any) {
         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupID") as! PopupViewController
@@ -68,7 +84,7 @@ class InsideOfPostViewController: UIViewController {
             self.loadComments()
         }
         self.addChildViewController(popOverVC)
-        popOverVC.view.frame = self.view.frame
+        popOverVC.view.frame = self.view.bounds
         self.view.addSubview(popOverVC.view)
         popOverVC.didMove(toParentViewController: self)
     }
