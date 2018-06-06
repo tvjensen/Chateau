@@ -25,8 +25,6 @@ class ExploreViewController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
         searchBar.delegate = self
-        roomJoinButton.layer.cornerRadius = 10
-        roomJoinButton.clipsToBounds = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +45,6 @@ class ExploreViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.roomDetailView.isHidden = true
         updateLocation()
     }
     
@@ -159,16 +156,21 @@ extension ExploreViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let roomAnnotation = view.annotation as? RoomAnnotation else { return }
+        guard let roomAnnotation = view.annotation as? RoomAnnotation else {
+            self.roomDetailView.isHidden = true
+            return
+        }
+        
         let selectedRoom = roomAnnotation.room
         self.roomNameLabel.text = selectedRoom.name
         self.roomNumMembersLabel.text = "\(selectedRoom.numMembers) member" + ((selectedRoom.numMembers > 1) ? "s" : "")
         if Current.user!.rooms.keys.contains(where: { (key) -> Bool in
             return key == selectedRoom.roomID
         }) {
-            self.roomJoinButton.titleLabel?.text = "Go to room"
+            self.roomJoinButton.isSelected = false
         } else {
-            self.roomJoinButton.titleLabel?.text = "Join"
+            self.roomJoinButton.isSelected = true
+            print("Setting button label: Join")
         }
         self.roomDetailView.isHidden = false
     }
