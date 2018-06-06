@@ -14,6 +14,9 @@ class PopupViewController: UIViewController, UITextViewDelegate {
     var postID: String!
     var isComment: Bool!
     var onDoneBlock: (() -> Void)!
+    // Instance variable to keep track if the textField did
+    // change so that we don't post Write here...
+    var textFieldChanged: Bool!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,7 @@ class PopupViewController: UIViewController, UITextViewDelegate {
         postContent.text = "Write here..."
         postContent.textColor = UIColor.lightGray
         // Do any additional setup after loading the view.
+        textFieldChanged = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,11 +54,14 @@ class PopupViewController: UIViewController, UITextViewDelegate {
     //Change from placeholder to text that user inputs
     func textViewDidBeginEditing(_ postContent: UITextView) {
         if postContent.textColor == UIColor.lightGray {
+            textFieldChanged = true
             postContent.text = nil
             postContent.textColor = UIColor.black
         }
     }
     
+    /*
+    Is called when the keyboard disappears. Is this really necessary?
     //Changes the text back to "Write post..." after user is finished input
     func textViewDidEndEditing(_ postContent: UITextView) {
         if postContent.text.isEmpty {
@@ -62,7 +69,8 @@ class PopupViewController: UIViewController, UITextViewDelegate {
             postContent.textColor = UIColor.lightGray
         }
     }
-    
+    */
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
             textView.resignFirstResponder()
@@ -76,9 +84,36 @@ class PopupViewController: UIViewController, UITextViewDelegate {
         submit()
     }
     
+    func shakeAndDisplayErrorMessage(){
+        /* Shaking alert setup */
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 4
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: postContent.center.x - 10, y: postContent.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: postContent.center.x + 10, y: postContent.center.y))
+        /* Shaking alert end */
+        postContent.layer.add(animation, forKey: "position")
+        postContent.textColor = UIColor.lightGray
+        postContent.text = "Please write something to post!"
+        self.view.endEditing(true)
+        // Reset internal variables, too
+        textFieldChanged = false
+    }
+    
+    
     func submit() {
-        print(postContent.text)
+
+        if !(textFieldChanged ?? false){
+            shakeAndDisplayErrorMessage()
+            return
+        }
         if let text = postContent.text {
+            let trimmedText = text.trimmingCharacters(in: .whitespaces)
+            if trimmedText == ""{
+                shakeAndDisplayErrorMessage()
+                return
+            }
             if isComment {
                 Firebase.createComment(roomID, postID, text)
             } else {

@@ -26,12 +26,29 @@ class InsideOfRoomViewController: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 90
+        tableView.addSubview(self.refreshControl)
+
         loadPosts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadPosts()
+    }
+    
+    // Pull to refresh
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(InsideOfRoomViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.flatSkyBlue
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewDidLoad()
+        refreshControl.endRefreshing()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
