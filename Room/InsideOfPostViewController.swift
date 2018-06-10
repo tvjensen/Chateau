@@ -44,7 +44,14 @@ class InsideOfPostViewController: UIViewController {
     
     private func loadComments() {
         Firebase.fetchComments(self.post!) { comments in
-            self.comments = comments.sorted(by: commentSort)
+            
+            var newComments = [Models.Comment]()
+            for comment in comments {
+                if Current.user?.hidden[comment.commentID] == nil {
+                    newComments.append(comment)
+                }
+            }
+            self.comments = newComments.sorted(by: commentSort)
             self.tableView.reloadData()
         }
     }
@@ -90,49 +97,62 @@ class InsideOfPostViewController: UIViewController {
     }
     
     @IBAction func reportPost(_ sender: Any) {
+        let confirmation = UIAlertController(title: "Are you sure you want to hide this post?", message: "Once hidden, the post will be hidden from you forever.", preferredStyle: UIAlertControllerStyle.alert)
+        confirmation.view.tintColor = UIColor.flatMint
+        confirmation.addAction(UIAlertAction(title: "Hide Post", style: UIAlertActionStyle.default, handler: { [weak confirmation] (_) in
+            // Hide post
+            Firebase.hideFromUser(contentID: (self.post?.postID)!, userID: (Current.user?.email)!)
+            _ = self.navigationController?.popViewController(animated: true)
+        }))
+        confirmation.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
+        
         let alert = UIAlertController(title: "Report Post", message: "Please tell us why you are reporting this post.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Description of problem"
         })
         alert.view.tintColor = UIColor.flatMint
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
-        alert.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: "Report Post", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             // Store report
             Firebase.report(reportType: "post", reporterID: (Current.user?.email)!, reportedContentID: (self.post?.postID)!, posterID: (self.post?.posterID)!, report: (alert?.textFields![0].text)!)
         }))
+         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
         
         
         let alertOptions = UIAlertController(title: self.post?.body, message: "", preferredStyle: UIAlertControllerStyle.alert)
         alertOptions.view.tintColor = UIColor.flatMint
-        alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
-        alertOptions.addAction(UIAlertAction(title: "Report post", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+        alertOptions.addAction(UIAlertAction(title: "Report Post", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
             self.present(alert, animated: true, completion: nil)
         }))
+        alertOptions.addAction(UIAlertAction(title: "Hide Post", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            self.present(confirmation, animated: true, completion: nil)
+        }))
+        alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
         
         
         self.present(alertOptions, animated: true, completion: nil)
     }
     
     func reportComment(index: IndexPath) {
-        print(self.comments)
-        print(self.comments[index.row])
         let alert = UIAlertController(title: "Report Comment", message: "Please tell us why you are reporting this comment.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Description of problem"
         })
         alert.view.tintColor = UIColor.flatMint
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
-        alert.addAction(UIAlertAction(title: "Report comment", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: "Report Comment", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
             // Store report
             Firebase.report(reportType: "comment", reporterID: (Current.user?.email)!, reportedContentID: (self.comments[index.row].commentID), posterID: (self.comments[index.row].posterID), report: (alert?.textFields![0].text)!)
         }))
+         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
         
         let confirmation = UIAlertController(title: "Are you sure you want to hide this comment?", message: "Once hidden, the comment will be hidden from you forever.", preferredStyle: UIAlertControllerStyle.alert)
         confirmation.view.tintColor = UIColor.flatMint
-        confirmation.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
         confirmation.addAction(UIAlertAction(title: "Hide Comment", style: UIAlertActionStyle.default, handler: { [weak confirmation] (_) in
             // Hide comment
+            Firebase.hideFromUser(contentID: self.comments[index.row].commentID, userID: (Current.user?.email)!)
+            self.comments.remove(at: index.row)
+            self.tableView.reloadData()
         }))
+        confirmation.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
 
         let alertOptions = UIAlertController(title: self.comments[index.row].body, message: "", preferredStyle: UIAlertControllerStyle.alert)
         alertOptions.view.tintColor = UIColor.flatMint
@@ -146,6 +166,13 @@ class InsideOfPostViewController: UIViewController {
 
 
         self.present(alertOptions, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "backToRoom") {
+            let vc = segue.destination as! InsideOfRoomViewController
+            vc.room = self.room!
+        }
     }
     
 }

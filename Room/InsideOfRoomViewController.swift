@@ -61,7 +61,13 @@ class InsideOfRoomViewController: UIViewController {
     
     private func loadPosts() {
         Firebase.fetchPosts(self.room!) { posts in
-            self.posts = posts.sorted(by: postSort)
+            var newPosts = [Models.Post]()
+            for post in posts {
+                if Current.user?.hidden[post.postID] == nil {
+                    newPosts.append(post)
+                }
+            }
+            self.posts = newPosts.sorted(by: postSort)
             self.tableView.reloadData()
         }
     }

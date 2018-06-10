@@ -759,11 +759,11 @@
             <objects>
                 <viewController id="1Ks-XT-SaW" customClass="InsideOfRoomViewController" customModule="Room" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="haL-xN-7cp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ui1-E3-eZH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="515"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="608"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" rowHeight="90" id="O1k-HX-UJn" customClass="PostCell" customModule="Room" customModuleProvider="target">
@@ -854,7 +854,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LzF-YG-ZYb">
-                                <rect key="frame" x="108" y="519" width="160" height="30"/>
+                                <rect key="frame" x="108" y="632" width="160" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="1Ws-Xn-KQX"/>
                                     <constraint firstAttribute="height" constant="30" id="d8O-R2-2As"/>
@@ -867,7 +867,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4RO-OF-BFl">
-                                <rect key="frame" x="339" y="524" width="20" height="20"/>
+                                <rect key="frame" x="339" y="637" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="4xJ-Zo-iQa"/>
                                     <constraint firstAttribute="height" constant="20" id="5sd-mY-mMB"/>
@@ -962,11 +962,11 @@
             <objects>
                 <viewController id="PEt-5g-ZPH" customClass="InsideOfPostViewController" customModule="Room" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J5P-tb-a9a">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="udh-Qz-Z6v">
-                                <rect key="frame" x="0.0" y="50" width="375" height="465"/>
+                                <rect key="frame" x="0.0" y="70" width="375" height="558"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="90" id="Kq1-Cf-9tr" customClass="CommentCell" customModule="Room" customModuleProvider="target">
@@ -1058,7 +1058,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWe-UE-VP5">
-                                <rect key="frame" x="108" y="519" width="160" height="30"/>
+                                <rect key="frame" x="108" y="632" width="160" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="QQe-YN-olP"/>
                                     <constraint firstAttribute="height" constant="30" id="Ze6-hM-btO"/>
@@ -1071,7 +1071,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9t-90-mgk">
-                                <rect key="frame" x="339" y="524" width="20" height="20"/>
+                                <rect key="frame" x="339" y="637" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="CDW-Ie-4lY"/>
                                     <constraint firstAttribute="width" constant="20" id="nBm-0F-olx"/>
@@ -1082,7 +1082,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYY-kf-3rp" customClass="UILabelPadding" customModule="Room" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
                                 <color key="backgroundColor" red="0.22745098039215686" green="0.59999999999999998" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Nkw-Ig-jhi"/>
@@ -1111,6 +1111,7 @@
                     <connections>
                         <outlet property="tableView" destination="udh-Qz-Z6v" id="uKf-by-wyN"/>
                         <outlet property="titleView" destination="YYY-kf-3rp" id="aBL-dC-ViO"/>
+                        <segue destination="1Ks-XT-SaW" kind="presentation" identifier="backToRoom" id="3Sd-my-8hN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIt-rw-oQl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1129,4 +1130,7 @@
         <image name="upvote_selected" width="100" height="100"/>
         <image name="waves" width="2000" height="2000"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="3Sd-my-8hN"/>
+    </inferredMetricsTieBreakers>
 </document>
