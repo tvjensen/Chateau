@@ -412,8 +412,11 @@ class Firebase {
                                   "report": report, "timeReported": currentTime]
         let newReportRef = reportsRef.childByAutoId()
         newReportRef.setValue(dict)
-    
     }
     
+    public static func hideFromUser(contentID: String, userID: String) {
+        Current.user!.hidden[contentID] = currentTime
+        usersRef.child("\(Current.user!.email)/hidden").setValue(Current.user!.hidden)
+    }
 }
 

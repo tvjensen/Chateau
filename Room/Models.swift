@@ -18,10 +18,11 @@ class Models {
     struct User {
         var email: String
         var rooms: [String: Double] = [:]   // RoomID -> Last visit timestamp
-
+        var hidden: [String: Double] = [:]
         var firebaseDict: [String : Any] {
             let dict: [String: Any] = [
-                                        "rooms": self.rooms
+                                        "rooms": self.rooms,
+                                        "hidden": self.hidden
                                        ]
             return dict
         }
@@ -29,6 +30,7 @@ class Models {
         init?(dict: [String: Any?]) {
             guard let email = dict["email"] as? String else { return nil }
             self.rooms = dict["rooms"] as? [String: Double] ?? [:]
+            self.hidden = dict["hidden"] as? [String: Double] ?? [:]
             self.email = email
         }
         
