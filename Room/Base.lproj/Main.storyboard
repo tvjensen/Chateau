@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -774,7 +774,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDA-ws-0H0">
-                                                    <rect key="frame" x="17.5" y="19.5" width="309" height="50"/>
+                                                    <rect key="frame" x="17.5" y="20" width="309" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="309" id="9Zi-1W-tOG"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Sld-fB-ztd"/>
@@ -784,7 +784,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7e-Ky-xs6">
-                                                    <rect key="frame" x="17.5" y="92.5" width="205" height="15"/>
+                                                    <rect key="frame" x="17.5" y="93.5" width="205" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="205" id="Ttn-p1-ZTN"/>
                                                     </constraints>
@@ -793,13 +793,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUQ-Ah-sNN">
-                                                    <rect key="frame" x="344.5" y="48.5" width="11" height="21"/>
+                                                    <rect key="frame" x="344.5" y="49" width="11" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtW-zc-rVI">
-                                                    <rect key="frame" x="334.5" y="14.5" width="30" height="30"/>
+                                                    <rect key="frame" x="334.5" y="15" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="46u-yA-DKN"/>
                                                         <constraint firstAttribute="width" constant="30" id="gUd-v9-Bnk"/>
@@ -813,7 +813,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uJJ-it-FdW">
-                                                    <rect key="frame" x="335" y="73.5" width="30" height="30"/>
+                                                    <rect key="frame" x="335" y="74" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="4ee-Dv-vAZ"/>
                                                         <constraint firstAttribute="height" constant="30" id="paV-Ze-Xpk"/>
