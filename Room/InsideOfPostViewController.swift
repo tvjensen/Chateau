@@ -113,23 +113,53 @@ class InsideOfPostViewController: UIViewController {
         self.present(alertOptions, animated: true, completion: nil)
     }
     
+    func reportComment(index: IndexPath) {
+        print(self.comments)
+        print(self.comments[index.row])
+        let alert = UIAlertController(title: "Report Comment", message: "Please tell us why you are reporting this comment.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Description of problem"
+        })
+        alert.view.tintColor = UIColor.flatMint
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
+        alert.addAction(UIAlertAction(title: "Report comment", style: UIAlertActionStyle.default, handler: { [weak alert] (_) in
+            // Store report
+            Firebase.report(reportType: "comment", reporterID: (Current.user?.email)!, reportedContentID: (self.comments[index.row].commentID), posterID: (self.comments[index.row].posterID), report: (alert?.textFields![0].text)!)
+        }))
+        
+        let confirmation = UIAlertController(title: "Are you sure you want to hide this comment?", message: "Once hidden, the comment will be hidden from you forever.", preferredStyle: UIAlertControllerStyle.alert)
+        confirmation.view.tintColor = UIColor.flatMint
+        confirmation.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
+        confirmation.addAction(UIAlertAction(title: "Hide Comment", style: UIAlertActionStyle.default, handler: { [weak confirmation] (_) in
+            // Hide comment
+        }))
+
+        let alertOptions = UIAlertController(title: self.comments[index.row].body, message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alertOptions.view.tintColor = UIColor.flatMint
+        alertOptions.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel))
+        alertOptions.addAction(UIAlertAction(title: "Report Comment", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            self.present(alert, animated: true, completion: nil)
+        }))
+        alertOptions.addAction(UIAlertAction(title: "Hide Comment", style: UIAlertActionStyle.default, handler: { [weak alertOptions] (_) in
+            self.present(confirmation, animated: true, completion: nil)
+        }))
+
+
+        self.present(alertOptions, animated: true, completion: nil)
+    }
+    
 }
 
 extension InsideOfPostViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // segue to the inside rooms view
-        //        let selectedPost = self.posts[indexPath.row]
-        
-        // TODO
-        //        let destinationVC = InsideOfRoomViewController()
-        //        destinationVC.room = selectedRoom
-        //        destinationVC.performSegue(withIdentifier: "insideOfPostSegue", sender: self)
+        reportComment(index: indexPath)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! CommentCell
         cell.setComment(self.comments[indexPath.row])
+        cell.selectionStyle = .none
         
         return cell
     }
