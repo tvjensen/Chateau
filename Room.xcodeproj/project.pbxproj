@@ -27,6 +27,7 @@
 		4BE73197209BCE170039F8F2 /* RoomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE73196209BCE170039F8F2 /* RoomAnnotation.swift */; };
 		4BFD2DB320ACD8810003BD80 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD2DB220ACD8810003BD80 /* LocationManager.swift */; };
 		4BFD2DB520ACE1350003BD80 /* Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD2DB420ACE1350003BD80 /* Current.swift */; };
+		5207411220CDCFD100D761CC /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5207411120CDCFD100D761CC /* TermsViewController.swift */; };
 		5212076020B73A84000F2EB1 /* EditPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5212075F20B73A84000F2EB1 /* EditPasswordViewController.swift */; };
 		5212076220B73FFC000F2EB1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5212076120B73FFC000F2EB1 /* SettingsViewController.swift */; };
 		522A38C6209B8239004E2323 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A38C5209B8239004E2323 /* Models.swift */; };
@@ -58,6 +59,7 @@
 		4BFD2DB220ACD8810003BD80 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4BFD2DB420ACE1350003BD80 /* Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Current.swift; sourceTree = "<group>"; };
 		51EA329FB92475760F7B3462 /* Pods_Room.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Room.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5207411120CDCFD100D761CC /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		5212075F20B73A84000F2EB1 /* EditPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordViewController.swift; sourceTree = "<group>"; };
 		5212076120B73FFC000F2EB1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		522A38C5209B8239004E2323 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				5212075F20B73A84000F2EB1 /* EditPasswordViewController.swift */,
 				5212076120B73FFC000F2EB1 /* SettingsViewController.swift */,
 				52DD39A920C710A9008336A9 /* UILabelPadding.swift */,
+				5207411120CDCFD100D761CC /* TermsViewController.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				1F89ABB220BE042100758A9D /* CommentCell.swift in Sources */,
 				4BBF9F72208E7A390012CE86 /* AppDelegate.swift in Sources */,
 				4BFD2DB320ACD8810003BD80 /* LocationManager.swift in Sources */,
+				5207411220CDCFD100D761CC /* TermsViewController.swift in Sources */,
 				1F36D49920A3F042007E48C9 /* PopupViewController.swift in Sources */,
 				5212076220B73FFC000F2EB1 /* SettingsViewController.swift in Sources */,
 				94E747B720AA3C6300766CAF /* InsideOfRoomViewController.swift in Sources */,

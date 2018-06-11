@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // try to fetch stored session
         SessionManager.tryFetchingStoredUser() { foundUser in
             if foundUser {
@@ -42,7 +41,7 @@ class ViewController: UIViewController {
     @IBOutlet var loginButton: UIButton!
     @IBOutlet weak var emailLogin: UITextField!
     @IBOutlet weak var passwordLogin: UITextField!
-    @IBOutlet var signUpButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     
     
@@ -102,33 +101,46 @@ class ViewController: UIViewController {
         }
     }
     
-    //Take email login text and password text and create a user
-    @IBAction func signUp(_ sender: Any) {
+    @IBAction func checkTerms(_ sender: Any) {
         let emailLoginText : String = emailLogin.text!
         let passwordLoginText : String = passwordLogin.text!
         if ViewController.isValidEmail(emailLoginText) && passwordLoginText != "" {
-            Firebase.registerUser(emailLoginText, passwordLoginText) { success in
-                if success { // successfully registered user, let them know to confirm email
-                    let alertController = UIAlertController(title: "Success", message: "You have been sent an email confirmation link. Please confirm your email to login.", preferredStyle: .alert)
-                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertController.addAction(defaultAction)
-                    alertController.view.tintColor = UIColor.flatMint
-                    self.present(alertController, animated: true, completion: nil)
-                    SessionManager.storeSession(session: emailLoginText)
-                } else { // an error occurred, could not successfully register
-                    let alertController = UIAlertController(title: "Error", message: "An error occurred while registering. Please try again later.", preferredStyle: .alert)
-                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertController.addAction(defaultAction)
-                    alertController.view.tintColor = UIColor.flatMint
-                    self.present(alertController, animated: true, completion: nil)
-                }
-            }
+            self.performSegue(withIdentifier: "termsSegue", sender: self)
         } else { // either invalid stanford email or blank password. TODO: change this to floating sky text or whatever
             let alertController = UIAlertController(title: "Error", message: "Please enter a valid stanford.edu email and password", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             alertController.view.tintColor = UIColor.flatMint
             present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func signUp() {
+        let emailLoginText : String = emailLogin.text!
+        let passwordLoginText : String = passwordLogin.text!
+        Firebase.registerUser(emailLoginText, passwordLoginText) { success in
+            if success { // successfully registered user, let them know to confirm email
+                let alertController = UIAlertController(title: "Success", message: "You have been sent an email confirmation link. Please confirm your email to login.", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                alertController.view.tintColor = UIColor.flatMint
+                self.present(alertController, animated: true, completion: nil)
+                SessionManager.storeSession(session: emailLoginText)
+            } else { // an error occurred, could not successfully register
+                let alertController = UIAlertController(title: "Error", message: "An error occurred while registering. Please make sure your password is at least 6 characters long or please try again later.", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                alertController.view.tintColor = UIColor.flatMint
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @IBAction func unwindFromTermsVC(segue: UIStoryboardSegue) {
+        // Here you can receive the parameter(s) from secondVC
+        let termsVC : TermsViewController = segue.source as! TermsViewController
+        if termsVC.getDecision() {
+            signUp()
         }
     }
     
