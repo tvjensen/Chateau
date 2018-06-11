@@ -41,7 +41,7 @@ class TermsViewController: UIViewController {
             .bold("Content\n")
             .normal(
                 """
-                Our application allows you to post, link, comment, share and otherwise make available certain information, text, or other material. You are responsible for the content you post and interact with on the application. We reserve the right to take down any content that might be inappropriate or disable users at any time.\n\n
+                Our application allows you to post, link, comment, share and otherwise make available certain information, text, or other material. You are responsible for the content you post and interact with on the application. We reserve the right to take down any content that might be inappropriate or disable users at any time. We will have no tolerance for abusive behavior.\n\n
                 """)
             .bold("Changes\n")
             .normal(
